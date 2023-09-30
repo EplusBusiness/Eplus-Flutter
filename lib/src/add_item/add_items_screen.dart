@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../core/color_constant.dart';
@@ -8,7 +9,7 @@ import '../../widget/customize_navigation_bar/customize_navigation_bar.dart';
 import '../../widget/icon_textfield/icon_textfield.dart';
 import '../../widget/text_customize/TextCustomize.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
+// import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
 import 'dart:io';
 
 import 'add_items.dart';
@@ -39,11 +40,13 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _buildNavigation(),
-        _buildBody(),
-      ],
+    return Scaffold(
+      body: Column(
+        children: [
+          _buildNavigation(),
+          _buildBody(),
+        ],
+      ),
     );
   }
 
@@ -53,26 +56,23 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
       onPreviousPressed: () {
         Get.back();
       },
-      isVisiblePlusButton: false,
-      isVisibleEditButton: false,
+      isVisibleOptions: false,
       title: addItemString,
     );
   }
 
   _buildBody() {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: SingleChildScrollView(
-        child: Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                _buildInput(),
-              ],
-            ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              _buildInput(),
+            ],
           ),
         ),
       ),
@@ -120,7 +120,12 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
             alignment: Alignment.centerLeft,
             child: GestureDetector(
               onTap: () {
-                _buildBottomSheet();
+                if (kIsWeb) {
+                  FocusScope.of(context).unfocus();
+                  _getFromGallery();
+                }else {
+                  _showModelSheet();
+                }
               },
               child: controller.state.attachment.path == null
                   ? Image.asset(
@@ -192,7 +197,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
       imageQuality: 75,
     );
     if (image != null) {
-      _uploadFile(image);
+      _uploadFile(await image.readAsBytes(), image);
     }
   }
 
@@ -207,15 +212,14 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
     if (photo == null) {
       return;
     }
-    _uploadFile(photo);
+    _uploadFile(await photo.readAsBytes(), photo);
   }
 
-  _uploadFile(XFile photo) {
-    File file = File(photo.path);
+  _uploadFile(Uint8List? data, XFile photo) {
     String nameFile = photo.name;
     String mimeType = _getMimeType(photo);
     FormData form = FormData({
-      'file': MultipartFile(file, filename: nameFile, contentType: mimeType),
+      'file': MultipartFile(data, filename: nameFile, contentType: mimeType),
     });
 
     controller.uploadImage(form);
@@ -232,29 +236,85 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
     return '';
   }
 
-  _buildBottomSheet() {
-    FocusScope.of(context).unfocus();
-    return showAdaptiveActionSheet(
+  // _buildBottomSheet() {
+  //   FocusScope.of(context).unfocus();
+  //   return showAdaptiveActionSheet(
+  //     context: context,
+  //     actions: <BottomSheetAction>[
+  //       BottomSheetAction(
+  //           title: 'take photo',
+  //           textStyle:
+  //           textStyleApp.medium(size: 20, colorText: Colors.blueAccent),
+  //           onPressed: () {
+  //             _takePhoto();
+  //           }),
+  //       BottomSheetAction(
+  //           title: 'photo from gallery',
+  //           textStyle:
+  //           textStyleApp.medium(size: 20, colorText: Colors.blueAccent),
+  //           onPressed: () {
+  //             _getFromGallery();
+  //           }),
+  //     ],
+  //     cancelAction: CancelAction(
+  //         title:
+  //             'Cancel'), // onPressed parameter is optional by default will dismiss the ActionSheet
+  //   );
+  // }
+
+  void _showModelSheet() {
+    showModalBottomSheet(
       context: context,
-      actions: <BottomSheetAction>[
-        BottomSheetAction(
-            title: 'take photo',
-            textStyle:
-            textStyleApp.medium(size: 20, colorText: Colors.blueAccent),
-            onPressed: () {
-              _takePhoto();
-            }),
-        BottomSheetAction(
-            title: 'photo from gallery',
-            textStyle:
-            textStyleApp.medium(size: 20, colorText: Colors.blueAccent),
-            onPressed: () {
-              _getFromGallery();
-            }),
-      ],
-      cancelAction: CancelAction(
-          title:
-              'Cancel'), // onPressed parameter is optional by default will dismiss the ActionSheet
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      builder: (builder) {
+        return Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+          ),
+          height: 150,
+          child: Column(
+            children: [
+              TextButton(
+                onPressed: () {
+                  FocusScope.of(context).unfocus();
+                  _takePhoto();
+                },
+                child: TextCustomize(
+                  title: "take photo",
+                  textStyle: textStyleApp.medium(
+                      size: 20, colorText: Colors.blueAccent),
+                ),
+              ),
+              const Divider(height: 3,),
+              TextButton(
+                onPressed: () {
+                  FocusScope.of(context).unfocus();
+                  _getFromGallery();
+                },
+                child: TextCustomize(
+                  title: "photo from gallery",
+                  textStyle: textStyleApp.medium(
+                      size: 20, colorText: Colors.blueAccent),
+                ),
+              ),
+              const Divider(height: 3,),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: TextCustomize(
+                  title: "cancel",
+                  textStyle: textStyleApp.medium(
+                      size: 20, colorText: Colors.redAccent),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

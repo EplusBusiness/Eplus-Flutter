@@ -9,7 +9,7 @@ import 'dart:io';
 import '../../../core/icon_constants.dart';
 import 'package:uuid/uuid.dart';
 
-File? filePdf;
+Uint8List? filePdfData;
 
 Future<Uint8List> makePdf(
     Invoice invoice, Uint8List dataSender, Uint8List dataReceiver, bool isPreview) async {
@@ -21,13 +21,14 @@ Future<Uint8List> makePdf(
   var myStyle = TextStyle(font: myFont, fontSize: 13);
   var myStyleBold = TextStyle(font: myFontBold, fontSize: 13);
   var myStyleBoldTall = TextStyle(font: myFontBold, fontSize: 17);
+  var myStyleItem = TextStyle(font: myFont, fontSize: 12);
 
-  final imageLogo =
-      MemoryImage((await rootBundle.load(imgLogo)).buffer.asUint8List());
+  // final imageLogo =
+  //     MemoryImage((await rootBundle.load(imgLogo)).buffer.asUint8List());
   final imageBackground = MemoryImage(
       (await rootBundle.load(imgBackgroundPdf)).buffer.asUint8List());
-  // final imageSender = MemoryImage(dataSender);
-  // final imageReceiver = MemoryImage(dataReceiver);
+  final imageSender = MemoryImage(dataSender);
+  final imageReceiver = MemoryImage(dataReceiver);
   pdf.addPage(
     MultiPage(
       pageFormat: PdfPageFormat.a4,
@@ -39,7 +40,7 @@ Future<Uint8List> makePdf(
             margin: const EdgeInsets.only(left: 0, top: -40),
             height: 75,
             width: 75,
-            child: Image(imageLogo),
+            // child: Image(imageLogo),
           )
         ]);
       },
@@ -131,7 +132,7 @@ Future<Uint8List> makePdf(
                           invoice.actorReceiver, false),
                       SizedBox(height: 15),
                       Text(
-                          'Hôm nay ngày :   ….. /  ….  / ….. , hai bên cùng nhau ký biên bản xác nhận việc giao, nhận hàng hóa, tài sản theo danh sách như sau:',
+                          'Hôm nay ngày: ${(invoice.dateSent != '') ? invoice.dateSent : ".... / .... / ...."}, hai bên cùng nhau ký biên bản xác nhận việc giao, nhận hàng hóa, tài sản theo danh sách như sau:',
                           style: myStyle,
                           overflow: TextOverflow.visible),
                     ],
@@ -152,7 +153,7 @@ Future<Uint8List> makePdf(
                             style: myStyle,
                             textAlign: TextAlign.center,
                           ),
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(6),
                         ),
                         Padding(
                           child: Text(
@@ -160,7 +161,7 @@ Future<Uint8List> makePdf(
                             style: myStyle,
                             textAlign: TextAlign.center,
                           ),
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(6),
                         ),
                         Padding(
                           child: Text(
@@ -168,7 +169,7 @@ Future<Uint8List> makePdf(
                             style: myStyle,
                             textAlign: TextAlign.center,
                           ),
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(6),
                         ),
                         Padding(
                           child: Text(
@@ -187,7 +188,7 @@ Future<Uint8List> makePdf(
                               textAlign: TextAlign.center,
                             ),
                           ),
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(6),
                         ),
                       ],
                     ),
@@ -196,23 +197,23 @@ Future<Uint8List> makePdf(
                         children: [
                           Expanded(
                             child: paddedText(
-                                (invoice.items.indexOf(e) + 1).toString(), myStyle),
+                                (invoice.items.indexOf(e) + 1).toString(), myStyleItem),
                             flex: 2,
                           ),
                           Expanded(
-                            child: paddedText(e.name, myStyle),
+                            child: paddedText(e.name, myStyleItem),
                             flex: 6,
                           ),
                           Expanded(
-                            child: paddedText("${e.soluong}", myStyle),
+                            child: paddedText("${e.soluong}", myStyleItem),
                             flex: 3,
                           ),
                           Expanded(
-                            child: paddedText(e.dvt, myStyle),
+                            child: paddedText(e.dvt, myStyleItem),
                             flex: 2,
                           ),
                           Expanded(
-                            child: paddedText(e.note, myStyle),
+                            child: paddedText(e.note, myStyleItem),
                             flex: 4,
                           ),
                         ],
@@ -220,9 +221,15 @@ Future<Uint8List> makePdf(
                     ),
                   ],
                 ),
+                SizedBox(height: 15),
+                Text(
+                    '*BÊN NHẬN có trách nhiệm bảo quản laptop đúng nguyên hiện trạng như khi nhận máy. Trong thời gian giữ máy, BÊN NHẬN sẽ chịu mọi chi phí phát sinh (nếu có) trong trường hợp laptop bị thiệt hại (trầy, móp, bể màn hình, máy hư...)',
+                    style: myStyle,
+                    overflow: TextOverflow.visible),
                 SizedBox(
                   height: 10,
                 ),
+
                 Container(
                   child: Align(
                     alignment: Alignment.centerLeft,
@@ -249,7 +256,7 @@ Future<Uint8List> makePdf(
                                     decoration: TextDecoration.underline),
                                 textAlign: TextAlign.center,
                               ),
-                              // Image(imageSender, height: 100, width: 100),
+                              Image(imageSender, height: 100, width: 100),
                               Text(
                                 invoice.actorSender,
                                 style: TextStyle(
@@ -273,7 +280,7 @@ Future<Uint8List> makePdf(
                                     decoration: TextDecoration.underline),
                                 textAlign: TextAlign.center,
                               ),
-                              // Image(imageReceiver, height: 100, width: 100),
+                              Image(imageReceiver, height: 100, width: 100),
                               Text(
                                 invoice.actorReceiver,
                                 style: TextStyle(
@@ -303,11 +310,145 @@ Future<Uint8List> makePdf(
   return pdf.save();
 }
 
+Future<Uint8List> makePdfV2() async {
+  final pdf = Document();
+  // final imageLogo = MemoryImage((await rootBundle.load('assets/technical_logo.png')).buffer.asUint8List());
+  final imageBackground = MemoryImage(
+      (await rootBundle.load(imgBackgroundPdf)).buffer.asUint8List());
+  pdf.addPage(
+    Page(
+      build: (context) {
+        return Column(
+          children: [
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Text("Attention to:"),
+                    Text("invoice.address"),
+                  ],
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                ),
+                SizedBox(
+                  height: 150,
+                  width: 150,
+                  child: Image(imageBackground),
+                )
+              ],
+            ),
+            // Container(height: 50),
+            // Table(
+            //   border: TableBorder.all(color: PdfColors.black),
+            //   children: [
+            //     TableRow(
+            //       children: [
+            //         Padding(
+            //           child: Text(
+            //             'INVOICE FOR PAYMENT',
+            //             style: Theme.of(context).header4,
+            //             textAlign: TextAlign.center,
+            //           ),
+            //           padding: EdgeInsets.all(20),
+            //         ),
+            //       ],
+            //     ),
+            //     ...invoice.items.map(
+            //           (e) => TableRow(
+            //         children: [
+            //           Expanded(
+            //             child: paddedText("123123"),
+            //             flex: 2,
+            //           ),
+            //           Expanded(
+            //             child: paddedText(e.dvt, myStyle),
+            //             flex: 1,
+            //           )
+            //         ],
+            //       ),
+            //     ),
+            //     TableRow(
+            //       children: [
+            //         PaddedText('TAX', align: TextAlign.right),
+            //         PaddedText('\$${(invoice.totalCost() * 0.1).toStringAsFixed(2)}'),
+            //       ],
+            //     ),
+            //     TableRow(
+            //       children: [PaddedText('TOTAL', align: TextAlign.right), PaddedText('\$${(invoice.totalCost() * 1.1).toStringAsFixed(2)}')],
+            //     )
+            //   ],
+            // ),
+            // Padding(
+            //   child: Text(
+            //     "THANK YOU FOR YOUR CUSTOM!",
+            //     style: Theme.of(context).header2,
+            //   ),
+            //   padding: EdgeInsets.all(20),
+            // ),
+            // Text("Please forward the below slip to your accounts payable department."),
+            // Divider(
+            //   height: 1,
+            //   borderStyle: BorderStyle.dashed,
+            // ),
+            // Container(height: 50),
+            // Table(
+            //   border: TableBorder.all(color: PdfColors.black),
+            //   children: [
+            //     TableRow(
+            //       children: [
+            //         PaddedText('Account Number'),
+            //         PaddedText(
+            //           '1234 1234',
+            //         )
+            //       ],
+            //     ),
+            //     TableRow(
+            //       children: [
+            //         PaddedText(
+            //           'Account Name',
+            //         ),
+            //         PaddedText(
+            //           'ADAM FAMILY TRUST',
+            //         )
+            //       ],
+            //     ),
+            //     TableRow(
+            //       children: [
+            //         PaddedText(
+            //           'Total Amount to be Paid',
+            //         ),
+            //         PaddedText('\$${(invoice.totalCost() * 1.1).toStringAsFixed(2)}')
+            //       ],
+            //     )
+            //   ],
+            // ),
+            // Padding(
+            //   padding: EdgeInsets.all(30),
+            //   child: Text(
+            //     'Please ensure all cheques are payable to the ADAM FAMILY TRUST.',
+            //     style: Theme.of(context).header3.copyWith(
+            //       fontStyle: FontStyle.italic,
+            //     ),
+            //     textAlign: TextAlign.center,
+            //   ),
+            // )
+          ],
+        );
+      },
+    ),
+  );
+  return pdf.save();
+}
+
 Future<void> savePdf(Document pdf) async {
   // Directory output = await getTemporaryDirectory();
-  // var uuid = const Uuid();
-  // String uuidV4 = uuid.v4();
+  var uuid = const Uuid();
+  String uuidV4 = uuid.v4();
   // String nameFile = "${output.path}/$uuidV4.pdf";
+  String nameFile = "$uuidV4.pdf";
+  filePdfData = await pdf.save();
+
   // var file = File(nameFile);
   // await file.writeAsBytes(await pdf.save());
   // filePdf = file;
@@ -336,10 +477,10 @@ Widget titleWithInputField(TextStyle styleTitle, TextStyle styleNormal,
 
 Widget paddedText(
   final String text, TextStyle styleNormal,{
-  final TextAlign align = TextAlign.left,
+  final TextAlign align = TextAlign.center,
 }) =>
     Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(6),
       child: Text(
         text,
         textAlign: align,

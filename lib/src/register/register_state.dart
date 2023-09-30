@@ -9,6 +9,7 @@ class RegisterState with _$RegisterState {
     @Default('') String email,
     @Default('') String password,
     @Default('') String confirmPassword,
+    @Default('') String company,
     @Default('') String phone_number,
     @Default('') String name,
     // @Default(AttachmentAvatar()) AttachmentAvatar avatar,

@@ -1,4 +1,5 @@
 import 'package:eplusflutter/core/date_util.dart';
+import 'package:eplusflutter/models/request/base_request.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../api/repository/api_detail_project_repository.dart';
@@ -13,7 +14,7 @@ class DetailProjectController extends GetxController {
 
   var state = const DetailProjectState();
 
-  void getFolderInfo(BuildContext context, String id) async {
+  void getFolderInfo(String id) async {
     final res = await apiDetailProjectRepository.getProjectInfo(id);
 
     if (res != null) {
@@ -33,22 +34,36 @@ class DetailProjectController extends GetxController {
     onChangeDate(createdD, updatedD);
   }
 
-  void updateNameProject(
-      BuildContext context, UpdateNameCategoryRequest data) async {
+  void updateNameProject(UpdateNameCategoryRequest data) async {
     final res = await apiDetailProjectRepository.updateProject(
         state.folder.id.toString(), data);
 
-    onChangedProject(res);
+    if (res != null) {
+      onChangedIsEdited(true);
+    }
     update();
   }
 
-  void onChangeName(BuildContext context, String name) {
+  Future<void> deleteProject() async {
+    final res = await apiDetailProjectRepository
+        .removeProject(state.folder.id.toString());
+
+    if (res != null) Get.back(result: true);
+  }
+
+  void onChangedIsEdited(bool isEdited) {
+    state = state.copyWith(
+        isEdited: isEdited
+    );
+  }
+
+  void onChangeName(String name) {
     final folder = UpdateNameCategoryRequest(
         name: name,
         creatorId: state.folder.creatorId,
         parentCategoryId: state.folder.parentCategoryId);
 
-    updateNameProject(context, folder);
+    updateNameProject(folder);
   }
 
   void onChangeDate(String created, String updated) {

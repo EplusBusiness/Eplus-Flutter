@@ -40,6 +40,18 @@ void handleToast(String message) {
   );
 }
 
+void handleToastSuccess(String message) {
+  Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.lightGreen,
+      textColor: Colors.white,
+      fontSize: 16.0
+  );
+}
+
 void responseLogger(Response response) {
   debugPrint('Status Code: ${response.statusCode}\n');
   debugPrint('Data: ${response.bodyString?.toString() ?? ''}');

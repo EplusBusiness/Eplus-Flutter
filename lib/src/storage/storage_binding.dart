@@ -1,4 +1,4 @@
-import 'package:eplusflutter/src/Storage/storage.dart';
+import 'package:eplusflutter/src/storage/storage.dart';
 import 'package:get/get.dart';
 
 class StorageBinding extends Bindings {

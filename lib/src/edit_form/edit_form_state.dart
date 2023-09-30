@@ -88,6 +88,7 @@ class FormInfoData with _$FormInfoData {
     String? updatedAt,
     String? createdAt,
     String? status,
+    String? dateSent,
     String? nameForm,
     String? sender,
     String? addressSender,

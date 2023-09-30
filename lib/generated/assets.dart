@@ -8,9 +8,9 @@ class Assets {
   static const String assetsTimesNewRomanBold = 'assets/times_new_roman_bold.ttf';
   static const String editItemEditItemsScreen = 'lib/src/edit_item/edit_items_screen.dart';
   static const String editItemEditItemsState = 'lib/src/edit_item/edit_items_state.dart';
-  static const String eplusFlutterAssetsFontTimesNewRoman = 'assets/font-times-new-roman.ttf';
-  static const String eplusFlutterAssetsSVNTimesNewRomanBold = 'assets/SVN_Times_New_Roman_Bold.ttf';
-  static const String eplusFlutterAssetsTimesNewRoman = 'assets/times_new_roman.ttf';
+  static const String eplusflutterAssetsFontTimesNewRoman = 'assets/font-times-new-roman.ttf';
+  static const String eplusflutterAssetsSVNTimesNewRomanBold = 'assets/SVN_Times_New_Roman_Bold.ttf';
+  static const String eplusflutterAssetsTimesNewRoman = 'assets/times_new_roman.ttf';
   static const String iconsIcAddFolder = 'assets/icons/ic_add_folder.png';
   static const String iconsIcAddImage = 'assets/icons/ic_add_image.png';
   static const String iconsIcAvatar = 'assets/icons/ic_avatar.png';
@@ -25,6 +25,7 @@ class Assets {
   static const String iconsIcDelete = 'assets/icons/ic_delete.png';
   static const String iconsIcDocument = 'assets/icons/ic_document.png';
   static const String iconsIcEmptyFolder = 'assets/icons/ic_empty_folder.png';
+  static const String iconsIcExportCsv = 'assets/icons/ic_export_csv.png';
   static const String iconsIcFilter = 'assets/icons/ic_filter.png';
   static const String iconsIcFolder = 'assets/icons/ic_folder.png';
   static const String iconsIcImportPdf = 'assets/icons/ic_import_pdf.png';

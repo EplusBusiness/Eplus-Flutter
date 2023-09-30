@@ -5,6 +5,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 const kFormat = 'dd MMM yyyy | hh:mm a';
 const kCoachDateFormat = 'dd MMMM yy';
+const kDateFormat = 'dd/MM/yyyy';
 
 class DateUtil {
   static DateTime get currentDate => DateTime.now();
@@ -29,5 +30,10 @@ class DateUtil {
     final dateFormat = DateFormat(kFormat);
     DateTime coachDateTime = parseDateToUTC(inputDate);
     return dateFormat.format(coachDateTime);
+  }
+
+  static String getStringDate(DateTime datePicked) {
+    final dateFormat = DateFormat(kDateFormat);
+    return dateFormat.format(datePicked);
   }
 }

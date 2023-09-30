@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:printing/printing.dart';
-
+// import 'dart:html' as html;
 class FileUtil {
   static Future<File> writeToFile(ByteData data, String name) async {
     final buffer = data.buffer;
@@ -36,4 +36,21 @@ class FileUtil {
     Uint8List bytes = file.readAsBytesSync();
     await Printing.sharePdf(bytes: bytes);
   }
+
+  static Future<void> deleteAll() async {
+    Directory tempDir = await getTemporaryDirectory();
+    tempDir.deleteSync(recursive: true);
+  }
+
+  static Future<void> launchUrl(String url) async {
+    var googleDocsUrl = url;
+    final Uri uri = Uri.parse(googleDocsUrl);
+    launchUrl(url);
+  }
+
+  // static Future<void> downloadFile(String url) async {
+  //   html.AnchorElement anchorElement = new html.AnchorElement(href: url);
+  //   anchorElement.download = url;
+  //   anchorElement.click();
+  // }
 }

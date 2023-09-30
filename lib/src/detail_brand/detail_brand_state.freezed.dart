@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$DetailBrandState {
-  bool get isLoading => throw _privateConstructorUsedError;
+  bool get isEdited => throw _privateConstructorUsedError;
   List<DetailFolderInfo> get listFolders => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +30,7 @@ abstract class $DetailBrandStateCopyWith<$Res> {
           DetailBrandState value, $Res Function(DetailBrandState) then) =
       _$DetailBrandStateCopyWithImpl<$Res, DetailBrandState>;
   @useResult
-  $Res call({bool isLoading, List<DetailFolderInfo> listFolders});
+  $Res call({bool isEdited, List<DetailFolderInfo> listFolders});
 }
 
 /// @nodoc
@@ -46,13 +46,13 @@ class _$DetailBrandStateCopyWithImpl<$Res, $Val extends DetailBrandState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isLoading = null,
+    Object? isEdited = null,
     Object? listFolders = null,
   }) {
     return _then(_value.copyWith(
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
+      isEdited: null == isEdited
+          ? _value.isEdited
+          : isEdited // ignore: cast_nullable_to_non_nullable
               as bool,
       listFolders: null == listFolders
           ? _value.listFolders
@@ -70,7 +70,7 @@ abstract class _$$_DetailBrandStateCopyWith<$Res>
       __$$_DetailBrandStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLoading, List<DetailFolderInfo> listFolders});
+  $Res call({bool isEdited, List<DetailFolderInfo> listFolders});
 }
 
 /// @nodoc
@@ -84,13 +84,13 @@ class __$$_DetailBrandStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isLoading = null,
+    Object? isEdited = null,
     Object? listFolders = null,
   }) {
     return _then(_$_DetailBrandState(
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
+      isEdited: null == isEdited
+          ? _value.isEdited
+          : isEdited // ignore: cast_nullable_to_non_nullable
               as bool,
       listFolders: null == listFolders
           ? _value._listFolders
@@ -104,13 +104,13 @@ class __$$_DetailBrandStateCopyWithImpl<$Res>
 
 class _$_DetailBrandState implements _DetailBrandState {
   const _$_DetailBrandState(
-      {this.isLoading = false,
+      {this.isEdited = false,
       final List<DetailFolderInfo> listFolders = const <DetailFolderInfo>[]})
       : _listFolders = listFolders;
 
   @override
   @JsonKey()
-  final bool isLoading;
+  final bool isEdited;
   final List<DetailFolderInfo> _listFolders;
   @override
   @JsonKey()
@@ -122,7 +122,7 @@ class _$_DetailBrandState implements _DetailBrandState {
 
   @override
   String toString() {
-    return 'DetailBrandState(isLoading: $isLoading, listFolders: $listFolders)';
+    return 'DetailBrandState(isEdited: $isEdited, listFolders: $listFolders)';
   }
 
   @override
@@ -130,15 +130,15 @@ class _$_DetailBrandState implements _DetailBrandState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DetailBrandState &&
-            (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading) &&
+            (identical(other.isEdited, isEdited) ||
+                other.isEdited == isEdited) &&
             const DeepCollectionEquality()
                 .equals(other._listFolders, _listFolders));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading,
-      const DeepCollectionEquality().hash(_listFolders));
+  int get hashCode => Object.hash(
+      runtimeType, isEdited, const DeepCollectionEquality().hash(_listFolders));
 
   @JsonKey(ignore: true)
   @override
@@ -149,11 +149,11 @@ class _$_DetailBrandState implements _DetailBrandState {
 
 abstract class _DetailBrandState implements DetailBrandState {
   const factory _DetailBrandState(
-      {final bool isLoading,
+      {final bool isEdited,
       final List<DetailFolderInfo> listFolders}) = _$_DetailBrandState;
 
   @override
-  bool get isLoading;
+  bool get isEdited;
   @override
   List<DetailFolderInfo> get listFolders;
   @override

@@ -1,3 +1,4 @@
+import 'package:eplusflutter/core/shared_references.dart';
 import 'package:eplusflutter/models/request/insert_folder_request.dart';
 import 'package:flutter/material.dart';
 import 'package:eplusflutter/src/detail_folder/detail_folder.dart';
@@ -20,9 +21,12 @@ class DetailFolderScreen extends StatefulWidget {
 class _DetailFolderScreenState extends State<DetailFolderScreen> {
   final DetailFolderController detailFolderController = Get.find();
   String createProject = '';
+  String downloadWithNameCsv = '';
+  String nameFolder = '';
   String path = '${Get.arguments[1]}';
 
-  @override void initState() {
+  @override
+  void initState() {
     // TODO: implement initState
     super.initState();
     detailFolderController.getFolderInfo();
@@ -40,9 +44,7 @@ class _DetailFolderScreenState extends State<DetailFolderScreen> {
     return Column(
       children: [
         _buildNavigation(),
-        SizedBox(height: 10,),
         _buildBody(),
-        SizedBox(height: 24,)
       ],
     );
   }
@@ -53,39 +55,53 @@ class _DetailFolderScreenState extends State<DetailFolderScreen> {
         createFolderAlert();
       },
       onPreviousPressed: () {
-        Get.back();
+        Get.back(result: detailFolderController.state.isEdited);
       },
-      isVisibleEditButton: false,
-      isVisiblePlusButton: true,
-      title: 'Folders',
+      onDeletePressed: () {
+        deleteFolderAlert();
+      },
+      onEditPressed: () {
+        updateFolderAlert();
+      },
+      onExportCSVPressed: () {
+        downloadCsv();
+      },
+      isVisibleOptions: true,
+      isVisibleAdd: true,
+      isExportCSV: true,
+      title: 'Clients',
     );
   }
 
   _buildBody() {
     return Expanded(
-      child: GetBuilder<DetailFolderController>(
-        builder: (controller) {
-          return GridView.builder(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 10, bottom: 24),
+        child: GetBuilder<DetailFolderController>(
+          builder: (controller) {
+            return GridView.builder(
               padding: const EdgeInsets.only(top: 0, left: 15, right: 15),
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 250,
-                  childAspectRatio: 2/2.25,
+                  childAspectRatio: 2 / 2.25,
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 20),
               itemCount: controller.state.listFolders.length,
               itemBuilder: (BuildContext ctx, index) {
-                final DetailFolderInfo model = controller.state.listFolders[index];
+                final DetailFolderInfo model =
+                    controller.state.listFolders[index];
                 return _buildCell(model);
               },
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
 
   _buildCell(DetailFolderInfo model) {
     final items = model.childCategory?.length;
-    final itemString = (items! < 2) ? 'item':'items';
+    final itemString = (items! < 2) ? 'item' : 'items';
     return GestureDetector(
       onTap: () {
         detailFolderController.navigatorToDetailProject(model);
@@ -117,7 +133,7 @@ class _DetailFolderScreenState extends State<DetailFolderScreen> {
                   height: 120,
                   child: Center(
                     child: TextCustomize(
-                      title: 'Project',
+                      title: 'Brands',
                       textStyle: textStyleApp.bold(
                           size: 14, colorText: Colors.deepPurple),
                     ),
@@ -151,35 +167,150 @@ class _DetailFolderScreenState extends State<DetailFolderScreen> {
   }
 
   Future<String?> createFolderAlert() => showDialog<String?>(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: TextCustomize(
-        title: createFolderString,
-        textStyle: textStyleApp.bold(size: 20),
-      ),
-      content: TextField(
-        autofocus: true,
-        decoration: const InputDecoration(
-          hintText: enterFolderName,
-        ),
-        onChanged: (value) {
-          createProject = value;
-        },
-      ),
-      actions: [
-        TextButton(
-          onPressed: () async {
-            final InsertFolderRequest data = InsertFolderRequest(name: createProject, parentCategoryId: detailFolderController.categoryId);
-            detailFolderController.createProject(data);
-            Navigator.of(context).pop();
-          },
-          child: TextCustomize(
-            title: createButtonString,
-            textStyle:
-            textStyleApp.semiBold(size: 17, colorText: colorYellow),
+        context: context,
+        builder: (context) => AlertDialog(
+          title: TextCustomize(
+            title: createFolderString,
+            textStyle: textStyleApp.bold(size: 20),
           ),
+          content: TextField(
+            autofocus: true,
+            decoration: const InputDecoration(
+              hintText: enterFolderName,
+            ),
+            onChanged: (value) {
+              createProject = value;
+            },
+          ),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                final company = await SharedPreferencesUtil.getCompany();
+                final InsertFolderRequest data = InsertFolderRequest(
+                    name: createProject,
+                    parentCategoryId: detailFolderController.categoryId,
+                    company: company);
+                detailFolderController.createProject(data);
+                Navigator.of(context).pop();
+              },
+              child: TextCustomize(
+                title: createButtonString,
+                textStyle:
+                    textStyleApp.semiBold(size: 17, colorText: colorYellow),
+              ),
+            ),
+          ],
         ),
-      ],
-    ),
-  );
+      );
+
+  Future<String?> deleteFolderAlert() => showDialog<String?>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: TextCustomize(
+            title: deleteFolderString,
+            textStyle: textStyleApp.bold(size: 20),
+          ),
+          content: TextCustomize(
+            title: contentDeleteFolderString,
+            textStyle: textStyleApp.medium(size: 20),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                detailFolderController.removeFolder();
+                Navigator.of(context).pop();
+              },
+              child: TextCustomize(
+                title: 'Xóa',
+                textStyle:
+                    textStyleApp.semiBold(size: 17, colorText: colorYellow),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: TextCustomize(
+                title: 'Hủy',
+                textStyle:
+                    textStyleApp.semiBold(size: 17, colorText: Colors.grey),
+              ),
+            ),
+          ],
+        ),
+      );
+
+  Future<String?> updateFolderAlert() => showDialog<String?>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: TextCustomize(
+            title: editFolderString,
+            textStyle: textStyleApp.bold(size: 20),
+          ),
+          content: TextField(
+            autofocus: true,
+            decoration: const InputDecoration(
+              hintText: enterBrandName,
+            ),
+            onChanged: (value) {
+              nameFolder = value;
+            },
+          ),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                detailFolderController.updateNameFolder(nameFolder);
+                Navigator.of(context).pop();
+              },
+              child: TextCustomize(
+                title: editButtonString,
+                textStyle:
+                    textStyleApp.semiBold(size: 17, colorText: colorYellow),
+              ),
+            ),
+            TextButton(
+              onPressed: () async {
+                Navigator.of(context).pop();
+              },
+              child: TextCustomize(
+                title: cancelButtonString,
+                textStyle:
+                    textStyleApp.semiBold(size: 17, colorText: Colors.grey),
+              ),
+            ),
+          ],
+        ),
+      );
+
+  Future<String?> downloadCsv() => showDialog<String?>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: TextCustomize(
+            title: createFolderString,
+            textStyle: textStyleApp.bold(size: 20),
+          ),
+          content: TextField(
+            autofocus: true,
+            decoration: const InputDecoration(
+              hintText: enterCSVName,
+            ),
+            onChanged: (value) {
+              downloadWithNameCsv = value;
+            },
+          ),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                detailFolderController.generateCsv(downloadWithNameCsv);
+                Navigator.pop(context);
+              },
+              child: TextCustomize(
+                title: downloadButtonString,
+                textStyle:
+                    textStyleApp.semiBold(size: 17, colorText: colorYellow),
+              ),
+            ),
+          ],
+        ),
+      );
 }

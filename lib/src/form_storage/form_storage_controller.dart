@@ -39,6 +39,14 @@ class FormStorageController extends GetxController {
     }
   }
 
+  Future<void> navigateToSearch() async {
+    bool value = await Get.toNamed(Routes.SEARCHSTORAGE, arguments: [true, Get.arguments[0]]);
+
+    if (value) {
+      // getAllItems(Get.arguments[0]);
+    }
+  }
+
   void onChangedSegment(bool isIn) {
     state = state.copyWith(
       isIn: isIn

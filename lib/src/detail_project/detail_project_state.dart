@@ -5,7 +5,7 @@ part 'detail_project_state.g.dart';
 @freezed
 class DetailProjectState with _$DetailProjectState {
   const factory DetailProjectState({
-    @Default(false) bool isLoading,
+    @Default(false) bool isEdited,
     @Default(FolderInfo()) FolderInfo folder,
     @Default('') String createdDate,
     @Default('') String updatedDate,

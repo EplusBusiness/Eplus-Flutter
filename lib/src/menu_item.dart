@@ -18,7 +18,7 @@ class MenuItem extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 14),
       child: GestureDetector(
-        onTap: () => onTap,
+        onTap: () => onTap.call(),
         child: Row(
           children: [
             Image.asset(icon, height: 28, width: 28,),

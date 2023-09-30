@@ -2,20 +2,22 @@ import 'dart:convert';
 
 class UserModel {
   UserModel({
-     this.id,
-     this.createdAt,
-     this.updatedAt,
-     this.name,
-     this.email,
-     this.phone_number,
-     this.avatar_url,
+    this.id,
+    this.createdAt,
+    this.updatedAt,
+    this.name,
+    this.company,
+    this.email,
+    this.phone_number,
+    this.avatar_url,
   });
 
   int? id = 0;
-  String? createdAt ='';
+  String? createdAt = '';
   String? updatedAt = '';
   String? name = '';
   String? email = '';
+  String? company = '';
   String? phone_number = '';
   String? avatar_url = '';
 
@@ -29,6 +31,7 @@ class UserModel {
         createdAt: json['createdAt'],
         updatedAt: json['updatedAt'],
         email: json['email'],
+        company: json['company'],
         phone_number: json['phone_number'],
         avatar_url: json['avatar_url'],
         name: json['name'],
@@ -39,6 +42,7 @@ class UserModel {
         "createdAt": createdAt,
         "updatedAt": updatedAt,
         "email": email,
+        "company": company,
         "phone_number": phone_number,
         "avatar_url": avatar_url,
         "name": name,

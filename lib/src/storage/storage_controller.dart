@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:eplusflutter/src/Storage/storage_state.dart';
+import 'package:eplusflutter/src/storage/storage_state.dart';
 import '../../api/repository/api_storage_repository.dart';
 import '../../routes/app_pages.dart';
 
@@ -36,6 +36,14 @@ class StorageController extends GetxController {
 
     if (value) {
       getAllItems(Get.arguments[0]);
+    }
+  }
+
+  Future<void> navigateToSearch() async {
+    bool value = await Get.toNamed(Routes.SEARCHSTORAGE, arguments: [false, Get.arguments[0]]);
+
+    if (value) {
+      // getAllItems(Get.arguments[0]);
     }
   }
 }

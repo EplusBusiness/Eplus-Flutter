@@ -1,16 +1,21 @@
 import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui';
-import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
+
+// import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
 import 'package:eplusflutter/api/api.dart';
 import 'package:eplusflutter/core/file_util.dart';
 import 'package:eplusflutter/core/icon_constants.dart';
 import 'package:eplusflutter/models/response/attachment_response.dart';
+import 'package:eplusflutter/src/image_view_screen/image_screen.dart';
 import 'package:eplusflutter/src/signature/signature.dart';
+import 'package:eplusflutter/src/video_viewer/video_viewer_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
+import 'package:video_player/video_player.dart';
 import '../../core/color_constant.dart';
 import '../../core/string_constant.dart';
 import '../../core/text_app_style.dart';
@@ -29,6 +34,7 @@ class _SignatureScreenState extends State<SignatureScreen> {
   final GlobalKey<SfSignaturePadState> _signaturePadReceiverKey = GlobalKey();
   ImagePicker picker = ImagePicker();
   SignatureController controller = Get.find();
+  late VideoPlayerController _controller;
 
   @override
   void initState() {
@@ -60,6 +66,7 @@ class _SignatureScreenState extends State<SignatureScreen> {
         child: Column(
           children: [
             _buildPhotoConfirmSection(context),
+            _buildVideosConfirmSection(context),
             _buildBodySignature(),
             _buildPreview(),
             _buildSubmitButton(),
@@ -76,8 +83,7 @@ class _SignatureScreenState extends State<SignatureScreen> {
         Get.back();
       },
       title: 'Signature',
-      isVisibleEditButton: false,
-      isVisiblePlusButton: false,
+      isVisibleOptions: false,
     );
   }
 
@@ -101,7 +107,7 @@ class _SignatureScreenState extends State<SignatureScreen> {
                   ? _buildLoadSignatureReceiver(
                       controller.state.imageSignatureReceiver?.path ?? '')
                   : _buildSignatureReceiver(),
-              _buildCheckbox(),
+              // _buildCheckbox(),
             ],
           ),
         );
@@ -109,33 +115,33 @@ class _SignatureScreenState extends State<SignatureScreen> {
     );
   }
 
-  _buildCheckbox() {
-    return GetBuilder<SignatureController>(
-      builder: (controller) {
-        return Visibility(
-          visible: false,
-          child: Row(
-            children: [
-              Checkbox(
-                checkColor: Colors.blue,
-                activeColor: Colors.transparent,
-                value: controller.state.checkExportPdf,
-                onChanged: (bool? value) {
-                  // req.status = (value == false) ? 'NEW' : 'PENDING';
-                  controller.onChangeCheckExportPdf(value!);
-                },
-              ),
-              TextCustomize(
-                title: 'Pending export Pdf',
-                textStyle:
-                    textStyleApp.medium(size: 20, colorText: Colors.redAccent),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+  // _buildCheckbox() {
+  //   return GetBuilder<SignatureController>(
+  //     builder: (controller) {
+  //       return Visibility(
+  //         visible: false,
+  //         child: Row(
+  //           children: [
+  //             Checkbox(
+  //               checkColor: Colors.blue,
+  //               activeColor: Colors.transparent,
+  //               value: controller.state.checkExportPdf,
+  //               onChanged: (bool? value) {
+  //                 // req.status = (value == false) ? 'NEW' : 'PENDING';
+  //                 controller.onChangeCheckExportPdf(value!);
+  //               },
+  //             ),
+  //             TextCustomize(
+  //               title: 'Pending export Pdf',
+  //               textStyle:
+  //                   textStyleApp.medium(size: 20, colorText: Colors.redAccent),
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   Color getColor(Set<MaterialState> states) {
     const Set<MaterialState> interactiveStates = <MaterialState>{
@@ -279,6 +285,20 @@ class _SignatureScreenState extends State<SignatureScreen> {
     );
   }
 
+  _buildVideosConfirmSection(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        children: [
+          _buildHeaderSection(videosConfirmString),
+          controller.state.isNew
+              ? _buildTakeVideoConfirm(context)
+              : _buildVideosConfirm(context),
+        ],
+      ),
+    );
+  }
+
   _buildAddPdf() {
     return Visibility(
       visible: true,
@@ -325,7 +345,8 @@ class _SignatureScreenState extends State<SignatureScreen> {
                               fit: BoxFit.fitHeight,
                             ),
                           ),
-                          (controller.state.pdf?.path != null)
+                          (controller.state.pdf?.path != null &&
+                                  controller.state.isNew)
                               ? Positioned(
                                   top: -15,
                                   right: -15,
@@ -397,14 +418,30 @@ class _SignatureScreenState extends State<SignatureScreen> {
                 return (index == 0)
                     ? GestureDetector(
                         onTap: () {
-                          _buildBottomSheetV2(context);
+                          if (kIsWeb) {
+                            _getFromGallery();
+                          } else {
+                            _showModelSheet();
+                          }
                         },
                         child: Image.asset(icAddImage),
                       )
                     : Stack(
                         children: [
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              List<String?> imageString = [];
+                              imageString = controller.state.listImages!
+                                  .map((e) => e.path)
+                                  .toList();
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (builder) => ImageViewScreen(
+                                    images: imageString,
+                                  ),
+                                ),
+                              );
+                            },
                             child: SizedBox(
                               width: itemHeight,
                               height: itemHeight,
@@ -421,6 +458,93 @@ class _SignatureScreenState extends State<SignatureScreen> {
                             child: IconButton(
                               onPressed: () {
                                 controller.onChangeRemoveImage(e);
+                              },
+                              icon: Image.asset(
+                                icDelete,
+                                height: 20,
+                                width: 20,
+                              ),
+                            ),
+                          )
+                        ],
+                      );
+              },
+            ).toList(),
+          ),
+        );
+      },
+    );
+  }
+
+  _buildTakeVideoConfirm(BuildContext context) {
+    return GetBuilder<SignatureController>(
+      builder: (controller) {
+        Size size = MediaQuery.of(context).size;
+        double itemHeight = (size.width - (20 * 2)) / 4;
+        int row = 0;
+        if (controller.state.listVideos!.length % 4 == 0) {
+          row = controller.state.listVideos!.length ~/ 4;
+        } else {
+          row = (controller.state.listVideos!.length ~/ 4) + 1;
+        }
+        return SizedBox(
+          height: (itemHeight * row) + (10 * row),
+          child: GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            primary: false,
+            padding: const EdgeInsets.only(top: 0),
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            crossAxisCount: 4,
+            children: controller.state.listVideos!.map(
+              (e) {
+                var index = controller.state.listVideos?.indexOf(e);
+                return (index == 0)
+                    ? GestureDetector(
+                        onTap: () {
+                          if (controller.state.listVideos!.length < 3) {
+                            if (kIsWeb) {
+                              _getVideo();
+                            } else {
+                              _showModelSheet();
+                            }
+                          } else {
+                            handleToast("Max number of videos is 2!");
+                          }
+                        },
+                        child: Image.asset(icAddVideo),
+                      )
+                    : Stack(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              String? imageString;
+                              imageString =
+                                  controller.state.listVideos![index!].path;
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (builder) => VideoApp(
+                                    urlVideo: imageString,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: SizedBox(
+                              width: itemHeight,
+                              height: itemHeight,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.asset(icVideo),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: -15,
+                            right: -10,
+                            child: IconButton(
+                              onPressed: () {
+                                controller.onChangeRemoveVideo(e);
                               },
                               icon: Image.asset(
                                 icDelete,
@@ -463,14 +587,78 @@ class _SignatureScreenState extends State<SignatureScreen> {
             children: controller.state.listImages!.map(
               (e) {
                 return GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    List<String?> imageString = [];
+                    imageString = controller.state.listImages!
+                        .map((e) => e.path)
+                        .toList();
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (builder) => ImageViewScreen(
+                          images: imageString,
+                        ),
+                      ),
+                    );
+                  },
                   child: SizedBox(
                     width: itemHeight,
                     height: itemHeight,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
-                      child: Image.network(e.path ?? '',
-                          fit: BoxFit.fitHeight),
+                      child: Image.network(e.path ?? '', fit: BoxFit.fitHeight),
+                    ),
+                  ),
+                );
+              },
+            ).toList(),
+          ),
+        );
+      },
+    );
+  }
+
+  _buildVideosConfirm(BuildContext context) {
+    return GetBuilder<SignatureController>(
+      builder: (controller) {
+        Size size = MediaQuery.of(context).size;
+        double itemHeight = (size.width - (20 * 2)) / 4;
+        int row = 0;
+        if (controller.state.listVideos!.length % 4 == 0) {
+          row = controller.state.listVideos!.length ~/ 4;
+        } else {
+          row = (controller.state.listVideos!.length ~/ 4) + 1;
+        }
+        return SizedBox(
+          height: (itemHeight * row) + (10 * row),
+          child: GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            primary: false,
+            padding: const EdgeInsets.only(top: 0),
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            crossAxisCount: 4,
+            children: controller.state.listVideos!.map(
+              (e) {
+                var index = controller.state.listVideos?.indexOf(e);
+                return GestureDetector(
+                  onTap: () {
+                    String? imageString =
+                        controller.state.listVideos![index!].path;
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (builder) => VideoApp(
+                          urlVideo: imageString,
+                        ),
+                      ),
+                    );
+                  },
+                  child: SizedBox(
+                    width: itemHeight,
+                    height: itemHeight,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.asset(icVideo),
                     ),
                   ),
                 );
@@ -497,32 +685,103 @@ class _SignatureScreenState extends State<SignatureScreen> {
     );
   }
 
-  _buildBottomSheetV2(BuildContext context) {
-    return showAdaptiveActionSheet(
+  void _showModelSheet() {
+    showModalBottomSheet(
       context: context,
-      actions: <BottomSheetAction>[
-        BottomSheetAction(
-            title: 'take photo',
-            textStyle:
-                textStyleApp.medium(size: 20, colorText: Colors.blueAccent),
-            onPressed: () {
-              Navigator.of(context).pop();
-              _takePhoto();
-            }),
-        BottomSheetAction(
-            title: 'photo from gallery',
-            textStyle:
-                textStyleApp.medium(size: 20, colorText: Colors.blueAccent),
-            onPressed: () {
-              Navigator.of(context).pop();
-              _getFromGallery();
-            }),
-      ],
-      cancelAction: CancelAction(
-          title:
-              'Cancel'), // onPressed parameter is optional by default will dismiss the ActionSheet
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      builder: (builder) {
+        return Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+          ),
+          height: 220,
+          child: Column(
+            children: [
+              TextButton(
+                onPressed: () {
+                  _takePhoto();
+                },
+                child: TextCustomize(
+                  title: "take photo",
+                  textStyle: textStyleApp.medium(
+                      size: 20, colorText: Colors.blueAccent),
+                ),
+              ),
+              const Divider(
+                height: 3,
+              ),
+              TextButton(
+                onPressed: () {
+                  _getFromGallery();
+                },
+                child: TextCustomize(
+                  title: "photo from gallery",
+                  textStyle: textStyleApp.medium(
+                      size: 20, colorText: Colors.blueAccent),
+                ),
+              ),
+              const Divider(
+                height: 3,
+              ),
+              TextButton(
+                onPressed: () {
+                  _getVideo();
+                },
+                child: TextCustomize(
+                  title: "video from gallery",
+                  textStyle: textStyleApp.medium(
+                      size: 20, colorText: Colors.blueAccent),
+                ),
+              ),
+              const Divider(
+                height: 3,
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: TextCustomize(
+                  title: "cancel",
+                  textStyle: textStyleApp.medium(
+                      size: 20, colorText: Colors.redAccent),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
+
+  // _buildBottomSheetV2(BuildContext context) {
+  //   return showAdaptiveActionSheet(
+  //     context: context,
+  //     actions: <BottomSheetAction>[
+  //       BottomSheetAction(
+  //           title: 'take photo',
+  //           textStyle:
+  //               textStyleApp.medium(size: 20, colorText: Colors.blueAccent),
+  //           onPressed: () {
+  //             Navigator.of(context).pop();
+  //             _takePhoto();
+  //           }),
+  //       BottomSheetAction(
+  //           title: 'photo from gallery',
+  //           textStyle:
+  //               textStyleApp.medium(size: 20, colorText: Colors.blueAccent),
+  //           onPressed: () {
+  //             Navigator.of(context).pop();
+  //             _getFromGallery();
+  //           }),
+  //     ],
+  //     cancelAction: CancelAction(
+  //         title:
+  //             'Cancel'), // onPressed parameter is optional by default will dismiss the ActionSheet
+  //   );
+  // }
 
   _buildSubmitButton() {
     return GetBuilder<SignatureController>(
@@ -676,8 +935,7 @@ class _SignatureScreenState extends State<SignatureScreen> {
         actionSubmit(
             byteSenderData, byteReceiverData, dataSender, dataReceiver);
       } else {
-        controller.req?.status = "DONE";
-        controller.createForm(controller.req!);
+        actionSubmitWithPdf(byteSenderData, byteReceiverData);
       }
     } else {
       controller.generatePdf(context, controller.invoice!, dataSender,
@@ -685,24 +943,57 @@ class _SignatureScreenState extends State<SignatureScreen> {
     }
   }
 
+  Future<void> actionSubmitWithPdf(
+    ByteData sender,
+    ByteData receiver,
+  ) async {
+    final signatureSenderFile =
+        await FileUtil.writeToFile(sender, 'signatureSender');
+    final signatureReceiverFile =
+        await FileUtil.writeToFile(receiver, 'signatureReceiver');
+
+    final formSender =
+        _getImageSignatureInfo(signatureSenderFile, 'signatureSender');
+    final formReceiver =
+        _getImageSignatureInfo(signatureReceiverFile, 'signatureReceiver');
+    List<FormData> listSignature = [formSender, formReceiver];
+    await controller.uploadSignatures(listSignature);
+    controller.req?.status = "DONE";
+    controller.fillDataCreateForm();
+  }
+
   Future<void> actionSubmit(ByteData sender, ByteData receiver,
       Uint8List imageSenderData, Uint8List imageReceiverData) async {
-    // final signatureSenderFile =
-    //     await FileUtil.writeToFile(sender, 'signatureSender');
-    // final signatureReceiverFile =
-    //     await FileUtil.writeToFile(receiver, 'signatureReceiver');
+    if (kIsWeb) {
+      final formSender =
+          _getImageSignatureWithData(imageSenderData, 'signatureSender');
+      final formReceiver =
+          _getImageSignatureWithData(imageReceiverData, 'signatureReceiver');
+      List<FormData> listSignature = [formSender, formReceiver];
 
-    // final formSender =
-    //     _getImageSignatureInfo(signatureSenderFile, 'signatureSender');
-    // final formReceiver =
-    //     _getImageSignatureInfo(signatureReceiverFile, 'signatureReceiver');
-    // List<FormData> listSignature = [formSender, formReceiver];
-    //
-    // await controller.uploadSignatures(listSignature);
+      await controller.uploadSignatures(listSignature);
 
-    controller.req?.status = "DONE";
-    controller.generatePdf(context, controller.invoice!, imageSenderData,
-        imageReceiverData, false, controller.req);
+      controller.req?.status = "DONE";
+      controller.generatePdf(context, controller.invoice!, imageSenderData,
+          imageReceiverData, false, controller.req);
+    } else {
+      final signatureSenderFile =
+          await FileUtil.writeToFile(sender, 'signatureSender');
+      final signatureReceiverFile =
+          await FileUtil.writeToFile(receiver, 'signatureReceiver');
+
+      final formSender =
+          _getImageSignatureInfo(signatureSenderFile, 'signatureSender');
+      final formReceiver =
+          _getImageSignatureInfo(signatureReceiverFile, 'signatureReceiver');
+      List<FormData> listSignature = [formSender, formReceiver];
+
+      await controller.uploadSignatures(listSignature);
+
+      controller.req?.status = "DONE";
+      controller.generatePdf(context, controller.invoice!, imageSenderData,
+          imageReceiverData, false, controller.req);
+    }
   }
 
   _getFromGallery() async {
@@ -715,23 +1006,80 @@ class _SignatureScreenState extends State<SignatureScreen> {
     // if (image != null) {
     // _uploadImage(image);
     // }
-    List<XFile>? listImages = await picker.pickMultiImage();
-    if (listImages.isNotEmpty) {
-      List<FormData> listForms = listImages.map((e) {
-        File file = File(e.path);
-        String nameFile = e.name;
-        String mimeType = _getMimeType(e);
-        FormData form = FormData({
-          'file':
-              MultipartFile(file, filename: nameFile, contentType: mimeType),
-        });
-        return form;
-      }).toList();
-      controller.uploadListImages(listForms);
+    if (!kIsWeb) {
+      Navigator.of(context).pop();
+    }
+    List<FormData> listImagesPicked = [];
+
+    if (kIsWeb) {
+      XFile? image = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        maxWidth: 400,
+        maxHeight: 400,
+        imageQuality: 75,
+      );
+      // listImagesPicked = listImages.map((e) {
+      //
+      //   return form;
+      // }).toList();
+      final bytes = await image?.readAsBytes();
+      String? nameFile = image?.name;
+      String mimeType = _getMimeType(image!);
+      FormData form = FormData({
+        'file':
+        MultipartFile(bytes, filename: nameFile ?? '', contentType: mimeType),
+      });
+      listImagesPicked.add(form);
+      controller.uploadListImages(listImagesPicked);
+    } else {
+      List<XFile>? listImages = await picker.pickMultiImage();
+      if (listImages.isNotEmpty) {
+        listImagesPicked = listImages.map((e) {
+          File file = File(e.path);
+          String nameFile = e.name;
+          String mimeType = _getMimeType(e);
+          FormData form = FormData({
+            'file':
+                MultipartFile(file, filename: nameFile, contentType: mimeType),
+          });
+          return form;
+        }).toList();
+      }
+      controller.uploadListImages(listImagesPicked);
+    }
+  }
+
+  _getVideo() async {
+
+    final XFile? video = await picker.pickVideo(source: ImageSource.gallery);
+
+    if (kIsWeb) {
+      final bytes = await video?.readAsBytes();
+      String nameFile = 'video';
+      String mimeType = 'video/mp4';
+      FormData form = FormData({
+        'file': MultipartFile(bytes, filename: nameFile, contentType: mimeType),
+      });
+
+      controller.uploadFile(form, indexType: 1);
+    }else {
+      final bytes = File(video?.path ?? '');
+      String nameFile = 'video';
+      String mimeType = 'video/mp4';
+      FormData form = FormData({
+        'file': MultipartFile(bytes, filename: nameFile, contentType: mimeType),
+      });
+      if (!kIsWeb) {
+        Navigator.of(context).pop();
+      }
+      controller.uploadFile(form, indexType: 1);
     }
   }
 
   _takePhoto() async {
+    if (!kIsWeb) {
+      Navigator.of(context).pop();
+    }
     final XFile? photo = await picker.pickImage(
       source: ImageSource.camera,
       maxWidth: 400,
@@ -776,6 +1124,16 @@ class _SignatureScreenState extends State<SignatureScreen> {
     FormData form = FormData(
       {
         'file': MultipartFile(file, filename: name, contentType: 'image/png'),
+      },
+    );
+
+    return form;
+  }
+
+  FormData _getImageSignatureWithData(Uint8List data, String name) {
+    FormData form = FormData(
+      {
+        'file': MultipartFile(data, filename: name, contentType: 'image/png'),
       },
     );
 

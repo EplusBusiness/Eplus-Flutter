@@ -4,6 +4,7 @@ import 'package:eplusflutter/models/request/add_item_form_request.dart';
 class CreateFormRequest {
   int? id = -1;
   String? nameForm = '';
+  String? dateSent = '';
   String? type = 'IN';
   String? status = 'NEW';
   String? sender = '';
@@ -22,6 +23,7 @@ class CreateFormRequest {
 
   CreateFormRequest({
     this.nameForm,
+    this.dateSent,
     this.status,
     this.type,
     this.sender,
@@ -42,6 +44,7 @@ class CreateFormRequest {
 
   Map<String, dynamic> toJson() => {
         "nameForm": nameForm,
+        "dateSent": dateSent,
         "status": status,
         "type": type,
         "sender": sender,

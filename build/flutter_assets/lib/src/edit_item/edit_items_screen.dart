@@ -8,7 +8,7 @@ import '../../widget/customize_navigation_bar/customize_navigation_bar.dart';
 import '../../widget/icon_textfield/icon_textfield.dart';
 import '../../widget/text_customize/TextCustomize.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
+// import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
 import 'dart:io';
 
 import 'edit_items.dart';
@@ -57,10 +57,8 @@ class _EditItemsScreenState extends State<EditItemsScreen> {
       onEditPressed: () {
         deleteItemAlert();
       },
-      isVisiblePlusButton: false,
-      isVisibleEditButton: false,
-      isVisibleDeleteButton: true,
-      title: 'Edit items',
+      isVisibleOptions: false,
+      title: 'Item',
     );
   }
 
@@ -116,7 +114,7 @@ class _EditItemsScreenState extends State<EditItemsScreen> {
             },
           ),
           IconTextField(
-            enable: false,
+            enable: true,
             text: controller.state.item.unit ?? '',
             icon: icUnit,
             hintString: unitHintString,
@@ -138,9 +136,9 @@ class _EditItemsScreenState extends State<EditItemsScreen> {
             alignment: Alignment.centerLeft,
             child: GestureDetector(
               onTap: () {
-                _buildBottomSheet();
+                // _buildBottomSheet();
               },
-              child: controller.state.attachment.path == null
+              child: (controller.state.item.attachment?.path == null || controller.state.item.attachment?.path == "")
                   ? Image.asset(
                       icDefaultImage,
                       height: 100,
@@ -150,7 +148,7 @@ class _EditItemsScreenState extends State<EditItemsScreen> {
                   : ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: Image.network(
-                        controller.state.attachment.path ?? '',
+                        controller.state.item.attachment?.path ?? '',
                         height: 100,
                         width: 100,
                         fit: BoxFit.fitHeight,
@@ -167,7 +165,7 @@ class _EditItemsScreenState extends State<EditItemsScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    _buildBottomSheet();
+                    // _buildBottomSheet();
                   },
                   child: TextCustomize(
                     title: (controller.state.attachment.nameFile != '')
@@ -193,7 +191,7 @@ class _EditItemsScreenState extends State<EditItemsScreen> {
                 controller.editItem();
               },
               child: TextCustomize(
-              title: 'Edit item',
+              title: 'Save item',
               textStyle: textStyleApp.medium(size: 18),
             ),
             ),
@@ -269,28 +267,28 @@ class _EditItemsScreenState extends State<EditItemsScreen> {
     return '';
   }
 
-  _buildBottomSheet() {
-    return showAdaptiveActionSheet(
-      context: context,
-      actions: <BottomSheetAction>[
-        BottomSheetAction(
-            title: 'take photo',
-            textStyle: textStyleApp.semiBold(size: 20, colorText: Colors.grey),
-            onPressed: () {
-              _takePhoto();
-            }),
-        BottomSheetAction(
-            title: 'photo from gallery',
-            textStyle: textStyleApp.semiBold(size: 20, colorText: Colors.grey),
-            onPressed: () {
-              _getFromGallery();
-            }),
-      ],
-      cancelAction: CancelAction(
-          title:
-              'Cancel'), // onPressed parameter is optional by default will dismiss the ActionSheet
-    );
-  }
+  // _buildBottomSheet() {
+  //   return showAdaptiveActionSheet(
+  //     context: context,
+  //     actions: <BottomSheetAction>[
+  //       BottomSheetAction(
+  //           title: 'take photo',
+  //           textStyle: textStyleApp.semiBold(size: 20, colorText: Colors.grey),
+  //           onPressed: () {
+  //             _takePhoto();
+  //           }),
+  //       BottomSheetAction(
+  //           title: 'photo from gallery',
+  //           textStyle: textStyleApp.semiBold(size: 20, colorText: Colors.grey),
+  //           onPressed: () {
+  //             _getFromGallery();
+  //           }),
+  //     ],
+  //     cancelAction: CancelAction(
+  //         title:
+  //             'Cancel'), // onPressed parameter is optional by default will dismiss the ActionSheet
+  //   );
+  // }
 
   void deleteItemAlert() => showDialog(
         context: context,

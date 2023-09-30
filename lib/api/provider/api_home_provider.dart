@@ -19,7 +19,7 @@ class ApiHomeProvider extends BaseProvider {
     return post(path, data.toJson());
   }
 
-  Future<Response> upload(String path, Image image) {
-    return post(path, MultipartFile(File('path'), filename: 'filename.png'));
+  Future<Response> getUserInfo(String path) {
+    return get(path);
   }
 }

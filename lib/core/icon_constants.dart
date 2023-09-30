@@ -32,6 +32,10 @@ const icEmptyFolder = 'assets/icons/ic_empty_folder.png';
 const icImportPdf = 'assets/icons/ic_pdf.png';
 const icAvatar = 'assets/icons/ic_avatar.png';
 const icDelete = 'assets/icons/ic_delete.png';
+const icExportCsv = 'assets/icons/ic_export_csv.png';
+const icPlayVideo = 'assets/icons/ic_play_video.png';
+const icAddVideo = 'assets/icons/ic_add_video.png';
+const icVideo = 'assets/icons/ic_video.png';
 
 
 

@@ -1,7 +1,8 @@
-import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
 import 'package:eplusflutter/api/api.dart';
 import 'package:eplusflutter/widget/text_textfield/text_field_list_product.dart';
 import 'package:eplusflutter/widget/text_textfield/text_textfield.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:eplusflutter/core/icon_constants.dart';
 import 'package:eplusflutter/core/string_constant.dart';
@@ -45,6 +46,8 @@ class _CreateFormScreenState extends State<CreateFormScreen> {
 
   FocusNode get cccdReceiverFocusNode => _focusNodes[9];
 
+  DateTime selectedDate = DateTime.now();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -53,6 +56,7 @@ class _CreateFormScreenState extends State<CreateFormScreen> {
       controller.onChangedIsNew(isNew: Get.arguments[1]);
     }
     controller.getItems();
+
   }
 
   @override
@@ -86,25 +90,24 @@ class _CreateFormScreenState extends State<CreateFormScreen> {
         },
         child: SingleChildScrollView(
           reverse: true,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Column(
-              children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Column(
-                    children: [
-                      _buildDropDownTypeDocuments(),
-                      _buildNameFile(),
-                      _buildSender(),
-                      _buildReceiver(),
-                      _buildListItemsContent(),
-                    ],
-                  ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Column(
+                  children: [
+                    _buildDropDownTypeDocuments(),
+                    _buildNameFile(),
+                    _buildDatePicker(),
+                    _buildSender(),
+                    _buildReceiver(),
+                    _buildListItemsContent(),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -120,8 +123,8 @@ class _CreateFormScreenState extends State<CreateFormScreen> {
       onPreviousPressed: () {
         Get.back();
       },
-      isVisiblePlusButton: false,
-      isVisibleNextButton: true,
+      isVisibleNext: true,
+      isVisibleOptions: false,
       title: 'Form',
     );
   }
@@ -299,7 +302,7 @@ class _CreateFormScreenState extends State<CreateFormScreen> {
                 controller.onChangedReceiverData(cmnd: p0);
               },
             ),
-            _buildTakePhotoConfirm(context),
+            Padding(padding: EdgeInsets.symmetric(vertical: 10),child: _buildTakePhotoConfirm(context),)
           ],
         );
       },
@@ -311,7 +314,8 @@ class _CreateFormScreenState extends State<CreateFormScreen> {
       builder: (controller) {
         Size size = MediaQuery.of(context).size;
         double itemHeight = (size.width - (20 * 2)) / 4;
-        return SizedBox(
+        return Container(
+          margin: const EdgeInsets.symmetric(vertical: 10),
           height: itemHeight,
           child: GridView.count(
             shrinkWrap: true,
@@ -325,8 +329,13 @@ class _CreateFormScreenState extends State<CreateFormScreen> {
               (e) {
                 return !(e.path != null)
                     ? GestureDetector(
-                        onTap: () {
-                          _buildBottomSheetV2(context, e);
+                        onTap: () async {
+                          // _buildBottomSheetV2(context, e);
+                          if (kIsWeb) {
+                            _getFromGallery(e);
+                          } else {
+                            _showModelSheet(e);
+                          }
                         },
                         child: Image.asset(
                           icAddImage,
@@ -399,29 +408,87 @@ class _CreateFormScreenState extends State<CreateFormScreen> {
         const SizedBox(
           width: 20,
         ),
-        DropdownButton(
-          value: 'IN',
-          items: [
-            //add items in the dropdown
-            DropdownMenuItem(
-                child: TextCustomize(
-                  title: 'IN',
-                  textStyle: textStyleApp.medium(size: 15),
-                ),
-                value: "IN"),
-            DropdownMenuItem(
-                child: TextCustomize(
-                  title: 'OUT',
-                  textStyle: textStyleApp.medium(size: 15),
-                ),
-                value: "OUT"),
-          ],
-          onChanged: (value) {
-            controller.onChangeProperties(type: value ?? '');
+        GetBuilder<CreateFormController>(
+          builder: (controller) {
+            return DropdownButton(
+              value: controller.state.typeForm,
+              items: [
+                //add items in the dropdown
+                DropdownMenuItem(
+                    child: TextCustomize(
+                      title: 'Nhận',
+                      textStyle: textStyleApp.medium(size: 15, colorText: Colors.black54),
+                    ),
+                    value: "IN"),
+                DropdownMenuItem(
+                    child: TextCustomize(
+                      title: 'Giao',
+                      textStyle: textStyleApp.medium(size: 15, colorText: Colors.black54),
+                    ),
+                    value: "OUT"),
+              ],
+              onChanged: (value) {
+                controller.onChangeProperties(type: value ?? '');
+              },
+            );
           },
         ),
       ],
     );
+  }
+
+  _buildDatePicker() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        children: [
+          _buildHeader('Ngày tháng:'),
+          const SizedBox(
+            width: 20,
+          ),
+          GestureDetector(
+            onTap: () {
+              _selectDate(context);
+            },
+            child: GetBuilder<CreateFormController>(
+              builder: (controller) {
+                return Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                        width: 1,
+                        color: Colors.black54,)
+                  ),
+                  child: TextCustomize(
+                    title: (controller.state.dateSending == '')
+                        ? 'Chọn ngày'
+                        : controller.state.dateSending,
+                    textStyle: textStyleApp.regular(
+                        size: 18,
+                        colorText: Colors.black54),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      initialEntryMode: DatePickerEntryMode.calendarOnly,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+    );
+    if (picked != null && picked != selectedDate) {
+      selectedDate = picked;
+      controller.onChangedDatePicked(picked);
+    }
   }
 
   _buildListItemsContent() {
@@ -627,42 +694,79 @@ class _CreateFormScreenState extends State<CreateFormScreen> {
     );
   }
 
-  _buildBottomSheetV2(BuildContext context, AttachmentInfo attachmentInfo) {
-    return showAdaptiveActionSheet(
+  void _showModelSheet(AttachmentInfo attachmentInfo) {
+    showModalBottomSheet(
       context: context,
-      actions: <BottomSheetAction>[
-        BottomSheetAction(
-            title: 'take photo',
-            textStyle:
-                textStyleApp.medium(size: 20, colorText: Colors.blueAccent),
-            onPressed: () {
-              Navigator.of(context).pop();
-              _takePhoto(attachmentInfo);
-            }),
-        BottomSheetAction(
-            title: 'photo from gallery',
-            textStyle:
-                textStyleApp.medium(size: 20, colorText: Colors.blueAccent),
-            onPressed: () {
-              Navigator.of(context).pop();
-              _getFromGallery(attachmentInfo);
-            }),
-      ],
-      cancelAction: CancelAction(
-          title:
-              'Cancel'), // onPressed parameter is optional by default will dismiss the ActionSheet
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      builder: (builder) {
+        return Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+          ),
+          height: 150,
+          child: Column(
+            children: [
+              TextButton(
+                onPressed: () {
+                  _takePhoto(attachmentInfo);
+                },
+                child: TextCustomize(
+                  title: "take photo",
+                  textStyle: textStyleApp.medium(
+                      size: 20, colorText: Colors.blueAccent),
+                ),
+              ),
+              const Divider(
+                height: 3,
+              ),
+              TextButton(
+                onPressed: () {
+                  _getFromGallery(attachmentInfo);
+                },
+                child: TextCustomize(
+                  title: "photo from gallery",
+                  textStyle: textStyleApp.medium(
+                      size: 20, colorText: Colors.blueAccent),
+                ),
+              ),
+              const Divider(
+                height: 3,
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: TextCustomize(
+                  title: "cancel",
+                  textStyle: textStyleApp.medium(
+                      size: 20, colorText: Colors.redAccent),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
   _getFromGallery(AttachmentInfo attachmentInfo) async {
+    if (!kIsWeb) {
+      Navigator.pop(context);
+    }
     XFile? image = await ImagePicker().pickImage(
       source: ImageSource.gallery,
       maxWidth: 400,
       maxHeight: 400,
       imageQuality: 75,
     );
+
+    var f = await image?.readAsBytes();
+
     if (image != null) {
-      _uploadImage(image, attachmentInfo);
+      _uploadImage(f, attachmentInfo, image);
     }
     // List<PickedFile>? listImages = await picker.getMultiImage(imageQuality: 40);
     // if (listImages.isNotEmpty) {
@@ -681,6 +785,7 @@ class _CreateFormScreenState extends State<CreateFormScreen> {
   }
 
   _takePhoto(AttachmentInfo attachmentInfo) async {
+    Navigator.pop(context);
     final XFile? photo = await ImagePicker().pickImage(
       source: ImageSource.camera,
       maxWidth: 400,
@@ -690,19 +795,33 @@ class _CreateFormScreenState extends State<CreateFormScreen> {
     if (photo == null) {
       return;
     }
-    _uploadImage(photo, attachmentInfo);
+    _uploadImage(null, attachmentInfo, photo);
   }
 
-  _uploadImage(XFile photo, AttachmentInfo attachmentInfo) {
-    File file = File(photo.path);
-    String nameFile = photo.name;
-    String mimeType = _getMimeType(photo);
-    FormData form = FormData({
-      'file': MultipartFile(file,
-          filename: 'cmnd_' + nameFile, contentType: mimeType),
-    });
+  _uploadImage(
+      Uint8List? data, AttachmentInfo attachmentInfo, XFile photo) async {
+    if (kIsWeb) {
+      // File file = File(photo.path);
+      String nameFile = photo.name;
+      String mimeType = _getMimeType(photo);
+      FormData form = FormData(
+        {
+          'file': MultipartFile(data,
+              filename: 'cmnd_' + nameFile, contentType: mimeType),
+        },
+      );
 
-    controller.uploadFile(form, attachmentInfo);
+      controller.uploadFile(form, attachmentInfo);
+    } else {
+      File file = File(photo.path);
+      String nameFile = photo.name;
+      String mimeType = _getMimeType(photo);
+      FormData form = FormData({
+        'file': MultipartFile(file,
+            filename: 'cmnd_' + nameFile, contentType: mimeType),
+      });
+      controller.uploadFile(form, attachmentInfo);
+    }
   }
 
   String _getMimeType(XFile photo) {

@@ -1,0 +1,192 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/huystageit/StudioProjects/eplusflutter/build/ios/Release-iphoneos/image_picker_ios/image_picker_ios.framework/image_picker_ios'
+relocations:
+  - { offsetInCU: 0x34, offset: 0x71CC2, size: 0x8, addend: 0x0, symName: _image_picker_iosVersionString, symObjAddr: 0x0, symBinAddr: 0xC8D8, symSize: 0x0 }
+  - { offsetInCU: 0x69, offset: 0x71CF7, size: 0x8, addend: 0x0, symName: _image_picker_iosVersionNumber, symObjAddr: 0x30, symBinAddr: 0xC908, symSize: 0x0 }
+  - { offsetInCU: 0x27, offset: 0x71D34, size: 0x8, addend: 0x0, symName: '-[GIFInfo initWithImages:interval:]', symObjAddr: 0x0, symBinAddr: 0x4000, symSize: 0x84 }
+  - { offsetInCU: 0xE9, offset: 0x71DF6, size: 0x8, addend: 0x0, symName: '-[GIFInfo initWithImages:interval:]', symObjAddr: 0x0, symBinAddr: 0x4000, symSize: 0x84 }
+  - { offsetInCU: 0x140, offset: 0x71E4D, size: 0x8, addend: 0x0, symName: '-[GIFInfo images]', symObjAddr: 0x84, symBinAddr: 0x4084, symSize: 0x8 }
+  - { offsetInCU: 0x177, offset: 0x71E84, size: 0x8, addend: 0x0, symName: '-[GIFInfo setImages:]', symObjAddr: 0x8C, symBinAddr: 0x408C, symSize: 0xC }
+  - { offsetInCU: 0x1B8, offset: 0x71EC5, size: 0x8, addend: 0x0, symName: '-[GIFInfo interval]', symObjAddr: 0x98, symBinAddr: 0x4098, symSize: 0x8 }
+  - { offsetInCU: 0x1ED, offset: 0x71EFA, size: 0x8, addend: 0x0, symName: '-[GIFInfo setInterval:]', symObjAddr: 0xA0, symBinAddr: 0x40A0, symSize: 0x8 }
+  - { offsetInCU: 0x22B, offset: 0x71F38, size: 0x8, addend: 0x0, symName: '-[GIFInfo .cxx_destruct]', symObjAddr: 0xA8, symBinAddr: 0x40A8, symSize: 0xC }
+  - { offsetInCU: 0x25E, offset: 0x71F6B, size: 0x8, addend: 0x0, symName: '+[FLTImagePickerImageUtil scaledImage:maxWidth:maxHeight:isMetadataAvailable:]', symObjAddr: 0xB4, symBinAddr: 0x40B4, symSize: 0x288 }
+  - { offsetInCU: 0x492, offset: 0x7219F, size: 0x8, addend: 0x0, symName: '+[FLTImagePickerImageUtil scaledGIFImage:maxWidth:maxHeight:]', symObjAddr: 0x33C, symBinAddr: 0x433C, symSize: 0x2C8 }
+  - { offsetInCU: 0x27, offset: 0x7247D, size: 0x8, addend: 0x0, symName: '+[FLTImagePickerMetaDataUtil getImageMIMETypeFromImageData:]', symObjAddr: 0x0, symBinAddr: 0x4604, symSize: 0x58 }
+  - { offsetInCU: 0x41, offset: 0x72497, size: 0x8, addend: 0x0, symName: _kFLTImagePickerDefaultSuffix, symObjAddr: 0x388, symBinAddr: 0x142A0, symSize: 0x0 }
+  - { offsetInCU: 0x61, offset: 0x724B7, size: 0x8, addend: 0x0, symName: _kFLTImagePickerMIMETypeDefault, symObjAddr: 0x3A8, symBinAddr: 0xC910, symSize: 0x0 }
+  - { offsetInCU: 0xC9, offset: 0x7251F, size: 0x8, addend: 0x0, symName: '+[FLTImagePickerMetaDataUtil getImageMIMETypeFromImageData:]', symObjAddr: 0x0, symBinAddr: 0x4604, symSize: 0x58 }
+  - { offsetInCU: 0x11C, offset: 0x72572, size: 0x8, addend: 0x0, symName: '+[FLTImagePickerMetaDataUtil imageTypeSuffixFromType:]', symObjAddr: 0x58, symBinAddr: 0x465C, symSize: 0x20 }
+  - { offsetInCU: 0x15D, offset: 0x725B3, size: 0x8, addend: 0x0, symName: '+[FLTImagePickerMetaDataUtil getMetaDataFromImageData:]', symObjAddr: 0x78, symBinAddr: 0x467C, symSize: 0x44 }
+  - { offsetInCU: 0x250, offset: 0x726A6, size: 0x8, addend: 0x0, symName: '+[FLTImagePickerMetaDataUtil imageFromImage:withMetaData:]', symObjAddr: 0xBC, symBinAddr: 0x46C0, symSize: 0xF4 }
+  - { offsetInCU: 0x41B, offset: 0x72871, size: 0x8, addend: 0x0, symName: '+[FLTImagePickerMetaDataUtil convertImage:usingType:quality:]', symObjAddr: 0x1B0, symBinAddr: 0x47B4, symSize: 0xE4 }
+  - { offsetInCU: 0x27, offset: 0x7299A, size: 0x8, addend: 0x0, symName: '+[FLTImagePickerPhotoAssetUtil getAssetFromImagePickerInfo:]', symObjAddr: 0x0, symBinAddr: 0x4898, symSize: 0x14 }
+  - { offsetInCU: 0x8C, offset: 0x729FF, size: 0x8, addend: 0x0, symName: '+[FLTImagePickerPhotoAssetUtil getAssetFromImagePickerInfo:]', symObjAddr: 0x0, symBinAddr: 0x4898, symSize: 0x14 }
+  - { offsetInCU: 0xCF, offset: 0x72A42, size: 0x8, addend: 0x0, symName: '+[FLTImagePickerPhotoAssetUtil getAssetFromPHPickerResult:]', symObjAddr: 0x14, symBinAddr: 0x48AC, symSize: 0xE0 }
+  - { offsetInCU: 0x122, offset: 0x72A95, size: 0x8, addend: 0x0, symName: '+[FLTImagePickerPhotoAssetUtil saveVideoFromURL:]', symObjAddr: 0xF4, symBinAddr: 0x498C, symSize: 0x150 }
+  - { offsetInCU: 0x199, offset: 0x72B0C, size: 0x8, addend: 0x0, symName: '+[FLTImagePickerPhotoAssetUtil saveImageWithOriginalImageData:image:maxWidth:maxHeight:imageQuality:]', symObjAddr: 0x244, symBinAddr: 0x4ADC, symSize: 0x208 }
+  - { offsetInCU: 0x26F, offset: 0x72BE2, size: 0x8, addend: 0x0, symName: '+[FLTImagePickerPhotoAssetUtil saveImageWithPickerInfo:image:imageQuality:]', symObjAddr: 0x44C, symBinAddr: 0x4CE4, symSize: 0xC4 }
+  - { offsetInCU: 0x2E6, offset: 0x72C59, size: 0x8, addend: 0x0, symName: '+[FLTImagePickerPhotoAssetUtil saveImageWithMetaData:gifInfo:suffix:]', symObjAddr: 0x510, symBinAddr: 0x4DA8, symSize: 0x98 }
+  - { offsetInCU: 0x35D, offset: 0x72CD0, size: 0x8, addend: 0x0, symName: '+[FLTImagePickerPhotoAssetUtil saveImageWithMetaData:image:suffix:type:imageQuality:]', symObjAddr: 0x5A8, symBinAddr: 0x4E40, symSize: 0xFC }
+  - { offsetInCU: 0x413, offset: 0x72D86, size: 0x8, addend: 0x0, symName: '+[FLTImagePickerPhotoAssetUtil saveImageWithMetaData:gifInfo:path:]', symObjAddr: 0x6A4, symBinAddr: 0x4F3C, symSize: 0x318 }
+  - { offsetInCU: 0x5F1, offset: 0x72F64, size: 0x8, addend: 0x0, symName: '+[FLTImagePickerPhotoAssetUtil temporaryFilePath:]', symObjAddr: 0x9BC, symBinAddr: 0x5254, symSize: 0xE0 }
+  - { offsetInCU: 0x69E, offset: 0x73011, size: 0x8, addend: 0x0, symName: '+[FLTImagePickerPhotoAssetUtil createFile:suffix:]', symObjAddr: 0xA9C, symBinAddr: 0x5334, symSize: 0x88 }
+  - { offsetInCU: 0x27, offset: 0x7314A, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerMethodCallContext initWithResult:]', symObjAddr: 0x0, symBinAddr: 0x53BC, symSize: 0x78 }
+  - { offsetInCU: 0x2C5, offset: 0x733E8, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerMethodCallContext initWithResult:]', symObjAddr: 0x0, symBinAddr: 0x53BC, symSize: 0x78 }
+  - { offsetInCU: 0x30C, offset: 0x7342F, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerMethodCallContext result]', symObjAddr: 0x78, symBinAddr: 0x5434, symSize: 0x8 }
+  - { offsetInCU: 0x343, offset: 0x73466, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerMethodCallContext setResult:]', symObjAddr: 0x80, symBinAddr: 0x543C, symSize: 0x8 }
+  - { offsetInCU: 0x382, offset: 0x734A5, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerMethodCallContext maxSize]', symObjAddr: 0x88, symBinAddr: 0x5444, symSize: 0x8 }
+  - { offsetInCU: 0x3B9, offset: 0x734DC, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerMethodCallContext setMaxSize:]', symObjAddr: 0x90, symBinAddr: 0x544C, symSize: 0xC }
+  - { offsetInCU: 0x3FA, offset: 0x7351D, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerMethodCallContext imageQuality]', symObjAddr: 0x9C, symBinAddr: 0x5458, symSize: 0x8 }
+  - { offsetInCU: 0x431, offset: 0x73554, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerMethodCallContext setImageQuality:]', symObjAddr: 0xA4, symBinAddr: 0x5460, symSize: 0xC }
+  - { offsetInCU: 0x472, offset: 0x73595, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerMethodCallContext maxImageCount]', symObjAddr: 0xB0, symBinAddr: 0x546C, symSize: 0x8 }
+  - { offsetInCU: 0x4A9, offset: 0x735CC, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerMethodCallContext setMaxImageCount:]', symObjAddr: 0xB8, symBinAddr: 0x5474, symSize: 0x8 }
+  - { offsetInCU: 0x4E6, offset: 0x73609, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerMethodCallContext requestFullMetadata]', symObjAddr: 0xC0, symBinAddr: 0x547C, symSize: 0x8 }
+  - { offsetInCU: 0x51D, offset: 0x73640, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerMethodCallContext setRequestFullMetadata:]', symObjAddr: 0xC8, symBinAddr: 0x5484, symSize: 0x8 }
+  - { offsetInCU: 0x558, offset: 0x7367B, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerMethodCallContext includeVideo]', symObjAddr: 0xD0, symBinAddr: 0x548C, symSize: 0x8 }
+  - { offsetInCU: 0x58F, offset: 0x736B2, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerMethodCallContext setIncludeVideo:]', symObjAddr: 0xD8, symBinAddr: 0x5494, symSize: 0x8 }
+  - { offsetInCU: 0x5CA, offset: 0x736ED, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerMethodCallContext .cxx_destruct]', symObjAddr: 0xE0, symBinAddr: 0x549C, symSize: 0x3C }
+  - { offsetInCU: 0x5FD, offset: 0x73720, size: 0x8, addend: 0x0, symName: '+[FLTImagePickerPlugin registerWithRegistrar:]', symObjAddr: 0x11C, symBinAddr: 0x54D8, symSize: 0x78 }
+  - { offsetInCU: 0x6AA, offset: 0x737CD, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin createImagePickerController]', symObjAddr: 0x194, symBinAddr: 0x5550, symSize: 0xB4 }
+  - { offsetInCU: 0x700, offset: 0x73823, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin setImagePickerControllerOverrides:]', symObjAddr: 0x248, symBinAddr: 0x5604, symSize: 0x30 }
+  - { offsetInCU: 0x743, offset: 0x73866, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin viewControllerWithWindow:]', symObjAddr: 0x278, symBinAddr: 0x5634, symSize: 0x1D0 }
+  - { offsetInCU: 0x7BD, offset: 0x738E0, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin cameraDeviceForSource:]', symObjAddr: 0x448, symBinAddr: 0x5804, symSize: 0x20 }
+  - { offsetInCU: 0x800, offset: 0x73923, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin launchPHPickerWithContext:]', symObjAddr: 0x468, symBinAddr: 0x5824, symSize: 0x218 }
+  - { offsetInCU: 0x853, offset: 0x73976, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin launchUIImagePickerWithSource:context:]', symObjAddr: 0x680, symBinAddr: 0x5A3C, symSize: 0x1DC }
+  - { offsetInCU: 0x8B6, offset: 0x739D9, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin pickImageWithSource:maxSize:quality:fullMetadata:completion:]', symObjAddr: 0x85C, symBinAddr: 0x5C18, symSize: 0x1A4 }
+  - { offsetInCU: 0x949, offset: 0x73A6C, size: 0x8, addend: 0x0, symName: '___84-[FLTImagePickerPlugin pickImageWithSource:maxSize:quality:fullMetadata:completion:]_block_invoke', symObjAddr: 0xA00, symBinAddr: 0x5DBC, symSize: 0xE8 }
+  - { offsetInCU: 0x9E7, offset: 0x73B0A, size: 0x8, addend: 0x0, symName: ___copy_helper_block_e8_32b, symObjAddr: 0xAE8, symBinAddr: 0x5EA4, symSize: 0x10 }
+  - { offsetInCU: 0xA10, offset: 0x73B33, size: 0x8, addend: 0x0, symName: ___destroy_helper_block_e8_32s, symObjAddr: 0xAF8, symBinAddr: 0x5EB4, symSize: 0x8 }
+  - { offsetInCU: 0xA2F, offset: 0x73B52, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin pickMultiImageWithMaxSize:quality:fullMetadata:completion:]', symObjAddr: 0xB00, symBinAddr: 0x5EBC, symSize: 0x140 }
+  - { offsetInCU: 0xAB2, offset: 0x73BD5, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin pickMediaWithMediaSelectionOptions:completion:]', symObjAddr: 0xC40, symBinAddr: 0x5FFC, symSize: 0x198 }
+  - { offsetInCU: 0xB15, offset: 0x73C38, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin pickVideoWithSource:maxDuration:completion:]', symObjAddr: 0xDD8, symBinAddr: 0x6194, symSize: 0x26C }
+  - { offsetInCU: 0xBB9, offset: 0x73CDC, size: 0x8, addend: 0x0, symName: '___67-[FLTImagePickerPlugin pickVideoWithSource:maxDuration:completion:]_block_invoke', symObjAddr: 0x1044, symBinAddr: 0x6400, symSize: 0xE8 }
+  - { offsetInCU: 0xC57, offset: 0x73D7A, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin cancelInProgressCall]', symObjAddr: 0x112C, symBinAddr: 0x64E8, symSize: 0x88 }
+  - { offsetInCU: 0xC8B, offset: 0x73DAE, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin showCamera:withImagePicker:]', symObjAddr: 0x11B4, symBinAddr: 0x6570, symSize: 0x280 }
+  - { offsetInCU: 0xD01, offset: 0x73E24, size: 0x8, addend: 0x0, symName: '___51-[FLTImagePickerPlugin showCamera:withImagePicker:]_block_invoke', symObjAddr: 0x1434, symBinAddr: 0x67F0, symSize: 0x4 }
+  - { offsetInCU: 0xD37, offset: 0x73E5A, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin checkCameraAuthorizationWithImagePicker:camera:]', symObjAddr: 0x1438, symBinAddr: 0x67F4, symSize: 0xF0 }
+  - { offsetInCU: 0xD9E, offset: 0x73EC1, size: 0x8, addend: 0x0, symName: '___71-[FLTImagePickerPlugin checkCameraAuthorizationWithImagePicker:camera:]_block_invoke', symObjAddr: 0x1528, symBinAddr: 0x68E4, symSize: 0x78 }
+  - { offsetInCU: 0xE3E, offset: 0x73F61, size: 0x8, addend: 0x0, symName: '___71-[FLTImagePickerPlugin checkCameraAuthorizationWithImagePicker:camera:]_block_invoke_2', symObjAddr: 0x15A0, symBinAddr: 0x695C, symSize: 0x20 }
+  - { offsetInCU: 0xEB3, offset: 0x73FD6, size: 0x8, addend: 0x0, symName: ___copy_helper_block_e8_32s40s, symObjAddr: 0x15C0, symBinAddr: 0x697C, symSize: 0x28 }
+  - { offsetInCU: 0xEDC, offset: 0x73FFF, size: 0x8, addend: 0x0, symName: ___destroy_helper_block_e8_32s40s, symObjAddr: 0x15E8, symBinAddr: 0x69A4, symSize: 0x28 }
+  - { offsetInCU: 0xEFB, offset: 0x7401E, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin checkPhotoAuthorizationWithImagePicker:]', symObjAddr: 0x1610, symBinAddr: 0x69CC, symSize: 0xCC }
+  - { offsetInCU: 0xF51, offset: 0x74074, size: 0x8, addend: 0x0, symName: '___63-[FLTImagePickerPlugin checkPhotoAuthorizationWithImagePicker:]_block_invoke', symObjAddr: 0x16DC, symBinAddr: 0x6A98, symSize: 0x70 }
+  - { offsetInCU: 0xFCB, offset: 0x740EE, size: 0x8, addend: 0x0, symName: '___63-[FLTImagePickerPlugin checkPhotoAuthorizationWithImagePicker:]_block_invoke_2', symObjAddr: 0x174C, symBinAddr: 0x6B08, symSize: 0x20 }
+  - { offsetInCU: 0x102F, offset: 0x74152, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin checkPhotoAuthorizationForAccessLevel]', symObjAddr: 0x176C, symBinAddr: 0x6B28, symSize: 0xB4 }
+  - { offsetInCU: 0x1082, offset: 0x741A5, size: 0x8, addend: 0x0, symName: '___61-[FLTImagePickerPlugin checkPhotoAuthorizationForAccessLevel]_block_invoke', symObjAddr: 0x1820, symBinAddr: 0x6BDC, symSize: 0x5C }
+  - { offsetInCU: 0x10EB, offset: 0x7420E, size: 0x8, addend: 0x0, symName: '___61-[FLTImagePickerPlugin checkPhotoAuthorizationForAccessLevel]_block_invoke_2', symObjAddr: 0x187C, symBinAddr: 0x6C38, symSize: 0x28 }
+  - { offsetInCU: 0x113E, offset: 0x74261, size: 0x8, addend: 0x0, symName: ___copy_helper_block_e8_32s, symObjAddr: 0x18A4, symBinAddr: 0x6C60, symSize: 0x8 }
+  - { offsetInCU: 0x1165, offset: 0x74288, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin errorNoCameraAccess:]', symObjAddr: 0x18AC, symBinAddr: 0x6C68, symSize: 0x74 }
+  - { offsetInCU: 0x11AA, offset: 0x742CD, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin errorNoPhotoAccess:]', symObjAddr: 0x1920, symBinAddr: 0x6CDC, symSize: 0x74 }
+  - { offsetInCU: 0x11EF, offset: 0x74312, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin showPhotoLibraryWithPHPicker:]', symObjAddr: 0x1994, symBinAddr: 0x6D50, symSize: 0x5C }
+  - { offsetInCU: 0x1234, offset: 0x74357, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin showPhotoLibraryWithImagePicker:]', symObjAddr: 0x19F0, symBinAddr: 0x6DAC, symSize: 0x64 }
+  - { offsetInCU: 0x1279, offset: 0x7439C, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin getDesiredImageQuality:]', symObjAddr: 0x1A54, symBinAddr: 0x6E10, symSize: 0xAC }
+  - { offsetInCU: 0x12BE, offset: 0x743E1, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin presentationControllerDidDismiss:]', symObjAddr: 0x1B00, symBinAddr: 0x6EBC, symSize: 0x8 }
+  - { offsetInCU: 0x12FD, offset: 0x74420, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin picker:didFinishPicking:]', symObjAddr: 0x1B08, symBinAddr: 0x6EC4, symSize: 0x428 }
+  - { offsetInCU: 0x1414, offset: 0x74537, size: 0x8, addend: 0x0, symName: ___Block_byref_object_copy_, symObjAddr: 0x1F30, symBinAddr: 0x72EC, symSize: 0x10 }
+  - { offsetInCU: 0x1439, offset: 0x7455C, size: 0x8, addend: 0x0, symName: ___Block_byref_object_dispose_, symObjAddr: 0x1F40, symBinAddr: 0x72FC, symSize: 0x8 }
+  - { offsetInCU: 0x1458, offset: 0x7457B, size: 0x8, addend: 0x0, symName: '___48-[FLTImagePickerPlugin picker:didFinishPicking:]_block_invoke', symObjAddr: 0x1F48, symBinAddr: 0x7304, symSize: 0x7C }
+  - { offsetInCU: 0x14C9, offset: 0x745EC, size: 0x8, addend: 0x0, symName: ___copy_helper_block_e8_32s40r48r56w, symObjAddr: 0x1FC4, symBinAddr: 0x7380, symSize: 0x50 }
+  - { offsetInCU: 0x14F2, offset: 0x74615, size: 0x8, addend: 0x0, symName: ___destroy_helper_block_e8_32s40r48r56w, symObjAddr: 0x2014, symBinAddr: 0x73D0, symSize: 0x40 }
+  - { offsetInCU: 0x1511, offset: 0x74634, size: 0x8, addend: 0x0, symName: '___48-[FLTImagePickerPlugin picker:didFinishPicking:]_block_invoke.108', symObjAddr: 0x2054, symBinAddr: 0x7410, symSize: 0x134 }
+  - { offsetInCU: 0x1615, offset: 0x74738, size: 0x8, addend: 0x0, symName: '___48-[FLTImagePickerPlugin picker:didFinishPicking:]_block_invoke_2', symObjAddr: 0x2188, symBinAddr: 0x7544, symSize: 0x68 }
+  - { offsetInCU: 0x1697, offset: 0x747BA, size: 0x8, addend: 0x0, symName: ___copy_helper_block_e8_32s40r, symObjAddr: 0x21F0, symBinAddr: 0x75AC, symSize: 0x34 }
+  - { offsetInCU: 0x16C0, offset: 0x747E3, size: 0x8, addend: 0x0, symName: ___destroy_helper_block_e8_32s40r, symObjAddr: 0x2224, symBinAddr: 0x75E0, symSize: 0x2C }
+  - { offsetInCU: 0x16DF, offset: 0x74802, size: 0x8, addend: 0x0, symName: ___copy_helper_block_e8_32s40s48s56s64s72r80r, symObjAddr: 0x2250, symBinAddr: 0x760C, symSize: 0x64 }
+  - { offsetInCU: 0x1708, offset: 0x7482B, size: 0x8, addend: 0x0, symName: ___destroy_helper_block_e8_32s40s48s56s64s72r80r, symObjAddr: 0x22B4, symBinAddr: 0x7670, symSize: 0x58 }
+  - { offsetInCU: 0x1727, offset: 0x7484A, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin imagePickerController:didFinishPickingMediaWithInfo:]', symObjAddr: 0x230C, symBinAddr: 0x76C8, symSize: 0x510 }
+  - { offsetInCU: 0x182B, offset: 0x7494E, size: 0x8, addend: 0x0, symName: '___76-[FLTImagePickerPlugin imagePickerController:didFinishPickingMediaWithInfo:]_block_invoke', symObjAddr: 0x281C, symBinAddr: 0x7BD8, symSize: 0x18 }
+  - { offsetInCU: 0x18DC, offset: 0x749FF, size: 0x8, addend: 0x0, symName: ___copy_helper_block_e8_32s40s48s56s64s, symObjAddr: 0x2834, symBinAddr: 0x7BF0, symSize: 0x40 }
+  - { offsetInCU: 0x1905, offset: 0x74A28, size: 0x8, addend: 0x0, symName: ___destroy_helper_block_e8_32s40s48s56s64s, symObjAddr: 0x2874, symBinAddr: 0x7C30, symSize: 0x40 }
+  - { offsetInCU: 0x1924, offset: 0x74A47, size: 0x8, addend: 0x0, symName: '___76-[FLTImagePickerPlugin imagePickerController:didFinishPickingMediaWithInfo:]_block_invoke.121', symObjAddr: 0x28B4, symBinAddr: 0x7C70, symSize: 0x10 }
+  - { offsetInCU: 0x19C3, offset: 0x74AE6, size: 0x8, addend: 0x0, symName: '___76-[FLTImagePickerPlugin imagePickerController:didFinishPickingMediaWithInfo:]_block_invoke.123', symObjAddr: 0x28C4, symBinAddr: 0x7C80, symSize: 0x10 }
+  - { offsetInCU: 0x1A62, offset: 0x74B85, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin imagePickerControllerDidCancel:]', symObjAddr: 0x28D4, symBinAddr: 0x7C90, symSize: 0x34 }
+  - { offsetInCU: 0x1AA7, offset: 0x74BCA, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin saveImageWithOriginalImageData:image:maxWidth:maxHeight:imageQuality:]', symObjAddr: 0x2908, symBinAddr: 0x7CC4, symSize: 0xB0 }
+  - { offsetInCU: 0x1B41, offset: 0x74C64, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin saveImageWithPickerInfo:image:imageQuality:]', symObjAddr: 0x29B8, symBinAddr: 0x7D74, symSize: 0xB0 }
+  - { offsetInCU: 0x1BB9, offset: 0x74CDC, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin sendCallResultWithSavedPathList:]', symObjAddr: 0x2A68, symBinAddr: 0x7E24, symSize: 0x12C }
+  - { offsetInCU: 0x1C40, offset: 0x74D63, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin sendCallResultWithError:]', symObjAddr: 0x2B94, symBinAddr: 0x7F50, symSize: 0xA0 }
+  - { offsetInCU: 0x1C9F, offset: 0x74DC2, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin pickerViewController]', symObjAddr: 0x2C34, symBinAddr: 0x7FF0, symSize: 0x8 }
+  - { offsetInCU: 0x1CD6, offset: 0x74DF9, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin setPickerViewController:]', symObjAddr: 0x2C3C, symBinAddr: 0x7FF8, symSize: 0xC }
+  - { offsetInCU: 0x1D17, offset: 0x74E3A, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin imagePickerControllerOverrides]', symObjAddr: 0x2C48, symBinAddr: 0x8004, symSize: 0x8 }
+  - { offsetInCU: 0x1D4E, offset: 0x74E71, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin callContext]', symObjAddr: 0x2C50, symBinAddr: 0x800C, symSize: 0x8 }
+  - { offsetInCU: 0x1D85, offset: 0x74EA8, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin setCallContext:]', symObjAddr: 0x2C58, symBinAddr: 0x8014, symSize: 0xC }
+  - { offsetInCU: 0x1DC6, offset: 0x74EE9, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerPlugin .cxx_destruct]', symObjAddr: 0x2C64, symBinAddr: 0x8020, symSize: 0x3C }
+  - { offsetInCU: 0x27, offset: 0x75A1F, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation initWithResult:maxHeight:maxWidth:desiredImageQuality:fullMetadata:savedPathBlock:]', symObjAddr: 0x0, symBinAddr: 0x805C, symSize: 0x16C }
+  - { offsetInCU: 0x1CC, offset: 0x75BC4, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation initWithResult:maxHeight:maxWidth:desiredImageQuality:fullMetadata:savedPathBlock:]', symObjAddr: 0x0, symBinAddr: 0x805C, symSize: 0x16C }
+  - { offsetInCU: 0x263, offset: 0x75C5B, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation isConcurrent]', symObjAddr: 0x16C, symBinAddr: 0x81C8, symSize: 0x8 }
+  - { offsetInCU: 0x296, offset: 0x75C8E, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation isExecuting]', symObjAddr: 0x174, symBinAddr: 0x81D0, symSize: 0x10 }
+  - { offsetInCU: 0x2CD, offset: 0x75CC5, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation isFinished]', symObjAddr: 0x184, symBinAddr: 0x81E0, symSize: 0x10 }
+  - { offsetInCU: 0x304, offset: 0x75CFC, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation setFinished:]', symObjAddr: 0x194, symBinAddr: 0x81F0, symSize: 0x4C }
+  - { offsetInCU: 0x343, offset: 0x75D3B, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation setExecuting:]', symObjAddr: 0x1E0, symBinAddr: 0x823C, symSize: 0x4C }
+  - { offsetInCU: 0x382, offset: 0x75D7A, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation completeOperationWithPath:error:]', symObjAddr: 0x22C, symBinAddr: 0x8288, symSize: 0x4C }
+  - { offsetInCU: 0x3F2, offset: 0x75DEA, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation start]', symObjAddr: 0x278, symBinAddr: 0x82D4, symSize: 0x244 }
+  - { offsetInCU: 0x444, offset: 0x75E3C, size: 0x8, addend: 0x0, symName: '___44-[FLTPHPickerSaveImageToPathOperation start]_block_invoke', symObjAddr: 0x4BC, symBinAddr: 0x8518, symSize: 0xD0 }
+  - { offsetInCU: 0x4C2, offset: 0x75EBA, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation processImage:]', symObjAddr: 0x59C, symBinAddr: 0x85E8, symSize: 0x33C }
+  - { offsetInCU: 0x55B, offset: 0x75F53, size: 0x8, addend: 0x0, symName: '___52-[FLTPHPickerSaveImageToPathOperation processImage:]_block_invoke', symObjAddr: 0x8D8, symBinAddr: 0x8924, symSize: 0xE4 }
+  - { offsetInCU: 0x5F1, offset: 0x75FE9, size: 0x8, addend: 0x0, symName: '___52-[FLTPHPickerSaveImageToPathOperation processImage:]_block_invoke.15', symObjAddr: 0xA0C, symBinAddr: 0x8A08, symSize: 0x10 }
+  - { offsetInCU: 0x689, offset: 0x76081, size: 0x8, addend: 0x0, symName: '___52-[FLTPHPickerSaveImageToPathOperation processImage:]_block_invoke.17', symObjAddr: 0xA2C, symBinAddr: 0x8A18, symSize: 0x10 }
+  - { offsetInCU: 0x721, offset: 0x76119, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation processVideo]', symObjAddr: 0xA3C, symBinAddr: 0x8A28, symSize: 0x10C }
+  - { offsetInCU: 0x764, offset: 0x7615C, size: 0x8, addend: 0x0, symName: '___51-[FLTPHPickerSaveImageToPathOperation processVideo]_block_invoke', symObjAddr: 0xB48, symBinAddr: 0x8B34, symSize: 0x150 }
+  - { offsetInCU: 0x801, offset: 0x761F9, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation result]', symObjAddr: 0xC98, symBinAddr: 0x8C84, symSize: 0x10 }
+  - { offsetInCU: 0x838, offset: 0x76230, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation setResult:]', symObjAddr: 0xCA8, symBinAddr: 0x8C94, symSize: 0x14 }
+  - { offsetInCU: 0x879, offset: 0x76271, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation maxHeight]', symObjAddr: 0xCBC, symBinAddr: 0x8CA8, symSize: 0x10 }
+  - { offsetInCU: 0x8B0, offset: 0x762A8, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation setMaxHeight:]', symObjAddr: 0xCCC, symBinAddr: 0x8CB8, symSize: 0x14 }
+  - { offsetInCU: 0x8F1, offset: 0x762E9, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation maxWidth]', symObjAddr: 0xCE0, symBinAddr: 0x8CCC, symSize: 0x10 }
+  - { offsetInCU: 0x928, offset: 0x76320, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation setMaxWidth:]', symObjAddr: 0xCF0, symBinAddr: 0x8CDC, symSize: 0x14 }
+  - { offsetInCU: 0x969, offset: 0x76361, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation desiredImageQuality]', symObjAddr: 0xD04, symBinAddr: 0x8CF0, symSize: 0x10 }
+  - { offsetInCU: 0x9A0, offset: 0x76398, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation setDesiredImageQuality:]', symObjAddr: 0xD14, symBinAddr: 0x8D00, symSize: 0x14 }
+  - { offsetInCU: 0x9E1, offset: 0x763D9, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation requestFullMetadata]', symObjAddr: 0xD28, symBinAddr: 0x8D14, symSize: 0x10 }
+  - { offsetInCU: 0xA18, offset: 0x76410, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation setRequestFullMetadata:]', symObjAddr: 0xD38, symBinAddr: 0x8D24, symSize: 0x10 }
+  - { offsetInCU: 0xA53, offset: 0x7644B, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation .cxx_destruct]', symObjAddr: 0xD48, symBinAddr: 0x8D34, symSize: 0x7C }
+  - { offsetInCU: 0x27, offset: 0x767DA, size: 0x8, addend: 0x0, symName: '+[FLTMaxSize makeWithWidth:height:]', symObjAddr: 0x0, symBinAddr: 0x8DB0, symSize: 0x7C }
+  - { offsetInCU: 0x35, offset: 0x767E8, size: 0x8, addend: 0x0, symName: _FLTImagePickerApiGetCodec, symObjAddr: 0xC68, symBinAddr: 0x9A18, symSize: 0x40 }
+  - { offsetInCU: 0x5B, offset: 0x7680E, size: 0x8, addend: 0x0, symName: _FLTImagePickerApiGetCodec.sSharedObject, symObjAddr: 0x97C8, symBinAddr: 0x18050, symSize: 0x0 }
+  - { offsetInCU: 0x71, offset: 0x76824, size: 0x8, addend: 0x0, symName: _FLTImagePickerApiGetCodec.sPred, symObjAddr: 0x97D0, symBinAddr: 0x18058, symSize: 0x0 }
+  - { offsetInCU: 0x247, offset: 0x769FA, size: 0x8, addend: 0x0, symName: '+[FLTMaxSize makeWithWidth:height:]', symObjAddr: 0x0, symBinAddr: 0x8DB0, symSize: 0x7C }
+  - { offsetInCU: 0x2AA, offset: 0x76A5D, size: 0x8, addend: 0x0, symName: '+[FLTMaxSize fromList:]', symObjAddr: 0x7C, symBinAddr: 0x8E2C, symSize: 0xA8 }
+  - { offsetInCU: 0x335, offset: 0x76AE8, size: 0x8, addend: 0x0, symName: _GetNullableObjectAtIndex, symObjAddr: 0x124, symBinAddr: 0x8ED4, symSize: 0x70 }
+  - { offsetInCU: 0x380, offset: 0x76B33, size: 0x8, addend: 0x0, symName: '+[FLTMaxSize nullableFromList:]', symObjAddr: 0x194, symBinAddr: 0x8F44, symSize: 0x30 }
+  - { offsetInCU: 0x3C3, offset: 0x76B76, size: 0x8, addend: 0x0, symName: '-[FLTMaxSize toList]', symObjAddr: 0x1C4, symBinAddr: 0x8F74, symSize: 0x118 }
+  - { offsetInCU: 0x3FA, offset: 0x76BAD, size: 0x8, addend: 0x0, symName: '-[FLTMaxSize width]', symObjAddr: 0x2DC, symBinAddr: 0x908C, symSize: 0x8 }
+  - { offsetInCU: 0x431, offset: 0x76BE4, size: 0x8, addend: 0x0, symName: '-[FLTMaxSize setWidth:]', symObjAddr: 0x2E4, symBinAddr: 0x9094, symSize: 0xC }
+  - { offsetInCU: 0x472, offset: 0x76C25, size: 0x8, addend: 0x0, symName: '-[FLTMaxSize height]', symObjAddr: 0x2F0, symBinAddr: 0x90A0, symSize: 0x8 }
+  - { offsetInCU: 0x4A9, offset: 0x76C5C, size: 0x8, addend: 0x0, symName: '-[FLTMaxSize setHeight:]', symObjAddr: 0x2F8, symBinAddr: 0x90A8, symSize: 0xC }
+  - { offsetInCU: 0x4EA, offset: 0x76C9D, size: 0x8, addend: 0x0, symName: '-[FLTMaxSize .cxx_destruct]', symObjAddr: 0x304, symBinAddr: 0x90B4, symSize: 0x30 }
+  - { offsetInCU: 0x51D, offset: 0x76CD0, size: 0x8, addend: 0x0, symName: '+[FLTMediaSelectionOptions makeWithMaxSize:imageQuality:requestFullMetadata:allowMultiple:]', symObjAddr: 0x334, symBinAddr: 0x90E4, symSize: 0xCC }
+  - { offsetInCU: 0x5A0, offset: 0x76D53, size: 0x8, addend: 0x0, symName: '+[FLTMediaSelectionOptions fromList:]', symObjAddr: 0x400, symBinAddr: 0x91B0, symSize: 0x128 }
+  - { offsetInCU: 0x663, offset: 0x76E16, size: 0x8, addend: 0x0, symName: '+[FLTMediaSelectionOptions nullableFromList:]', symObjAddr: 0x528, symBinAddr: 0x92D8, symSize: 0x30 }
+  - { offsetInCU: 0x6A6, offset: 0x76E59, size: 0x8, addend: 0x0, symName: '-[FLTMediaSelectionOptions toList]', symObjAddr: 0x558, symBinAddr: 0x9308, symSize: 0x1F0 }
+  - { offsetInCU: 0x6DD, offset: 0x76E90, size: 0x8, addend: 0x0, symName: '-[FLTMediaSelectionOptions maxSize]', symObjAddr: 0x748, symBinAddr: 0x94F8, symSize: 0x8 }
+  - { offsetInCU: 0x714, offset: 0x76EC7, size: 0x8, addend: 0x0, symName: '-[FLTMediaSelectionOptions setMaxSize:]', symObjAddr: 0x750, symBinAddr: 0x9500, symSize: 0xC }
+  - { offsetInCU: 0x755, offset: 0x76F08, size: 0x8, addend: 0x0, symName: '-[FLTMediaSelectionOptions imageQuality]', symObjAddr: 0x75C, symBinAddr: 0x950C, symSize: 0x8 }
+  - { offsetInCU: 0x78C, offset: 0x76F3F, size: 0x8, addend: 0x0, symName: '-[FLTMediaSelectionOptions setImageQuality:]', symObjAddr: 0x764, symBinAddr: 0x9514, symSize: 0xC }
+  - { offsetInCU: 0x7CD, offset: 0x76F80, size: 0x8, addend: 0x0, symName: '-[FLTMediaSelectionOptions requestFullMetadata]', symObjAddr: 0x770, symBinAddr: 0x9520, symSize: 0x8 }
+  - { offsetInCU: 0x804, offset: 0x76FB7, size: 0x8, addend: 0x0, symName: '-[FLTMediaSelectionOptions setRequestFullMetadata:]', symObjAddr: 0x778, symBinAddr: 0x9528, symSize: 0xC }
+  - { offsetInCU: 0x845, offset: 0x76FF8, size: 0x8, addend: 0x0, symName: '-[FLTMediaSelectionOptions allowMultiple]', symObjAddr: 0x784, symBinAddr: 0x9534, symSize: 0x8 }
+  - { offsetInCU: 0x87C, offset: 0x7702F, size: 0x8, addend: 0x0, symName: '-[FLTMediaSelectionOptions setAllowMultiple:]', symObjAddr: 0x78C, symBinAddr: 0x953C, symSize: 0xC }
+  - { offsetInCU: 0x8BD, offset: 0x77070, size: 0x8, addend: 0x0, symName: '-[FLTMediaSelectionOptions .cxx_destruct]', symObjAddr: 0x798, symBinAddr: 0x9548, symSize: 0x48 }
+  - { offsetInCU: 0x8F0, offset: 0x770A3, size: 0x8, addend: 0x0, symName: '+[FLTSourceSpecification makeWithType:camera:]', symObjAddr: 0x7E0, symBinAddr: 0x9590, symSize: 0x54 }
+  - { offsetInCU: 0x953, offset: 0x77106, size: 0x8, addend: 0x0, symName: '+[FLTSourceSpecification fromList:]', symObjAddr: 0x834, symBinAddr: 0x95E4, symSize: 0xB4 }
+  - { offsetInCU: 0x9DE, offset: 0x77191, size: 0x8, addend: 0x0, symName: '+[FLTSourceSpecification nullableFromList:]', symObjAddr: 0x8E8, symBinAddr: 0x9698, symSize: 0x30 }
+  - { offsetInCU: 0xA21, offset: 0x771D4, size: 0x8, addend: 0x0, symName: '-[FLTSourceSpecification toList]', symObjAddr: 0x918, symBinAddr: 0x96C8, symSize: 0xDC }
+  - { offsetInCU: 0xA58, offset: 0x7720B, size: 0x8, addend: 0x0, symName: '-[FLTSourceSpecification type]', symObjAddr: 0x9F4, symBinAddr: 0x97A4, symSize: 0x8 }
+  - { offsetInCU: 0xA8F, offset: 0x77242, size: 0x8, addend: 0x0, symName: '-[FLTSourceSpecification setType:]', symObjAddr: 0x9FC, symBinAddr: 0x97AC, symSize: 0x8 }
+  - { offsetInCU: 0xACC, offset: 0x7727F, size: 0x8, addend: 0x0, symName: '-[FLTSourceSpecification camera]', symObjAddr: 0xA04, symBinAddr: 0x97B4, symSize: 0x8 }
+  - { offsetInCU: 0xB03, offset: 0x772B6, size: 0x8, addend: 0x0, symName: '-[FLTSourceSpecification setCamera:]', symObjAddr: 0xA0C, symBinAddr: 0x97BC, symSize: 0x8 }
+  - { offsetInCU: 0xB40, offset: 0x772F3, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerApiCodecReader readValueOfType:]', symObjAddr: 0xA14, symBinAddr: 0x97C4, symSize: 0xB8 }
+  - { offsetInCU: 0xB87, offset: 0x7733A, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerApiCodecWriter writeValue:]', symObjAddr: 0xACC, symBinAddr: 0x987C, symSize: 0x104 }
+  - { offsetInCU: 0xBCA, offset: 0x7737D, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerApiCodecReaderWriter writerWithData:]', symObjAddr: 0xBD0, symBinAddr: 0x9980, symSize: 0x4C }
+  - { offsetInCU: 0xC0D, offset: 0x773C0, size: 0x8, addend: 0x0, symName: '-[FLTImagePickerApiCodecReaderWriter readerWithData:]', symObjAddr: 0xC1C, symBinAddr: 0x99CC, symSize: 0x4C }
+  - { offsetInCU: 0xC98, offset: 0x7744B, size: 0x8, addend: 0x0, symName: ___FLTImagePickerApiGetCodec_block_invoke, symObjAddr: 0xCA8, symBinAddr: 0x9A58, symSize: 0x5C }
+  - { offsetInCU: 0xCDE, offset: 0x77491, size: 0x8, addend: 0x0, symName: _FLTImagePickerApiSetup, symObjAddr: 0xD04, symBinAddr: 0x9AB4, symSize: 0x2C8 }
+  - { offsetInCU: 0xDCA, offset: 0x7757D, size: 0x8, addend: 0x0, symName: ___FLTImagePickerApiSetup_block_invoke, symObjAddr: 0xFCC, symBinAddr: 0x9D7C, symSize: 0x148 }
+  - { offsetInCU: 0xEED, offset: 0x776A0, size: 0x8, addend: 0x0, symName: ___FLTImagePickerApiSetup_block_invoke_2, symObjAddr: 0x1114, symBinAddr: 0x9EC4, symSize: 0x48 }
+  - { offsetInCU: 0xF82, offset: 0x77735, size: 0x8, addend: 0x0, symName: _wrapResult, symObjAddr: 0x115C, symBinAddr: 0x9F0C, symSize: 0x1EC }
+  - { offsetInCU: 0xFBD, offset: 0x77770, size: 0x8, addend: 0x0, symName: ___FLTImagePickerApiSetup_block_invoke.86, symObjAddr: 0x1368, symBinAddr: 0xA0F8, symSize: 0x11C }
+  - { offsetInCU: 0x10B4, offset: 0x77867, size: 0x8, addend: 0x0, symName: ___FLTImagePickerApiSetup_block_invoke_2.87, symObjAddr: 0x1484, symBinAddr: 0xA214, symSize: 0x48 }
+  - { offsetInCU: 0x1149, offset: 0x778FC, size: 0x8, addend: 0x0, symName: ___FLTImagePickerApiSetup_block_invoke.91, symObjAddr: 0x14CC, symBinAddr: 0xA25C, symSize: 0xF8 }
+  - { offsetInCU: 0x1217, offset: 0x779CA, size: 0x8, addend: 0x0, symName: ___FLTImagePickerApiSetup_block_invoke_2.92, symObjAddr: 0x15C4, symBinAddr: 0xA354, symSize: 0x48 }
+  - { offsetInCU: 0x12B1, offset: 0x77A64, size: 0x8, addend: 0x0, symName: ___FLTImagePickerApiSetup_block_invoke_3, symObjAddr: 0x160C, symBinAddr: 0xA39C, symSize: 0xBC }
+  - { offsetInCU: 0x135D, offset: 0x77B10, size: 0x8, addend: 0x0, symName: ___FLTImagePickerApiSetup_block_invoke_4, symObjAddr: 0x16C8, symBinAddr: 0xA458, symSize: 0x48 }
+...

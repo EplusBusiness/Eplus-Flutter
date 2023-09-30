@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:eplusflutter/src/form/create_form_state.dart';
 
+import '../../core/date_util.dart';
 import '../../models/response/attachment_response.dart';
 
 class CreateFormController extends GetxController {
@@ -58,6 +59,7 @@ class CreateFormController extends GetxController {
 
   void fillData() {
     req.type = state.typeForm;
+    req.dateSent = state.dateSending;
     req.nameForm = state.nameForm;
     var idsCmnd = state.listCmnd.map((e) => e.id ?? -1).toList();
     req.ids = idsCmnd.where((element) => element != -1).toList();
@@ -84,20 +86,18 @@ class CreateFormController extends GetxController {
 
   void onChangedToListItems() {
     List<ProductInfo> listProducts = state.listProduct.toList();
-    List<AddItemFormRequest> listItems = listProducts
-        .map((e) {
-          if (e.indexOptionSelected == 4) {
-            return AddItemFormRequest(
-                itemId: e.itemInfo?.id?.toInt(),
-                note: e.noteWithOptions,
-                amount: int.parse(e.stock ?? '0'));
-          }
-          return AddItemFormRequest(
-              itemId: e.itemInfo?.id?.toInt(),
-              note: e.note,
-              amount: int.parse(e.stock ?? '0'));
-    })
-        .toList();
+    List<AddItemFormRequest> listItems = listProducts.map((e) {
+      if (e.indexOptionSelected == 4) {
+        return AddItemFormRequest(
+            itemId: e.itemInfo?.id?.toInt(),
+            note: e.noteWithOptions,
+            amount: int.parse(e.stock ?? '0'));
+      }
+      return AddItemFormRequest(
+          itemId: e.itemInfo?.id?.toInt(),
+          note: e.note,
+          amount: int.parse(e.stock ?? '0'));
+    }).toList();
 
     req.listItem = listItems;
   }
@@ -105,6 +105,11 @@ class CreateFormController extends GetxController {
   void transferDataToNextScreen(BuildContext context) {
     if (state.nameForm.isEmpty) {
       handleToast('Cần thêm tên form!');
+      return;
+    }
+
+    if (state.dateSending.isEmpty) {
+      handleToast('Cần thêm ngày giao!');
       return;
     }
 
@@ -133,7 +138,8 @@ class CreateFormController extends GetxController {
       return;
     }
 
-    if (state.receiverInfo.address == '' || state.receiverInfo.address == null) {
+    if (state.receiverInfo.address == '' ||
+        state.receiverInfo.address == null) {
       handleToast('Cần thêm địa chỉ công ty người nhận!');
       return;
     }
@@ -157,7 +163,6 @@ class CreateFormController extends GetxController {
   }
 
   void changeReqToInvoice(BuildContext context) {
-
     fillData();
     onChangedToListItems();
     // Process line for pdf
@@ -171,6 +176,7 @@ class CreateFormController extends GetxController {
           e.itemInfo?.unit ?? '', e.note.toString());
     }).toList();
     Invoice invoice = Invoice(
+        dateSent: req.dateSent ?? '',
         sender: req.sender ?? '',
         addressSender: req.addressSender ?? '',
         phoneNumberSender: req.phoneNumberSender ?? '',
@@ -191,6 +197,14 @@ class CreateFormController extends GetxController {
 
   void onChangedIsNew({bool? isNew}) {
     state = state.copyWith(isNew: isNew ?? state.isNew);
+  }
+
+  void onChangedDatePicked(DateTime datePicked) {
+    String dateStringPicked = DateUtil.getStringDate(datePicked);
+
+    state = state.copyWith(dateSending: dateStringPicked);
+
+    update();
   }
 
   void onChangedSenderData({

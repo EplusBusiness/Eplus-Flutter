@@ -6,7 +6,7 @@ import '../../core/icon_constants.dart';
 import '../../core/text_app_style.dart';
 import '../../widget/customize_navigation_bar/customize_navigation_bar.dart';
 import '../../widget/text_customize/TextCustomize.dart';
-import '../search/list_search_state.dart';
+
 
 class ListSearchScreen extends StatefulWidget {
   const ListSearchScreen({Key? key});
@@ -51,8 +51,8 @@ class _ListSearchScreenState extends State<ListSearchScreen> {
       onPreviousPressed: () {
         Get.back();
       },
-      isVisiblePlusButton: false,
       title: (searchData == '') ? 'All folder' : 'Search',
+      isVisibleOptions: false,
     );
   }
 

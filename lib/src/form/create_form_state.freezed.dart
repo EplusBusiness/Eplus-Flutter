@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CreateFormState {
   bool get isNew => throw _privateConstructorUsedError;
   String get typeForm => throw _privateConstructorUsedError;
+  String get dateSending => throw _privateConstructorUsedError;
   String get nameForm => throw _privateConstructorUsedError;
   SenderInfo get senderInfo => throw _privateConstructorUsedError;
   ReceiverInfo get receiverInfo => throw _privateConstructorUsedError;
@@ -39,6 +40,7 @@ abstract class $CreateFormStateCopyWith<$Res> {
   $Res call(
       {bool isNew,
       String typeForm,
+      String dateSending,
       String nameForm,
       SenderInfo senderInfo,
       ReceiverInfo receiverInfo,
@@ -65,6 +67,7 @@ class _$CreateFormStateCopyWithImpl<$Res, $Val extends CreateFormState>
   $Res call({
     Object? isNew = null,
     Object? typeForm = null,
+    Object? dateSending = null,
     Object? nameForm = null,
     Object? senderInfo = null,
     Object? receiverInfo = null,
@@ -80,6 +83,10 @@ class _$CreateFormStateCopyWithImpl<$Res, $Val extends CreateFormState>
       typeForm: null == typeForm
           ? _value.typeForm
           : typeForm // ignore: cast_nullable_to_non_nullable
+              as String,
+      dateSending: null == dateSending
+          ? _value.dateSending
+          : dateSending // ignore: cast_nullable_to_non_nullable
               as String,
       nameForm: null == nameForm
           ? _value.nameForm
@@ -136,6 +143,7 @@ abstract class _$$_CreateFormStateCopyWith<$Res>
   $Res call(
       {bool isNew,
       String typeForm,
+      String dateSending,
       String nameForm,
       SenderInfo senderInfo,
       ReceiverInfo receiverInfo,
@@ -162,6 +170,7 @@ class __$$_CreateFormStateCopyWithImpl<$Res>
   $Res call({
     Object? isNew = null,
     Object? typeForm = null,
+    Object? dateSending = null,
     Object? nameForm = null,
     Object? senderInfo = null,
     Object? receiverInfo = null,
@@ -177,6 +186,10 @@ class __$$_CreateFormStateCopyWithImpl<$Res>
       typeForm: null == typeForm
           ? _value.typeForm
           : typeForm // ignore: cast_nullable_to_non_nullable
+              as String,
+      dateSending: null == dateSending
+          ? _value.dateSending
+          : dateSending // ignore: cast_nullable_to_non_nullable
               as String,
       nameForm: null == nameForm
           ? _value.nameForm
@@ -212,6 +225,7 @@ class _$_CreateFormState implements _CreateFormState {
   const _$_CreateFormState(
       {this.isNew = false,
       this.typeForm = 'IN',
+      this.dateSending = '',
       this.nameForm = '',
       this.senderInfo = const SenderInfo(),
       this.receiverInfo = const ReceiverInfo(),
@@ -231,6 +245,9 @@ class _$_CreateFormState implements _CreateFormState {
   @override
   @JsonKey()
   final String typeForm;
+  @override
+  @JsonKey()
+  final String dateSending;
   @override
   @JsonKey()
   final String nameForm;
@@ -269,7 +286,7 @@ class _$_CreateFormState implements _CreateFormState {
 
   @override
   String toString() {
-    return 'CreateFormState(isNew: $isNew, typeForm: $typeForm, nameForm: $nameForm, senderInfo: $senderInfo, receiverInfo: $receiverInfo, listProduct: $listProduct, listItems: $listItems, listCmnd: $listCmnd)';
+    return 'CreateFormState(isNew: $isNew, typeForm: $typeForm, dateSending: $dateSending, nameForm: $nameForm, senderInfo: $senderInfo, receiverInfo: $receiverInfo, listProduct: $listProduct, listItems: $listItems, listCmnd: $listCmnd)';
   }
 
   @override
@@ -280,6 +297,8 @@ class _$_CreateFormState implements _CreateFormState {
             (identical(other.isNew, isNew) || other.isNew == isNew) &&
             (identical(other.typeForm, typeForm) ||
                 other.typeForm == typeForm) &&
+            (identical(other.dateSending, dateSending) ||
+                other.dateSending == dateSending) &&
             (identical(other.nameForm, nameForm) ||
                 other.nameForm == nameForm) &&
             (identical(other.senderInfo, senderInfo) ||
@@ -298,6 +317,7 @@ class _$_CreateFormState implements _CreateFormState {
       runtimeType,
       isNew,
       typeForm,
+      dateSending,
       nameForm,
       senderInfo,
       receiverInfo,
@@ -316,6 +336,7 @@ abstract class _CreateFormState implements CreateFormState {
   const factory _CreateFormState(
       {final bool isNew,
       final String typeForm,
+      final String dateSending,
       final String nameForm,
       final SenderInfo senderInfo,
       final ReceiverInfo receiverInfo,
@@ -327,6 +348,8 @@ abstract class _CreateFormState implements CreateFormState {
   bool get isNew;
   @override
   String get typeForm;
+  @override
+  String get dateSending;
   @override
   String get nameForm;
   @override

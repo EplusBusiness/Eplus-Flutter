@@ -1474,6 +1474,7 @@ mixin _$FormInfoData {
   String? get updatedAt => throw _privateConstructorUsedError;
   String? get createdAt => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
+  String? get dateSent => throw _privateConstructorUsedError;
   String? get nameForm => throw _privateConstructorUsedError;
   String? get sender => throw _privateConstructorUsedError;
   String? get addressSender => throw _privateConstructorUsedError;
@@ -1507,6 +1508,7 @@ abstract class $FormInfoDataCopyWith<$Res> {
       String? updatedAt,
       String? createdAt,
       String? status,
+      String? dateSent,
       String? nameForm,
       String? sender,
       String? addressSender,
@@ -1541,6 +1543,7 @@ class _$FormInfoDataCopyWithImpl<$Res, $Val extends FormInfoData>
     Object? updatedAt = freezed,
     Object? createdAt = freezed,
     Object? status = freezed,
+    Object? dateSent = freezed,
     Object? nameForm = freezed,
     Object? sender = freezed,
     Object? addressSender = freezed,
@@ -1573,6 +1576,10 @@ class _$FormInfoDataCopyWithImpl<$Res, $Val extends FormInfoData>
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dateSent: freezed == dateSent
+          ? _value.dateSent
+          : dateSent // ignore: cast_nullable_to_non_nullable
               as String?,
       nameForm: freezed == nameForm
           ? _value.nameForm
@@ -1651,6 +1658,7 @@ abstract class _$$_FormInfoDataCopyWith<$Res>
       String? updatedAt,
       String? createdAt,
       String? status,
+      String? dateSent,
       String? nameForm,
       String? sender,
       String? addressSender,
@@ -1683,6 +1691,7 @@ class __$$_FormInfoDataCopyWithImpl<$Res>
     Object? updatedAt = freezed,
     Object? createdAt = freezed,
     Object? status = freezed,
+    Object? dateSent = freezed,
     Object? nameForm = freezed,
     Object? sender = freezed,
     Object? addressSender = freezed,
@@ -1715,6 +1724,10 @@ class __$$_FormInfoDataCopyWithImpl<$Res>
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dateSent: freezed == dateSent
+          ? _value.dateSent
+          : dateSent // ignore: cast_nullable_to_non_nullable
               as String?,
       nameForm: freezed == nameForm
           ? _value.nameForm
@@ -1788,6 +1801,7 @@ class _$_FormInfoData implements _FormInfoData {
       this.updatedAt,
       this.createdAt,
       this.status,
+      this.dateSent,
       this.nameForm,
       this.sender,
       this.addressSender,
@@ -1817,6 +1831,8 @@ class _$_FormInfoData implements _FormInfoData {
   final String? createdAt;
   @override
   final String? status;
+  @override
+  final String? dateSent;
   @override
   final String? nameForm;
   @override
@@ -1865,7 +1881,7 @@ class _$_FormInfoData implements _FormInfoData {
 
   @override
   String toString() {
-    return 'FormInfoData(id: $id, updatedAt: $updatedAt, createdAt: $createdAt, status: $status, nameForm: $nameForm, sender: $sender, addressSender: $addressSender, phoneNumberSender: $phoneNumberSender, actorSender: $actorSender, receiver: $receiver, addressReceiver: $addressReceiver, phoneNumberReceiver: $phoneNumberReceiver, actorReceiver: $actorReceiver, cmndReceiver: $cmndReceiver, creatorId: $creatorId, categoryId: $categoryId, type: $type, attachments: $attachments, items: $items)';
+    return 'FormInfoData(id: $id, updatedAt: $updatedAt, createdAt: $createdAt, status: $status, dateSent: $dateSent, nameForm: $nameForm, sender: $sender, addressSender: $addressSender, phoneNumberSender: $phoneNumberSender, actorSender: $actorSender, receiver: $receiver, addressReceiver: $addressReceiver, phoneNumberReceiver: $phoneNumberReceiver, actorReceiver: $actorReceiver, cmndReceiver: $cmndReceiver, creatorId: $creatorId, categoryId: $categoryId, type: $type, attachments: $attachments, items: $items)';
   }
 
   @override
@@ -1879,6 +1895,8 @@ class _$_FormInfoData implements _FormInfoData {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.dateSent, dateSent) ||
+                other.dateSent == dateSent) &&
             (identical(other.nameForm, nameForm) ||
                 other.nameForm == nameForm) &&
             (identical(other.sender, sender) || other.sender == sender) &&
@@ -1916,6 +1934,7 @@ class _$_FormInfoData implements _FormInfoData {
         updatedAt,
         createdAt,
         status,
+        dateSent,
         nameForm,
         sender,
         addressSender,
@@ -1953,6 +1972,7 @@ abstract class _FormInfoData implements FormInfoData {
       final String? updatedAt,
       final String? createdAt,
       final String? status,
+      final String? dateSent,
       final String? nameForm,
       final String? sender,
       final String? addressSender,
@@ -1980,6 +2000,8 @@ abstract class _FormInfoData implements FormInfoData {
   String? get createdAt;
   @override
   String? get status;
+  @override
+  String? get dateSent;
   @override
   String? get nameForm;
   @override

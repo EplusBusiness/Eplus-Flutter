@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:eplusflutter/models/invoice.dart';
 import 'package:get/get.dart';
 import 'package:printing/printing.dart';
+import 'package:uuid/uuid.dart';
 import '../../pages/pdfexport/pdf/pdfexport.dart';
 
 class PdfPreviewScreen extends StatefulWidget {
@@ -41,9 +42,13 @@ class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
           ),
           actions: [
             isPreview ? Container() : IconButton(onPressed: () {
+              var uuid = const Uuid();
+              String uuidV4 = uuid.v4();
+              // String nameFile = "${output.path}/$uuidV4.pdf";
+              String nameFile = "$uuidV4.pdf";
               FormData form = FormData({
-                'file': MultipartFile(filePdf,
-                    filename: filePdf?.absolute.toString() ?? '', contentType: 'application/pdf'),
+                'file': MultipartFile(filePdfData,
+                    filename: nameFile, contentType: 'application/pdf'),
               });
               controller.uploadFile(form);
             }, icon: const Icon(Icons.done))

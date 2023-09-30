@@ -2,9 +2,11 @@ import 'package:eplusflutter/src/detail_brand/detail_brand.dart';
 import 'package:eplusflutter/src/edit_form/edit_form.dart';
 import 'package:eplusflutter/src/form_storage/form_storage.dart';
 import 'package:eplusflutter/src/register/register.dart';
+import 'package:eplusflutter/src/search_storage/search_storage.dart';
 import 'package:eplusflutter/src/user_detail/user_detail.dart';
 import 'package:get/get.dart';
 import '../src/home/home.dart';
+import '../src/home/home_screen.dart';
 import '../src/login/auth.dart';
 import '../src/pdf_preview/pdfpreview.dart';
 import '../src/splash/modules.dart';
@@ -44,7 +46,7 @@ class AppPages {
     ),
     GetPage(
         name: Routes.HOME,
-        page: () => LayoutHomeScreen(),
+        page: () => HomeScreen(),
         binding: HomeBinding(),
     ),
     GetPage(
@@ -106,6 +108,11 @@ class AppPages {
       name: Routes.EDITITEMS,
       page: () => EditItemsScreen(),
       binding: EditItemsBinding(),
+    ),
+    GetPage(
+      name: Routes.SEARCHSTORAGE,
+      page: () => SearchStorageScreen(),
+      binding: SearchStorageBinding(),
     ),
   ];
 }

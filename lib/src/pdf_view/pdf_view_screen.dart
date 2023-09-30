@@ -132,6 +132,7 @@ class _PdfScreenState extends State<PdfScreen> {
         //Replace with your loading UI
         return Scaffold(
           appBar: AppBar(
+            backgroundColor: colorYellow,
             title: const Text("Demo"),
           ),
           body: const Text(
@@ -143,6 +144,7 @@ class _PdfScreenState extends State<PdfScreen> {
         //Replace Error UI
         return Scaffold(
           appBar: AppBar(
+            backgroundColor: Colors.redAccent,
             title: const Text("Demo"),
           ),
           body: const Text(
@@ -160,7 +162,8 @@ class _PdfScreenState extends State<PdfScreen> {
       fileName = name;
     }
     try {
-      var data = await http.get(Uri.parse(url));
+      var data =
+          await http.get(Uri.parse(url));
       var bytes = data.bodyBytes;
       var dir = await getTemporaryDirectory();
       File file = File("${dir.path}/" + fileName + ".pdf");

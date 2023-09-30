@@ -18,27 +18,38 @@ class HomeController extends GetxController {
   var state = const HomeState();
   List<XFile> listFileLocal = [];
 
-  void getAllFolders(BuildContext context) async {
+  void getAllFolders() async {
     final res = await apiHomeRepository.getAllCategorys();
 
     onChangedListFolder(res?.listFolders);
+  }
 
-    update();
+  Future<void> getUserInfo() async {
+    final res = await apiHomeRepository.getUserInfo();
+
+    if (res != null) onChangedUserResponse(res);
   }
 
   void createFolder(BuildContext context, InsertFolderRequest data) async {
     final res = await apiHomeRepository.insertCategory(data);
 
     if (res != null) {
-      getAllFolders(context);
+      getAllFolders();
     }
     Navigator.of(context).pop();
+  }
+
+  void onChangedUserResponse(UserInfo userInfo) {
+    state = state.copyWith(
+        userInfo: userInfo
+    );
   }
 
   void onChangedListFolder(List<FolderInfo>? data) {
     state = state.copyWith(
         listFolders: data ?? []
     );
+    update();
   }
 
   Future<void> getAllFileStorage() async {
@@ -72,11 +83,19 @@ class HomeController extends GetxController {
     await Printing.sharePdf(bytes: bytes);
   }
 
-  void navigateToDetail(FolderInfo model) {
-    Get.toNamed(Routes.DETAILFOLDER, arguments: [model.id, model.name]);
+  Future<void> navigateToDetail(FolderInfo model) async {
+    bool value = await Get.toNamed(Routes.DETAILFOLDER, arguments: [model.id, model.name]);
+
+    if (value) {
+      getAllFolders();
+    }
   }
 
   void navigateToListSearch(String name) {
     Get.toNamed(Routes.SEARCH, arguments: [name]);
+  }
+
+  void navigateToUserInfo() {
+    Get.toNamed(Routes.USERDETAIL);
   }
 }

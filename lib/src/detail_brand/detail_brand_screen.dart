@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../core/color_constant.dart';
 import '../../core/icon_constants.dart';
+import '../../core/shared_references.dart';
 import '../../core/string_constant.dart';
 import '../../core/text_app_style.dart';
 import '../../widget/customize_navigation_bar/customize_navigation_bar.dart';
@@ -20,6 +21,7 @@ class DetailBrandScreen extends StatefulWidget {
 class _DetailBrandScreenState extends State<DetailBrandScreen> {
   final DetailBrandController detailBrandController = Get.find();
   String createProject = '';
+  String nameFolder = '';
   String path = '${Get.arguments[1]}';
 
   @override void initState() {
@@ -53,15 +55,17 @@ class _DetailBrandScreenState extends State<DetailBrandScreen> {
         createFolderAlert();
       },
       onPreviousPressed: () {
-        Get.back();
+        Get.back(result: detailBrandController.state.isEdited);
       },
       onEditPressed: () {
-        detailBrandController.removeFolder();
+        updateFolderAlert();
       },
-      isVisibleEditButton: false,
-      isVisiblePlusButton: true,
-      isVisibleDeleteButton: false,
-      title: 'Brands',
+      onDeletePressed: () {
+        deleteProjectAlert();
+      },
+      isVisibleAdd: true,
+      isVisibleOptions: true,
+      title: 'Projects',
     );
   }
 
@@ -173,7 +177,8 @@ class _DetailBrandScreenState extends State<DetailBrandScreen> {
       actions: [
         TextButton(
           onPressed: () async {
-            final InsertFolderRequest data = InsertFolderRequest(name: createProject, parentCategoryId: detailBrandController.categoryId);
+            final company = await SharedPreferencesUtil.getCompany();
+            final InsertFolderRequest data = InsertFolderRequest(name: createProject, parentCategoryId: detailBrandController.categoryId, company: company);
             detailBrandController.createBrand(data);
             Navigator.of(context).pop();
           },
@@ -181,6 +186,75 @@ class _DetailBrandScreenState extends State<DetailBrandScreen> {
             title: createButtonString,
             textStyle:
             textStyleApp.semiBold(size: 17, colorText: colorYellow),
+          ),
+        ),
+      ],
+    ),
+  );
+
+  Future<String?> updateFolderAlert() => showDialog<String?>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: TextCustomize(
+        title: createBrandString,
+        textStyle: textStyleApp.bold(size: 20),
+      ),
+      content: TextField(
+        autofocus: true,
+        decoration: const InputDecoration(
+          hintText: enterBrandName,
+        ),
+        onChanged: (value) {
+          nameFolder = value;
+        },
+      ),
+      actions: [
+        TextButton(
+          onPressed: () async {
+            detailBrandController.updateNameFolder(nameFolder);
+            Navigator.of(context).pop();
+          },
+          child: TextCustomize(
+            title: createButtonString,
+            textStyle:
+            textStyleApp.semiBold(size: 17, colorText: colorYellow),
+          ),
+        ),
+      ],
+    ),
+  );
+
+  Future<String?> deleteProjectAlert() => showDialog<String?>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: TextCustomize(
+        title: deleteBrandString,
+        textStyle: textStyleApp.bold(size: 20),
+      ),
+      content: TextCustomize(
+        title: contentDeleteBrandString,
+        textStyle: textStyleApp.medium(size: 20),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            detailBrandController.removeProject();
+            Navigator.of(context).pop();
+          },
+          child: TextCustomize(
+            title: 'Xóa',
+            textStyle:
+            textStyleApp.semiBold(size: 17, colorText: colorYellow),
+          ),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: TextCustomize(
+            title: 'Hủy',
+            textStyle:
+            textStyleApp.semiBold(size: 17, colorText: Colors.grey),
           ),
         ),
       ],

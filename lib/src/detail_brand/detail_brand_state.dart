@@ -6,7 +6,7 @@ part 'detail_brand_state.g.dart';
 @freezed
 class DetailBrandState with _$DetailBrandState {
   const factory DetailBrandState({
-    @Default(false) bool isLoading,
+    @Default(false) bool isEdited,
     @Default(<DetailFolderInfo>[]) List<DetailFolderInfo> listFolders,
   }) = _DetailBrandState;
 }

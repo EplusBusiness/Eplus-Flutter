@@ -96,6 +96,7 @@ class EditFormController extends GetxController {
             e.itemInfo?.unit ?? '', e.note.toString()))
         .toList();
     Invoice invoice = Invoice(
+        dateSent: req.dateSent ?? '',
         sender: req.sender ?? '',
         addressSender: req.addressSender ?? '',
         phoneNumberSender: req.phoneNumberSender ?? '',
@@ -119,7 +120,7 @@ class EditFormController extends GetxController {
 
   void nextSignatureScreen(BuildContext context, Invoice invoice) {
     Get.toNamed(Routes.SIGNATURE,
-        arguments: [req, invoice, state.isNew, getListAttachment()]);
+        arguments: [req, invoice, state.isNew, getListAttachment()], preventDuplicates: false);
   }
 
   void onChangedIsNew({bool? isNew}) {
@@ -219,7 +220,7 @@ class EditFormController extends GetxController {
       senderInfo: state.senderInfo.copyWith(
         name: data.sender,
         address: data.addressSender,
-        phone: data.addressSender,
+        phone: data.phoneNumberSender,
         actor: data.actorSender,
       ),
       receiverInfo: state.receiverInfo.copyWith(
@@ -234,6 +235,7 @@ class EditFormController extends GetxController {
       isNew: false,
     );
     req.status = data.status;
+    req.dateSent = data.dateSent;
     req.id = data.id;
     onChangeListProduct(data.items!);
     onChangeListCmnd(data.attachments!);

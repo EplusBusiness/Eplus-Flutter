@@ -18,4 +18,5 @@ abstract class Routes {
   static const FORMSTORAGE = '/form-storage';
   static const ADDITEMS = '/add-items';
   static const EDITITEMS = '/edit-items';
+  static const SEARCHSTORAGE = '/search-storage';
 }

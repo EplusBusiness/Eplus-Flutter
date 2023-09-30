@@ -73,7 +73,7 @@ class EditItemsController extends GetxController {
     final res = await editItemRepository.editItemInfo(state.item.id.toString(), req);
 
     if (res != null) {
-      Get.back();
+      Get.back(result: true);
     }
   }
 

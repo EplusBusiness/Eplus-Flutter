@@ -1,6 +1,7 @@
 class RegisterRequest {
   String? email = '';
   String? name = '';
+  String? company = '';
   String? phone_number = '+84';
   String? avatar_url = '';
   String? password = '';
@@ -15,8 +16,9 @@ class RegisterRequest {
   Map<String, dynamic> toJson() => {
     "email": email,
     "name": name,
+    "company": company,
     "password": password,
     "phone_number": phone_number,
-    "avatar_url": password,
+    "avatar_url": avatar_url,
   };
 }

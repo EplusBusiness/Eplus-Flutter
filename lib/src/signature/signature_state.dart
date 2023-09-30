@@ -12,6 +12,7 @@ class SignatureState with _$SignatureState {
     @Default(false) bool isSignatureReceiverFilled,
     @Default(<AttachmentInfo>[]) List<AttachmentInfo>? signatures,
     @Default(<AttachmentInfo>[AttachmentInfo()]) List<AttachmentInfo>? listImages,
+    @Default(<AttachmentInfo>[AttachmentInfo()]) List<AttachmentInfo>? listVideos,
     @Default(AttachmentInfo()) AttachmentInfo? pdf,
     @Default(AttachmentInfo()) AttachmentInfo? imageSignatureSender,
     @Default(AttachmentInfo()) AttachmentInfo? imageSignatureReceiver,

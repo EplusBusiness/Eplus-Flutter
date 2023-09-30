@@ -54,11 +54,12 @@ class _FormStorageScreenState extends State<FormStorageScreen> {
       onPreviousPressed: () {
         Get.back();
       },
-      onEditPressed: () {
+      onSearchPressed: () {
+        controller.navigateToSearch();
       },
-      isVisiblePlusButton: false,
-      isVisibleEditButton: false,
-      isVisibleDeleteButton: false,
+      onEditPressed: () {},
+      isVisibleOptions: false,
+      isVisibleSearch: true,
       title: 'Forms',
     );
   }
@@ -68,15 +69,21 @@ class _FormStorageScreenState extends State<FormStorageScreen> {
       child: GetBuilder<FormStorageController>(
         builder: (controller) {
           return GridView.builder(
+            shrinkWrap: true,
             padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 250,
                 childAspectRatio: 2 / 2.5,
                 crossAxisSpacing: 15,
                 mainAxisSpacing: 15),
-            itemCount: controller.state.isIn ? controller.state.formsInData.length : controller.state.formsOutData.length,
+            itemCount: controller.state.isIn
+                ? controller.state.formsInData.length
+                : controller.state.formsOutData.length,
             itemBuilder: (BuildContext ctx, index) {
-              final FormInfoData model = controller.state.formsData[index];
+              final FormInfoData model = controller.state.isIn
+                  ? controller.state.formsInData[index]
+                  : controller.state.formsOutData[index];
+
               return _buildCell(model);
             },
           );
@@ -91,9 +98,8 @@ class _FormStorageScreenState extends State<FormStorageScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: colorYellow, width: 2)
-      ),
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: colorYellow, width: 2)),
       child: GestureDetector(
         onTap: () {
           controller.navigateToEditItem(model.id.toString());
@@ -118,44 +124,61 @@ class _FormStorageScreenState extends State<FormStorageScreen> {
               ),
             ),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextCustomize(
                   title: nameFormString,
                   alignmentText: TextAlign.center,
-                  textStyle: textStyleApp.semiBold(size: 12, colorText: Colors.grey.shade500),
+                  textStyle: textStyleApp.semiBold(
+                      size: 10, colorText: Colors.grey.shade500),
                 ),
-                TextCustomize(
-                  title: model.nameForm ?? '',
-                  alignmentText: TextAlign.center,
-                  textStyle: textStyleApp.bold(size: 12),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                TextCustomize(
-                  title: statusFormString,
-                  alignmentText: TextAlign.center,
-                  textStyle: textStyleApp.semiBold(size: 12, colorText: Colors.grey.shade500),
-                ),
-                TextCustomize(
-                  title: (model.status ?? '').toUpperCase(),
-                  alignmentText: TextAlign.center,
-                  textStyle: textStyleApp.bold(size: 12, colorText: model.status == "PENDING" ? Colors.redAccent : Colors.black),
+                Expanded(
+                  child: TextCustomize(
+                    title: model.nameForm ?? '',
+                    overflow: TextOverflow.visible,
+                    alignmentText: TextAlign.left,
+                    textStyle: textStyleApp.bold(size: 10),
+                  ),
                 ),
               ],
             ),
+            // Row(
+            //   children: [
+            //     TextCustomize(
+            //       title: statusFormString,
+            //       alignmentText: TextAlign.center,
+            //       textStyle: textStyleApp.semiBold(
+            //           size: 10, colorText: Colors.grey.shade500),
+            //     ),
+            //     TextCustomize(
+            //       title: (model.status ?? '').toUpperCase(),
+            //       alignmentText: TextAlign.center,
+            //       textStyle: textStyleApp.bold(
+            //           size: 10,
+            //           colorText: model.status == "PENDING"
+            //               ? Colors.redAccent
+            //               : Colors.black),
+            //     ),
+            //   ],
+            // ),
             Row(
               children: [
                 TextCustomize(
                   title: typeFormString,
                   alignmentText: TextAlign.center,
-                  textStyle: textStyleApp.semiBold(size: 12, colorText: Colors.grey.shade500),
+                  textStyle: textStyleApp.semiBold(
+                      size: 10, colorText: Colors.grey.shade500),
                 ),
                 TextCustomize(
-                  title: (model.type ?? '').toUpperCase(),
+                  title: ((model.type ?? '').toUpperCase() == "IN")
+                      ? "Nhận"
+                      : "Giao",
                   alignmentText: TextAlign.center,
-                  textStyle: textStyleApp.bold(size: 12, colorText: model.status == "IN" ? Colors.redAccent : Colors.lightGreen),
+                  textStyle: textStyleApp.bold(
+                      size: 10,
+                      colorText: model.status == "IN"
+                          ? Colors.redAccent
+                          : Colors.lightGreen),
                 ),
               ],
             ),
@@ -166,12 +189,15 @@ class _FormStorageScreenState extends State<FormStorageScreen> {
                 title: 'Created $createdDate',
                 overflow: TextOverflow.ellipsis,
                 textStyle: textStyleApp.regular(
-                  size: 8, colorText: Colors.grey.shade500,)),
+                  size: 8,
+                  colorText: Colors.grey.shade500,
+                )),
             TextCustomize(
-                title: 'Updated $updatedDate',
-                overflow: TextOverflow.ellipsis,
-                textStyle: textStyleApp.regular(
-                    size: 8, colorText: Colors.grey.shade500)),
+              title: 'Updated $updatedDate',
+              overflow: TextOverflow.ellipsis,
+              textStyle: textStyleApp.regular(
+                  size: 8, colorText: Colors.grey.shade500),
+            ),
           ],
         ),
       ),
@@ -185,9 +211,11 @@ class _FormStorageScreenState extends State<FormStorageScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildInButton('In'),
-            const SizedBox(width: 20,),
-            _buildOutButton('Out'),
+            _buildInButton('Nhận'),
+            const SizedBox(
+              width: 20,
+            ),
+            _buildOutButton('Giao'),
           ],
         ),
       ),
@@ -205,7 +233,9 @@ class _FormStorageScreenState extends State<FormStorageScreen> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
-              color: controller.state.isIn ? colorYellow.withBlue(120) : Colors.grey.shade300,
+              color: controller.state.isIn
+                  ? colorYellow.withBlue(120)
+                  : Colors.grey.shade300,
               onPressed: () {
                 controller.onChangedSegment(true);
               },
@@ -231,7 +261,9 @@ class _FormStorageScreenState extends State<FormStorageScreen> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
-              color: !controller.state.isIn ? colorYellow.withBlue(120) : Colors.grey.shade300,
+              color: !controller.state.isIn
+                  ? colorYellow.withBlue(120)
+                  : Colors.grey.shade300,
               onPressed: () {
                 controller.onChangedSegment(false);
               },

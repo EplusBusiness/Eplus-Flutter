@@ -1,3 +1,4 @@
+import 'package:eplusflutter/api/api.dart';
 import 'package:eplusflutter/api/repository/api_register_repository.dart';
 import 'package:eplusflutter/models/request/register_request.dart';
 import 'package:eplusflutter/src/register/register_state.dart';
@@ -15,33 +16,31 @@ class RegisterController extends GetxController {
     RegisterRequest req = RegisterRequest();
     req
       ..email = state.email
+      ..company = state.company.toLowerCase()
       ..name = state.name
       ..password = state.password
-      ..phone_number = replaceCharAt(state.phone_number, 1, '+84');
+      ..phone_number = state.phone_number;
 
     final res = await apiRegisterRepository.register(req);
     if (res != null) {
-      Get.back();
+      handleToastSuccess('register success!');
+
+      await Future.delayed(const Duration(seconds: 2));
+      try {
+        Get.back();
+      }catch (err) {
+        handleToast(err.toString());
+      }
     }
   }
 
-  // Future<AttachmentAvatar?> uploadFile(FormData form) async {
-  //   final res = await apiRegisterRepository.upload(form);
-  //
-  //   if (res != null) {
-  //     onChangedAttachment(avatar: res);
-  //   }
-  //
-  //   update();
-  //   return res;
-  // }
-
   String replaceCharAt(String string, int index, String replacement) {
-    return string.replaceRange(index, index, replacement);
+    return string.replaceRange(0, index, replacement);
   }
 
   void onChangedAttachment({
     String? name,
+    String? company,
     String? email,
     String? phoneNumber,
     String? password,
@@ -49,6 +48,7 @@ class RegisterController extends GetxController {
   }) {
     state = state.copyWith(
         name: name ?? state.name,
+        company: company ?? state.company,
         email: email ?? state.email,
         phone_number: phoneNumber ?? state.phone_number,
         password: password ?? state.password,

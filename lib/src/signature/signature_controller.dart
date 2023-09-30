@@ -6,8 +6,10 @@ import 'package:eplusflutter/models/request/base_request.dart';
 import 'package:eplusflutter/models/request/create_form_request.dart';
 import 'package:eplusflutter/src/signature/signature_state.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../models/response/attachment_response.dart';
 import '../../routes/app_pages.dart';
@@ -35,11 +37,11 @@ class SignatureController extends GetxController {
     update();
   }
 
-  Future<void> uploadFile(FormData form) async {
+  Future<void> uploadFile(FormData form, {int indexType = 0}) async {
     final res = await apiSignatureRepository.upload(form);
 
     if (res != null) {
-      onChangeListImages(res);
+      (indexType == 0) ? onChangeListImages(res) : onChangeListVideos(res);
     }
 
     update();
@@ -66,7 +68,7 @@ class SignatureController extends GetxController {
 
   Future<void> uploadSignatures(List<FormData> signatureImages) async {
     List<AttachmentResponse?> listSignature =
-    await Future.wait(signatureImages.map((e) => uploadImages(e)));
+        await Future.wait(signatureImages.map((e) => uploadImages(e)));
 
     onChangeSignature(listSignature);
   }
@@ -89,35 +91,45 @@ class SignatureController extends GetxController {
 
   Future<void> uploadListImages(List<FormData> listImages) async {
     List<AttachmentResponse?> listImagesResponse =
-    await Future.wait(listImages.map((e) => uploadImages(e)));
+        await Future.wait(listImages.map((e) => uploadImages(e)));
 
     onChangeImage(listImagesResponse);
   }
 
   void onChangeListImages(AttachmentResponse image) {
     List<AttachmentInfo> listImage = state.listImages!.toList();
-    AttachmentInfo attach =
-    AttachmentInfo(
+    AttachmentInfo attach = AttachmentInfo(
         path: image.path, nameFile: image.name, id: image.id, ext: image.type);
     listImage.add(attach);
-    state = state.copyWith(
-      listImages: listImage
-    );
+    state = state.copyWith(listImages: listImage);
+    update();
+  }
+
+  void onChangeListVideos(AttachmentResponse video) {
+    List<AttachmentInfo> listVideo = state.listVideos!.toList();
+    AttachmentInfo attach = AttachmentInfo(
+        path: video.path, nameFile: video.name, id: video.id, ext: video.type);
+    listVideo.add(attach);
+    state = state.copyWith(listVideos: listVideo);
     update();
   }
 
   void onChangeRemoveImage(AttachmentInfo image) {
     List<AttachmentInfo> listOld = state.listImages!.toList();
     listOld.remove(image);
-    state = state.copyWith(
-      listImages: listOld
-    );
+    state = state.copyWith(listImages: listOld);
+    update();
+  }
+
+  void onChangeRemoveVideo(AttachmentInfo video) {
+    List<AttachmentInfo> listOld = state.listVideos!.toList();
+    listOld.remove(video);
+    state = state.copyWith(listVideos: listOld);
     update();
   }
 
   void onChangeAttachment(AttachmentResponse? data, int index) {
-    AttachmentInfo attach =
-    AttachmentInfo(
+    AttachmentInfo attach = AttachmentInfo(
         path: data?.path, nameFile: data?.name, id: data?.id, ext: data?.type);
 
     switch (index) {
@@ -134,6 +146,11 @@ class SignatureController extends GetxController {
         List<AttachmentInfo>? listOld = state.listImages?.toList();
         listOld?.add(attach);
         state = state.copyWith(listImages: listOld);
+        break;
+      case 8:
+        List<AttachmentInfo>? listOld = state.listVideos?.toList();
+        listOld?.add(attach);
+        state = state.copyWith(listVideos: listOld);
     }
   }
 
@@ -145,7 +162,19 @@ class SignatureController extends GetxController {
     }
 
     if (state.listImages?.length != 0) {
-      List<AttachmentInfo> listExist = state.listImages!.where((element) => element.id != null).toList();
+      List<AttachmentInfo> listExist =
+          state.listImages!.where((element) => element.id != null).toList();
+      List<int?> listIds = listExist.map((e) {
+        if (e.id != null) {
+          return e.id;
+        }
+      }).toList();
+      ids.addAll(listIds);
+    }
+
+    if (state.listVideos?.length != 0) {
+      List<AttachmentInfo> listExist =
+          state.listVideos!.where((element) => element.id != null).toList();
       List<int?> listIds = listExist.map((e) {
         if (e.id != null) {
           return e.id;
@@ -183,15 +212,16 @@ class SignatureController extends GetxController {
 
     listAttachments = Get.arguments[3];
 
-    state = state.copyWith(
-      listImages: []
-    );
-    List<AttachmentResponse>? listImages = listAttachments?.where((e) =>
-    (e.type == 'IMAGE')).toList();
-    List<AttachmentResponse>? listPdf = listAttachments?.where((e) =>
-    (e.type == 'PDF')).toList();
-    List<AttachmentResponse>? listSignature = listAttachments?.where((e) =>
-    (e.type == "SIGNSENDER" || e.type == "SIGNRECEIVER")).toList();
+    state = state.copyWith(listImages: [], listVideos: []);
+    List<AttachmentResponse>? listImages =
+        listAttachments?.where((e) => (e.type == 'IMAGE')).toList();
+    List<AttachmentResponse>? listPdf =
+        listAttachments?.where((e) => (e.type == 'PDF')).toList();
+    List<AttachmentResponse>? listVideos =
+        listAttachments?.where((e) => (e.type == 'VIDEO')).toList();
+    List<AttachmentResponse>? listSignature = listAttachments
+        ?.where((e) => (e.type == "SIGNSENDER" || e.type == "SIGNRECEIVER"))
+        .toList();
 
     if (listPdf?.length != 0) {
       onChangeAttachment(listPdf?[0], 4);
@@ -210,10 +240,24 @@ class SignatureController extends GetxController {
       onChangeAttachment(element, 7);
     });
 
+    listVideos?.forEach((element) {
+      onChangeAttachment(element, 8);
+    });
+
     update();
   }
 
-  Future<void> generatePdf(BuildContext context,
+  Future<void> fillDataCreateForm() async {
+    if (getLastAttachment() != null) {
+      reqLater?.ids = getLastAttachment().cast<int>();
+    }
+
+    req?.ids?.addAll(reqLater?.ids as Iterable<int>);
+    createForm(req!);
+  }
+
+  Future<void> generatePdf(
+      BuildContext context,
       Invoice invoice,
       Uint8List imageSenderData,
       Uint8List imageReceiverData,
@@ -223,14 +267,19 @@ class SignatureController extends GetxController {
       reqLater?.ids = getLastAttachment().cast<int>();
     }
 
-    int id = await Get.toNamed(Routes.PDFPREVIEW,
-        arguments: [invoice, imageSenderData, imageReceiverData, isPreview]);
+    // if (kIsWeb) {
+    //   req?.ids?.addAll(reqLater?.ids as Iterable<int>);
+    //   createForm(req!);
+    // } else {
+      int id = await Get.toNamed(Routes.PDFPREVIEW,
+          arguments: [invoice, imageSenderData, imageReceiverData, isPreview]);
 
-    if (id != -1 && id != null) {
-      reqLater?.ids?.add(id);
-      req?.ids?.addAll(reqLater?.ids as Iterable<int>);
-      createForm(req!);
-    }
+      if (id != -1 && id != null) {
+        reqLater?.ids?.add(id);
+        req?.ids?.addAll(reqLater?.ids as Iterable<int>);
+        createForm(req!);
+      }
+    // }
   }
 
   Future<void> createForm(CreateFormRequest req) async {
@@ -242,7 +291,8 @@ class SignatureController extends GetxController {
   }
 
   Future<void> removeform() async {
-    final res = await apiSignatureRepository.removeForm(BaseRequest(id: req?.id.toString()));
+    final res = await apiSignatureRepository
+        .removeForm(BaseRequest(id: req?.id.toString()));
 
     if (res != null) {
       Get.until((route) => Get.currentRoute == Routes.DETAILPROJECT);
@@ -250,10 +300,20 @@ class SignatureController extends GetxController {
   }
 
   void navigateToPreview(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (builder) => PdfScreen(path: state.pdf?.path),
-      ),
-    );
+    if (kIsWeb) {
+      openPdfFromUrl(state.pdf?.path ?? '');
+    } else {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (builder) => PdfScreen(path: state.pdf?.path),
+        ),
+      );
+    }
+  }
+
+  void openPdfFromUrl(String url) {
+    var googleDocsUrl = url;
+    final Uri uri = Uri.parse(googleDocsUrl);
+    launchUrl(uri);
   }
 }

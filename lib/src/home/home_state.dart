@@ -8,6 +8,7 @@ class HomeState with _$HomeState {
   const factory HomeState({
     @Default(false) bool isLoading,
     @Default(<FolderInfo>[]) List<FolderInfo> listFolders,
+    @Default(UserInfo()) UserInfo? userInfo,
   }) = _HomeState;
 }
 
@@ -24,6 +25,20 @@ class FolderInfo with _$FolderInfo {
 
   factory FolderInfo.fromJson(Map<String, dynamic> json) =>
       _$FolderInfoFromJson(json);
+}
+
+@freezed
+class UserInfo with _$UserInfo {
+  const factory UserInfo({
+    int? id,
+    String? name,
+    String? email,
+    String? phone_number,
+    String? avatar_url,
+  }) = _UserInfo;
+
+  factory UserInfo.fromJson(Map<String, dynamic> json) =>
+      _$UserInfoFromJson(json);
 }
 
 @freezed

@@ -1,4 +1,5 @@
 class Invoice {
+  final String dateSent;
   final String sender;
   final String addressSender;
   final String phoneNumberSender;
@@ -11,6 +12,7 @@ class Invoice {
   final List<LineItem> items;
 
   Invoice({
+    required this.dateSent,
     required this.sender,
     required this.addressSender,
     required this.phoneNumberSender,

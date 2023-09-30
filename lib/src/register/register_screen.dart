@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
 import 'package:eplusflutter/src/register/register.dart';
 import 'package:eplusflutter/widget/register_textfield/register_textfield.dart';
 import 'package:eplusflutter/widget/text_textfield/text_textfield.dart';
@@ -25,17 +23,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   RegisterController registerController = Get.find();
 
-  final _focusNodes = List.generate(5, (_) => FocusNode());
+  final _focusNodes = List.generate(6, (_) => FocusNode());
 
   FocusNode get usernameFocusNode => _focusNodes[0];
 
   FocusNode get nameFocusNode => _focusNodes[1];
 
-  FocusNode get phoneFocusNode => _focusNodes[2];
+  FocusNode get companyFocusNode => _focusNodes[2];
 
-  FocusNode get confirmPasswordFocusNode => _focusNodes[3];
+  FocusNode get phoneFocusNode => _focusNodes[3];
 
-  FocusNode get passwordFocusNode => _focusNodes[4];
+  FocusNode get confirmPasswordFocusNode => _focusNodes[4];
+
+  FocusNode get passwordFocusNode => _focusNodes[5];
 
   @override
   void dispose() {
@@ -85,6 +85,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         children: [
                           _buildUserNameWidget(),
                           _buildNameWidget(),
+                          _buildCompanyWidget(),
                           _buildPhoneWidget(),
                           _buildPasswordWidget(),
                           _buildConfirmPasswordWidget(),
@@ -164,11 +165,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
         return TextTxtfield(
           colorLine: Colors.lightGreen,
           focusNode: nameFocusNode,
-          nextFocusNode: phoneFocusNode,
+          nextFocusNode: companyFocusNode,
           hintString: 'name',
           text: controller.state.name ?? '',
           onChanged: (value) {
             controller.onChangedAttachment(name: value);
+          },
+        );
+      },
+    );
+  }
+
+  Widget _buildCompanyWidget() {
+    return GetBuilder<RegisterController>(
+      builder: (controller) {
+        return TextTxtfield(
+          colorLine: Colors.lightGreen,
+          focusNode: companyFocusNode,
+          nextFocusNode: phoneFocusNode,
+          hintString: 'company',
+          text: controller.state.company ?? '',
+          onChanged: (value) {
+            controller.onChangedAttachment(company: value);
           },
         );
       },
@@ -233,30 +251,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  _buildBottomSheet(BuildContext context) {
-    return showAdaptiveActionSheet(
-      context: context,
-      actions: <BottomSheetAction>[
-        BottomSheetAction(
-            title: 'take photo',
-            textStyle: textStyleApp.medium(size: 20, colorText: Colors.grey),
-            onPressed: () {
-              Navigator.of(context).pop();
-              _takePhoto();
-            }),
-        BottomSheetAction(
-            title: 'photo from gallery',
-            textStyle: textStyleApp.medium(size: 20, colorText: Colors.grey),
-            onPressed: () {
-              Navigator.of(context).pop();
-              _getFromGallery();
-            }),
-      ],
-      cancelAction: CancelAction(
-          title:
-              'Cancel'), // onPressed parameter is optional by default will dismiss the ActionSheet
-    );
-  }
+  // _buildBottomSheet(BuildContext context) {
+  //   return showAdaptiveActionSheet(
+  //     context: context,
+  //     actions: <BottomSheetAction>[
+  //       BottomSheetAction(
+  //           title: 'take photo',
+  //           textStyle: textStyleApp.medium(size: 20, colorText: Colors.grey),
+  //           onPressed: () {
+  //             Navigator.of(context).pop();
+  //             _takePhoto();
+  //           }),
+  //       BottomSheetAction(
+  //           title: 'photo from gallery',
+  //           textStyle: textStyleApp.medium(size: 20, colorText: Colors.grey),
+  //           onPressed: () {
+  //             Navigator.of(context).pop();
+  //             _getFromGallery();
+  //           }),
+  //     ],
+  //     cancelAction: CancelAction(
+  //         title:
+  //             'Cancel'), // onPressed parameter is optional by default will dismiss the ActionSheet
+  //   );
+  // }
 
   _getFromGallery() async {
     XFile? image = await picker.pickImage(

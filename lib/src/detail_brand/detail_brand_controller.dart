@@ -1,9 +1,10 @@
 import 'package:eplusflutter/api/repository/api_detail_brand_repository.dart';
-import 'package:eplusflutter/models/request/base_request.dart';
+import 'package:eplusflutter/core/shared_references.dart';
 import 'package:eplusflutter/src/detail_brand/detail_brand_state.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
 import '../../models/request/insert_folder_request.dart';
+import '../../models/request/update_name_request.dart';
 import '../../routes/app_pages.dart';
 
 class DetailBrandController extends GetxController {
@@ -16,7 +17,8 @@ class DetailBrandController extends GetxController {
   int? categoryId = Get.arguments[0];
 
   void getFolderInfo() async {
-    final res = await apiDetailBrandRepository.getAllProjects(categoryId.toString());
+    final res =
+        await apiDetailBrandRepository.getAllProjects(categoryId.toString());
 
     onChangedListFolder(res?.listFolders ?? []);
   }
@@ -26,15 +28,32 @@ class DetailBrandController extends GetxController {
 
     if (res != null) {
       getFolderInfo();
+      onChangedIsEdited(true);
     }
   }
 
-  void removeFolder() async {
-    final res = await apiDetailBrandRepository.removeProject(BaseRequest(id: categoryId.toString()));
+  void removeProject() async {
+    final res =
+        await apiDetailBrandRepository.removeProject(categoryId.toString());
+
+    if (res != null) Get.back(result: true);
+  }
+
+  Future<void> updateNameFolder(String name) async {
+    final userId = await SharedPreferencesUtil.getUserId(); 
+    UpdateNameCategoryRequest req = UpdateNameCategoryRequest(name: name, parentCategoryId: categoryId, creatorId: int.parse(userId));
+    final res = await apiDetailBrandRepository.updateFolder(
+        categoryId.toString(), req);
 
     if (res != null) {
-      getFolderInfo();
+      onChangedIsEdited(true);
     }
+  }
+
+  void onChangedIsEdited(bool isEdited) {
+    state = state.copyWith(
+        isEdited: isEdited
+    );
   }
 
   void onChangedListFolder(List<DetailFolderInfo> data) {
@@ -43,8 +62,12 @@ class DetailBrandController extends GetxController {
     update();
   }
 
-  void navigatorToDetailProject(DetailFolderInfo model) {
-    Get.toNamed(Routes.DETAILPROJECT,
+  Future<void> navigatorToDetailProject(DetailFolderInfo model) async {
+    bool value = await Get.toNamed(Routes.DETAILPROJECT,
         arguments: [model.id.toString(), "${Get.arguments[1]}/${model.name}"]);
+
+    if (value) {
+      getFolderInfo();
+    }
   }
 }

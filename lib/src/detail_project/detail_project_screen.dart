@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:eplusflutter/core/string_constant.dart';
 import 'package:eplusflutter/core/text_app_style.dart';
 import 'package:eplusflutter/widget/text_customize/TextCustomize.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../core/color_constant.dart';
 import '../../core/icon_constants.dart';
 import '../../widget/customize_navigation_bar/customize_navigation_bar.dart';
@@ -13,7 +14,6 @@ class DetailProjectScreen extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
-
   @override
   State<DetailProjectScreen> createState() => _DetailProjectScreenState();
 }
@@ -23,10 +23,11 @@ class _DetailProjectScreenState extends State<DetailProjectScreen> {
   String editName = '';
   String path = '${Get.arguments[1]}/';
 
-  @override void initState() {
+  @override
+  void initState() {
     // TODO: implement initState
     super.initState();
-    detailProjectController.getFolderInfo(context, Get.arguments[0]);
+    detailProjectController.getFolderInfo(Get.arguments[0]);
   }
 
   @override
@@ -47,29 +48,31 @@ class _DetailProjectScreenState extends State<DetailProjectScreen> {
   }
 
   _buildBodyContent() {
-    return SingleChildScrollView(
+    return Expanded(
+        child: SingleChildScrollView(
       child: Column(
         children: [
           _buildBody(),
           _buildContent(),
         ],
       ),
-    );
+    ));
   }
 
   _buildNavigation() {
     return CustomizeNavigationBar(
-      onNextPressed: () {
-
-      },
+      onNextPressed: () {},
       onPreviousPressed: () {
-        Get.back();
+        Get.back(result: detailProjectController.state.isEdited);
       },
       onEditPressed: () {
         editProjectAlert();
       },
-      isVisiblePlusButton: false,
-      isVisibleEditButton: true,
+      onDeletePressed: () {
+        deleteProjectAlert();
+      },
+      isVisibleOptions: true,
+      isVisibleAdd: false,
       title: 'My Project',
     );
   }
@@ -87,7 +90,8 @@ class _DetailProjectScreenState extends State<DetailProjectScreen> {
     return SizedBox(
       height: 200,
       width: 200,
-      child: Image.asset(icFolder,
+      child: Image.asset(
+        icFolder,
         height: 100,
         width: 100,
         fit: BoxFit.fill,
@@ -121,17 +125,21 @@ class _DetailProjectScreenState extends State<DetailProjectScreen> {
                       },
                       child: TextCustomize(
                         title: 'Check storage',
-                        textStyle: textStyleApp.semiBold(size: 18, colorText: Colors.white),
+                        textStyle: textStyleApp.semiBold(
+                            size: 18, colorText: Colors.white),
                       ),
                     ),
-                    const SizedBox(width: 10,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     ElevatedButton(
                       onPressed: () {
                         controller.navigatorToFormsStorage(Get.arguments[0]);
                       },
                       child: TextCustomize(
                         title: 'Check forms',
-                        textStyle: textStyleApp.semiBold(size: 18, colorText: Colors.white),
+                        textStyle: textStyleApp.semiBold(
+                            size: 18, colorText: Colors.white),
                       ),
                     ),
                   ],
@@ -143,13 +151,36 @@ class _DetailProjectScreenState extends State<DetailProjectScreen> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        controller.navigatorToAddForm(Get.arguments[0].toString());
+                        controller
+                            .navigatorToAddForm(Get.arguments[0].toString());
+
                       },
                       child: TextCustomize(
                         title: 'Add form',
-                        textStyle: textStyleApp.semiBold(size: 18, colorText: Colors.white),
+                        textStyle: textStyleApp.semiBold(
+                            size: 18, colorText: Colors.white),
                       ),
                     ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    // SizedBox(
+                    //   height: 60,
+                    //   child: Row(
+                    //     children: [
+                    //       ElevatedButton(
+                    //         onPressed: () {
+                    //           // controller.navigatorToAddForm(Get.arguments[0].toString());
+                    //         },
+                    //         child: TextCustomize(
+                    //           title: 'Export Excel',
+                    //           textStyle: textStyleApp.semiBold(
+                    //               size: 18, colorText: Colors.white),
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -189,7 +220,7 @@ class _DetailProjectScreenState extends State<DetailProjectScreen> {
               _buildRowInfo('Kind', 'Project'),
               _buildRowInfo(createdString, controller.state.createdDate),
               _buildRowInfo(modifiedString, controller.state.updatedDate),
-              _buildRowInfo(pathString, '${Get.arguments[1]}${controller.state.folder.name}'),
+              // _buildRowInfo(pathString, '${Get.arguments[1]}'),
             ],
           );
         },
@@ -204,15 +235,16 @@ class _DetailProjectScreenState extends State<DetailProjectScreen> {
           children: [
             Expanded(
               flex: 2,
-                child: SizedBox(
-                  height: 30,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                      child: TextCustomize(
-                        title: header,
-                        textStyle: textStyleApp.regular(size: 14, colorText: Colors.grey),
-                      ),
+              child: SizedBox(
+                height: 30,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextCustomize(
+                    title: header,
+                    textStyle:
+                        textStyleApp.regular(size: 14, colorText: Colors.grey),
                   ),
+                ),
               ),
             ),
             Expanded(
@@ -223,7 +255,8 @@ class _DetailProjectScreenState extends State<DetailProjectScreen> {
                   alignment: Alignment.centerRight,
                   child: TextCustomize(
                     title: content,
-                    textStyle: textStyleApp.medium(size: 14, colorText: Colors.black87),
+                    textStyle: textStyleApp.medium(
+                        size: 14, colorText: Colors.black87),
                   ),
                 ),
               ),
@@ -242,34 +275,71 @@ class _DetailProjectScreenState extends State<DetailProjectScreen> {
   }
 
   Future<String?> editProjectAlert() => showDialog<String?>(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: TextCustomize(
-        title: editProjectString,
-        textStyle: textStyleApp.bold(size: 20),
-      ),
-      content: TextField(
-        autofocus: true,
-        decoration: const InputDecoration(
-          hintText: enterEditProjectName,
-        ),
-        onChanged: (value) {
-          editName = value;
-        },
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            detailProjectController.onChangeName(context, editName);
-            Navigator.of(context).pop();
-          },
-          child: TextCustomize(
-            title: 'Edit',
-            textStyle:
-            textStyleApp.semiBold(size: 17, colorText: colorYellow),
+        context: context,
+        builder: (context) => AlertDialog(
+          title: TextCustomize(
+            title: editProjectString,
+            textStyle: textStyleApp.bold(size: 20),
           ),
+          content: TextField(
+            autofocus: true,
+            decoration: const InputDecoration(
+              hintText: enterEditProjectName,
+            ),
+            onChanged: (value) {
+              editName = value;
+            },
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                detailProjectController.onChangeName(editName);
+                Navigator.of(context).pop();
+              },
+              child: TextCustomize(
+                title: 'Edit',
+                textStyle:
+                    textStyleApp.semiBold(size: 17, colorText: colorYellow),
+              ),
+            ),
+          ],
         ),
-      ],
-    ),
-  );
+      );
+
+  Future<String?> deleteProjectAlert() => showDialog<String?>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: TextCustomize(
+            title: deleteProjectString,
+            textStyle: textStyleApp.bold(size: 20),
+          ),
+          content: TextCustomize(
+            title: contentDeleteProjectString,
+            textStyle: textStyleApp.medium(size: 20),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                detailProjectController.deleteProject();
+                Navigator.of(context).pop();
+              },
+              child: TextCustomize(
+                title: 'Xóa',
+                textStyle:
+                    textStyleApp.semiBold(size: 17, colorText: colorYellow),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: TextCustomize(
+                title: 'Hủy',
+                textStyle:
+                    textStyleApp.semiBold(size: 17, colorText: Colors.grey),
+              ),
+            ),
+          ],
+        ),
+      );
 }

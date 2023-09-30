@@ -24,7 +24,11 @@ class AuthController extends GetxController {
     final res = await apiAuthRepository.login(loginRequest);
 
     if (res?.access_token.isNotEmpty == true) {
+      final user = res?.user;
       SharedPreferencesUtil.saveToken(res?.access_token ?? '');
+      SharedPreferencesUtil.saveUserId(user!.id.toString());
+      SharedPreferencesUtil.saveUserName(user.name ?? '');
+      SharedPreferencesUtil.saveCompany(user.company ?? '');
       Get.toNamed(Routes.HOME);
     }
   }

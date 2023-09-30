@@ -12,6 +12,8 @@ import '../../widget/customize_navigation_bar/customize_navigation_bar.dart';
 import '../../widget/icon_textfield/icon_textfield.dart';
 import 'package:get/get.dart';
 
+import '../image_view_screen/image_screen.dart';
+
 class EditFormScreen extends StatefulWidget {
   @override
   State<EditFormScreen> createState() => _EditFormScreenState();
@@ -91,6 +93,7 @@ class _EditFormScreenState extends State<EditFormScreen> {
                   children: [
                     _buildDropDownTypeDocuments(),
                     _buildNameFile(),
+                    _buildDatePicker(),
                     _buildSender(),
                     _buildReceiver(),
                     _buildPhotoConfirm(context),
@@ -105,6 +108,30 @@ class _EditFormScreenState extends State<EditFormScreen> {
     );
   }
 
+  _buildDatePicker() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        children: [
+          _buildHeader('Ngày tháng:'),
+          const SizedBox(
+            width: 20,
+          ),
+          GetBuilder<EditFormController>(
+            builder: (controller) {
+              return TextCustomize(
+                title: controller.state.formData.dateSent ?? '',
+                textStyle: textStyleApp.regular(
+                    size: 18,
+                    colorText: Colors.black),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   _buildNavigation() {
     return CustomizeNavigationBar(
       onNextPressed: () {
@@ -113,9 +140,9 @@ class _EditFormScreenState extends State<EditFormScreen> {
       onPreviousPressed: () {
         Get.back();
       },
-      isVisiblePlusButton: false,
-      isVisibleNextButton: true,
       title: 'Form detail',
+      isVisibleOptions: false,
+      isVisibleNext: true,
     );
   }
 
@@ -237,7 +264,6 @@ class _EditFormScreenState extends State<EditFormScreen> {
                 controller.onChangedSenderData(actor: p0);
               },
             ),
-
           ],
         );
       },
@@ -260,30 +286,42 @@ class _EditFormScreenState extends State<EditFormScreen> {
             mainAxisSpacing: 10,
             crossAxisCount: 3,
             children: controller.state.attachmentsCmnd!.map(
-                  (e) {
+              (e) {
                 return !(e.path != null)
                     ? Image.asset(
-                      icDefaultImage,
-                      height: itemHeight,
-                      width: itemHeight,
-                      scale: 1.5,
-                    )
-                    : Stack(
-                  children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: SizedBox(
-                        width: itemHeight,
+                        icDefaultImage,
                         height: itemHeight,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Image.network(e.path ?? '',
-                              fit: BoxFit.fitHeight),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
+                        width: itemHeight,
+                        scale: 1.5,
+                      )
+                    : Stack(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              List<String?> imageString = [];
+                              imageString = controller.state.attachmentsCmnd!
+                                  .map((e) => e.path)
+                                  .toList();
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (builder) => ImageViewScreen(
+                                    images: imageString,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: SizedBox(
+                              width: itemHeight,
+                              height: itemHeight,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.network(e.path ?? '',
+                                    fit: BoxFit.fitHeight),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
               },
             ).toList(),
           ),
@@ -385,24 +423,9 @@ class _EditFormScreenState extends State<EditFormScreen> {
         ),
         GetBuilder<EditFormController>(
           builder: (controller) {
-            return DropdownButton(
-              value: controller.state.typeForm,
-              items: [
-                //add items in the dropdown
-                DropdownMenuItem(
-                    child: TextCustomize(
-                      title: 'IN',
-                      textStyle: textStyleApp.medium(size: 15),
-                    ),
-                    value: "IN"),
-                DropdownMenuItem(
-                    child: TextCustomize(
-                      title: 'OUT',
-                      textStyle: textStyleApp.medium(size: 15),
-                    ),
-                    value: "OUT"),
-              ],
-              onChanged: null,
+            return TextCustomize(
+              title: (controller.state.formData.type == 'IN') ? 'Nhận':'Giao',
+              textStyle: textStyleApp.medium(size: 17),
             );
           },
         ),

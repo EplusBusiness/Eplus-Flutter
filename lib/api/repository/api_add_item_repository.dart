@@ -3,7 +3,6 @@ import 'package:eplusflutter/models/request/add_item_request.dart';
 import 'package:eplusflutter/src/add_item//add_items_state.dart';
 import 'package:get/get.dart';
 import '../../models/response/attachment_response.dart';
-import '../../models/response/register_response.dart';
 import '../api.dart';
 import '../provider/api_add_item_provider.dart';
 

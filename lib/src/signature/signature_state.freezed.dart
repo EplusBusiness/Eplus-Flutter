@@ -22,6 +22,7 @@ mixin _$SignatureState {
   bool get isSignatureReceiverFilled => throw _privateConstructorUsedError;
   List<AttachmentInfo>? get signatures => throw _privateConstructorUsedError;
   List<AttachmentInfo>? get listImages => throw _privateConstructorUsedError;
+  List<AttachmentInfo>? get listVideos => throw _privateConstructorUsedError;
   AttachmentInfo? get pdf => throw _privateConstructorUsedError;
   AttachmentInfo? get imageSignatureSender =>
       throw _privateConstructorUsedError;
@@ -46,6 +47,7 @@ abstract class $SignatureStateCopyWith<$Res> {
       bool isSignatureReceiverFilled,
       List<AttachmentInfo>? signatures,
       List<AttachmentInfo>? listImages,
+      List<AttachmentInfo>? listVideos,
       AttachmentInfo? pdf,
       AttachmentInfo? imageSignatureSender,
       AttachmentInfo? imageSignatureReceiver});
@@ -74,6 +76,7 @@ class _$SignatureStateCopyWithImpl<$Res, $Val extends SignatureState>
     Object? isSignatureReceiverFilled = null,
     Object? signatures = freezed,
     Object? listImages = freezed,
+    Object? listVideos = freezed,
     Object? pdf = freezed,
     Object? imageSignatureSender = freezed,
     Object? imageSignatureReceiver = freezed,
@@ -102,6 +105,10 @@ class _$SignatureStateCopyWithImpl<$Res, $Val extends SignatureState>
       listImages: freezed == listImages
           ? _value.listImages
           : listImages // ignore: cast_nullable_to_non_nullable
+              as List<AttachmentInfo>?,
+      listVideos: freezed == listVideos
+          ? _value.listVideos
+          : listVideos // ignore: cast_nullable_to_non_nullable
               as List<AttachmentInfo>?,
       pdf: freezed == pdf
           ? _value.pdf
@@ -171,6 +178,7 @@ abstract class _$$_SignatureStateCopyWith<$Res>
       bool isSignatureReceiverFilled,
       List<AttachmentInfo>? signatures,
       List<AttachmentInfo>? listImages,
+      List<AttachmentInfo>? listVideos,
       AttachmentInfo? pdf,
       AttachmentInfo? imageSignatureSender,
       AttachmentInfo? imageSignatureReceiver});
@@ -200,6 +208,7 @@ class __$$_SignatureStateCopyWithImpl<$Res>
     Object? isSignatureReceiverFilled = null,
     Object? signatures = freezed,
     Object? listImages = freezed,
+    Object? listVideos = freezed,
     Object? pdf = freezed,
     Object? imageSignatureSender = freezed,
     Object? imageSignatureReceiver = freezed,
@@ -229,6 +238,10 @@ class __$$_SignatureStateCopyWithImpl<$Res>
           ? _value._listImages
           : listImages // ignore: cast_nullable_to_non_nullable
               as List<AttachmentInfo>?,
+      listVideos: freezed == listVideos
+          ? _value._listVideos
+          : listVideos // ignore: cast_nullable_to_non_nullable
+              as List<AttachmentInfo>?,
       pdf: freezed == pdf
           ? _value.pdf
           : pdf // ignore: cast_nullable_to_non_nullable
@@ -257,11 +270,15 @@ class _$_SignatureState implements _SignatureState {
       final List<AttachmentInfo>? listImages = const <AttachmentInfo>[
         AttachmentInfo()
       ],
+      final List<AttachmentInfo>? listVideos = const <AttachmentInfo>[
+        AttachmentInfo()
+      ],
       this.pdf = const AttachmentInfo(),
       this.imageSignatureSender = const AttachmentInfo(),
       this.imageSignatureReceiver = const AttachmentInfo()})
       : _signatures = signatures,
-        _listImages = listImages;
+        _listImages = listImages,
+        _listVideos = listVideos;
 
   @override
   @JsonKey()
@@ -297,6 +314,17 @@ class _$_SignatureState implements _SignatureState {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<AttachmentInfo>? _listVideos;
+  @override
+  @JsonKey()
+  List<AttachmentInfo>? get listVideos {
+    final value = _listVideos;
+    if (value == null) return null;
+    if (_listVideos is EqualUnmodifiableListView) return _listVideos;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   @JsonKey()
   final AttachmentInfo? pdf;
@@ -309,7 +337,7 @@ class _$_SignatureState implements _SignatureState {
 
   @override
   String toString() {
-    return 'SignatureState(isNew: $isNew, checkExportPdf: $checkExportPdf, isSignatureSenderFilled: $isSignatureSenderFilled, isSignatureReceiverFilled: $isSignatureReceiverFilled, signatures: $signatures, listImages: $listImages, pdf: $pdf, imageSignatureSender: $imageSignatureSender, imageSignatureReceiver: $imageSignatureReceiver)';
+    return 'SignatureState(isNew: $isNew, checkExportPdf: $checkExportPdf, isSignatureSenderFilled: $isSignatureSenderFilled, isSignatureReceiverFilled: $isSignatureReceiverFilled, signatures: $signatures, listImages: $listImages, listVideos: $listVideos, pdf: $pdf, imageSignatureSender: $imageSignatureSender, imageSignatureReceiver: $imageSignatureReceiver)';
   }
 
   @override
@@ -330,6 +358,8 @@ class _$_SignatureState implements _SignatureState {
                 .equals(other._signatures, _signatures) &&
             const DeepCollectionEquality()
                 .equals(other._listImages, _listImages) &&
+            const DeepCollectionEquality()
+                .equals(other._listVideos, _listVideos) &&
             (identical(other.pdf, pdf) || other.pdf == pdf) &&
             (identical(other.imageSignatureSender, imageSignatureSender) ||
                 other.imageSignatureSender == imageSignatureSender) &&
@@ -346,6 +376,7 @@ class _$_SignatureState implements _SignatureState {
       isSignatureReceiverFilled,
       const DeepCollectionEquality().hash(_signatures),
       const DeepCollectionEquality().hash(_listImages),
+      const DeepCollectionEquality().hash(_listVideos),
       pdf,
       imageSignatureSender,
       imageSignatureReceiver);
@@ -365,6 +396,7 @@ abstract class _SignatureState implements SignatureState {
       final bool isSignatureReceiverFilled,
       final List<AttachmentInfo>? signatures,
       final List<AttachmentInfo>? listImages,
+      final List<AttachmentInfo>? listVideos,
       final AttachmentInfo? pdf,
       final AttachmentInfo? imageSignatureSender,
       final AttachmentInfo? imageSignatureReceiver}) = _$_SignatureState;
@@ -381,6 +413,8 @@ abstract class _SignatureState implements SignatureState {
   List<AttachmentInfo>? get signatures;
   @override
   List<AttachmentInfo>? get listImages;
+  @override
+  List<AttachmentInfo>? get listVideos;
   @override
   AttachmentInfo? get pdf;
   @override

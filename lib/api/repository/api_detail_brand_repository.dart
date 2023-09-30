@@ -1,6 +1,7 @@
-import '../../models/request/base_request.dart';
 import '../../models/request/insert_folder_request.dart';
+import '../../models/request/update_name_request.dart';
 import '../../models/response/detail_brand_response.dart';
+import '../../models/response/remove_category_response.dart';
 import '../../src/detail_brand/detail_brand_state.dart';
 import '../api_constants.dart';
 import '../provider/api_detail_brand_provider.dart';
@@ -26,11 +27,19 @@ class ApiDetailBrandRepository {
     }
   }
 
-  Future<DetailBrandResponse?> removeProject(BaseRequest data) async {
-    final res = await apiProvider.removeProject(ApiConstants.insertCategory, data);
+  Future<CategoryResponse?> removeProject(String id) async {
+    final res = await apiProvider.removeProject(ApiConstants.deleteCategory + id);
 
     if (res.statusCode == 200) {
-      return DetailBrandResponse.fromJson(res.body);
+      return CategoryResponse.fromJson(res.body);
+    }
+  }
+
+  Future<CategoryResponse?> updateFolder(String id, UpdateNameCategoryRequest data) async {
+    final res = await apiProvider.updateFolder(ApiConstants.categoryUpdateName + id, data);
+
+    if (res.statusCode == 200) {
+      return CategoryResponse.fromJson(res.body);
     }
   }
 }

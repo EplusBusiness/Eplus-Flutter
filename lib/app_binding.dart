@@ -2,6 +2,7 @@ import 'package:eplusflutter/api/provider/api_add_item_provider.dart';
 import 'package:eplusflutter/api/provider/api_detail_brand_provider.dart';
 import 'package:eplusflutter/api/provider/api_form_storage_provider.dart';
 import 'package:eplusflutter/api/provider/api_register_provider.dart';
+import 'package:eplusflutter/api/provider/api_search_storage_provider.dart';
 import 'package:eplusflutter/api/provider/api_signature_provider.dart';
 import 'package:eplusflutter/api/provider/api_user_detail_provider.dart';
 import 'package:eplusflutter/api/repository/api_add_item_repository.dart';
@@ -9,9 +10,10 @@ import 'package:eplusflutter/api/repository/api_detail_brand_repository.dart';
 import 'package:eplusflutter/api/repository/api_form_storage_repository.dart';
 import 'package:eplusflutter/api/repository/api_pdfpreview_repository.dart';
 import 'package:eplusflutter/api/repository/api_register_repository.dart';
+import 'package:eplusflutter/api/repository/api_search_storage_repository.dart';
 import 'package:eplusflutter/api/repository/api_signature_repository.dart';
 import 'package:eplusflutter/api/repository/api_storage_repository.dart';
-import 'package:eplusflutter/api/repository/api_user_detai_repository.dart';
+import 'package:eplusflutter/api/repository/api_user_detail_repository.dart';
 import 'package:get/get.dart';
 import 'api/provider/api_auth_provider.dart';
 import 'api/provider/api_create_form_provider.dart';
@@ -82,5 +84,11 @@ class AppBinding extends Bindings {
 
     Get.put(ApiFormStorageProvider(), permanent: true);
     Get.put(ApiFormStorageRepository(apiProvider: Get.find()), permanent: true);
+
+    Get.put(ApiUserDetailProvider(), permanent: true);
+    Get.put(ApiUserDetailRepository(apiProvider: Get.find()), permanent: true);
+
+    Get.put(ApiSearchStorageProvider(), permanent: true);
+    Get.put(ApiSearchStorageRepository(apiProvider: Get.find()), permanent: true);
   }
 }

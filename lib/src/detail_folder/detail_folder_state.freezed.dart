@@ -16,7 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$DetailFolderState {
-  bool get isLoading => throw _privateConstructorUsedError;
+  bool get isEdited => throw _privateConstructorUsedError;
+  String get urlCsv => throw _privateConstructorUsedError;
   List<DetailFolderInfo> get listFolders => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +31,7 @@ abstract class $DetailFolderStateCopyWith<$Res> {
           DetailFolderState value, $Res Function(DetailFolderState) then) =
       _$DetailFolderStateCopyWithImpl<$Res, DetailFolderState>;
   @useResult
-  $Res call({bool isLoading, List<DetailFolderInfo> listFolders});
+  $Res call({bool isEdited, String urlCsv, List<DetailFolderInfo> listFolders});
 }
 
 /// @nodoc
@@ -46,14 +47,19 @@ class _$DetailFolderStateCopyWithImpl<$Res, $Val extends DetailFolderState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isLoading = null,
+    Object? isEdited = null,
+    Object? urlCsv = null,
     Object? listFolders = null,
   }) {
     return _then(_value.copyWith(
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
+      isEdited: null == isEdited
+          ? _value.isEdited
+          : isEdited // ignore: cast_nullable_to_non_nullable
               as bool,
+      urlCsv: null == urlCsv
+          ? _value.urlCsv
+          : urlCsv // ignore: cast_nullable_to_non_nullable
+              as String,
       listFolders: null == listFolders
           ? _value.listFolders
           : listFolders // ignore: cast_nullable_to_non_nullable
@@ -70,7 +76,7 @@ abstract class _$$_DetailFolderStateCopyWith<$Res>
       __$$_DetailFolderStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLoading, List<DetailFolderInfo> listFolders});
+  $Res call({bool isEdited, String urlCsv, List<DetailFolderInfo> listFolders});
 }
 
 /// @nodoc
@@ -84,14 +90,19 @@ class __$$_DetailFolderStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isLoading = null,
+    Object? isEdited = null,
+    Object? urlCsv = null,
     Object? listFolders = null,
   }) {
     return _then(_$_DetailFolderState(
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
+      isEdited: null == isEdited
+          ? _value.isEdited
+          : isEdited // ignore: cast_nullable_to_non_nullable
               as bool,
+      urlCsv: null == urlCsv
+          ? _value.urlCsv
+          : urlCsv // ignore: cast_nullable_to_non_nullable
+              as String,
       listFolders: null == listFolders
           ? _value._listFolders
           : listFolders // ignore: cast_nullable_to_non_nullable
@@ -104,13 +115,17 @@ class __$$_DetailFolderStateCopyWithImpl<$Res>
 
 class _$_DetailFolderState implements _DetailFolderState {
   const _$_DetailFolderState(
-      {this.isLoading = false,
+      {this.isEdited = false,
+      this.urlCsv = '',
       final List<DetailFolderInfo> listFolders = const <DetailFolderInfo>[]})
       : _listFolders = listFolders;
 
   @override
   @JsonKey()
-  final bool isLoading;
+  final bool isEdited;
+  @override
+  @JsonKey()
+  final String urlCsv;
   final List<DetailFolderInfo> _listFolders;
   @override
   @JsonKey()
@@ -122,7 +137,7 @@ class _$_DetailFolderState implements _DetailFolderState {
 
   @override
   String toString() {
-    return 'DetailFolderState(isLoading: $isLoading, listFolders: $listFolders)';
+    return 'DetailFolderState(isEdited: $isEdited, urlCsv: $urlCsv, listFolders: $listFolders)';
   }
 
   @override
@@ -130,14 +145,15 @@ class _$_DetailFolderState implements _DetailFolderState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DetailFolderState &&
-            (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading) &&
+            (identical(other.isEdited, isEdited) ||
+                other.isEdited == isEdited) &&
+            (identical(other.urlCsv, urlCsv) || other.urlCsv == urlCsv) &&
             const DeepCollectionEquality()
                 .equals(other._listFolders, _listFolders));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading,
+  int get hashCode => Object.hash(runtimeType, isEdited, urlCsv,
       const DeepCollectionEquality().hash(_listFolders));
 
   @JsonKey(ignore: true)
@@ -150,11 +166,14 @@ class _$_DetailFolderState implements _DetailFolderState {
 
 abstract class _DetailFolderState implements DetailFolderState {
   const factory _DetailFolderState(
-      {final bool isLoading,
+      {final bool isEdited,
+      final String urlCsv,
       final List<DetailFolderInfo> listFolders}) = _$_DetailFolderState;
 
   @override
-  bool get isLoading;
+  bool get isEdited;
+  @override
+  String get urlCsv;
   @override
   List<DetailFolderInfo> get listFolders;
   @override

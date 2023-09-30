@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$HomeState {
   bool get isLoading => throw _privateConstructorUsedError;
   List<FolderInfo> get listFolders => throw _privateConstructorUsedError;
+  UserInfo? get userInfo => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -29,7 +30,9 @@ abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
-  $Res call({bool isLoading, List<FolderInfo> listFolders});
+  $Res call({bool isLoading, List<FolderInfo> listFolders, UserInfo? userInfo});
+
+  $UserInfoCopyWith<$Res>? get userInfo;
 }
 
 /// @nodoc
@@ -47,6 +50,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   $Res call({
     Object? isLoading = null,
     Object? listFolders = null,
+    Object? userInfo = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -57,7 +61,23 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.listFolders
           : listFolders // ignore: cast_nullable_to_non_nullable
               as List<FolderInfo>,
+      userInfo: freezed == userInfo
+          ? _value.userInfo
+          : userInfo // ignore: cast_nullable_to_non_nullable
+              as UserInfo?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserInfoCopyWith<$Res>? get userInfo {
+    if (_value.userInfo == null) {
+      return null;
+    }
+
+    return $UserInfoCopyWith<$Res>(_value.userInfo!, (value) {
+      return _then(_value.copyWith(userInfo: value) as $Val);
+    });
   }
 }
 
@@ -68,7 +88,10 @@ abstract class _$$_HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
       __$$_HomeStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLoading, List<FolderInfo> listFolders});
+  $Res call({bool isLoading, List<FolderInfo> listFolders, UserInfo? userInfo});
+
+  @override
+  $UserInfoCopyWith<$Res>? get userInfo;
 }
 
 /// @nodoc
@@ -84,6 +107,7 @@ class __$$_HomeStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = null,
     Object? listFolders = null,
+    Object? userInfo = freezed,
   }) {
     return _then(_$_HomeState(
       isLoading: null == isLoading
@@ -94,6 +118,10 @@ class __$$_HomeStateCopyWithImpl<$Res>
           ? _value._listFolders
           : listFolders // ignore: cast_nullable_to_non_nullable
               as List<FolderInfo>,
+      userInfo: freezed == userInfo
+          ? _value.userInfo
+          : userInfo // ignore: cast_nullable_to_non_nullable
+              as UserInfo?,
     ));
   }
 }
@@ -103,7 +131,8 @@ class __$$_HomeStateCopyWithImpl<$Res>
 class _$_HomeState implements _HomeState {
   const _$_HomeState(
       {this.isLoading = false,
-      final List<FolderInfo> listFolders = const <FolderInfo>[]})
+      final List<FolderInfo> listFolders = const <FolderInfo>[],
+      this.userInfo = const UserInfo()})
       : _listFolders = listFolders;
 
   @override
@@ -119,8 +148,12 @@ class _$_HomeState implements _HomeState {
   }
 
   @override
+  @JsonKey()
+  final UserInfo? userInfo;
+
+  @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading, listFolders: $listFolders)';
+    return 'HomeState(isLoading: $isLoading, listFolders: $listFolders, userInfo: $userInfo)';
   }
 
   @override
@@ -131,12 +164,14 @@ class _$_HomeState implements _HomeState {
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             const DeepCollectionEquality()
-                .equals(other._listFolders, _listFolders));
+                .equals(other._listFolders, _listFolders) &&
+            (identical(other.userInfo, userInfo) ||
+                other.userInfo == userInfo));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, isLoading,
-      const DeepCollectionEquality().hash(_listFolders));
+      const DeepCollectionEquality().hash(_listFolders), userInfo);
 
   @JsonKey(ignore: true)
   @override
@@ -148,12 +183,15 @@ class _$_HomeState implements _HomeState {
 abstract class _HomeState implements HomeState {
   const factory _HomeState(
       {final bool isLoading,
-      final List<FolderInfo> listFolders}) = _$_HomeState;
+      final List<FolderInfo> listFolders,
+      final UserInfo? userInfo}) = _$_HomeState;
 
   @override
   bool get isLoading;
   @override
   List<FolderInfo> get listFolders;
+  @override
+  UserInfo? get userInfo;
   @override
   @JsonKey(ignore: true)
   _$$_HomeStateCopyWith<_$_HomeState> get copyWith =>
@@ -410,6 +448,222 @@ abstract class _FolderInfo implements FolderInfo {
   @override
   @JsonKey(ignore: true)
   _$$_FolderInfoCopyWith<_$_FolderInfo> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+UserInfo _$UserInfoFromJson(Map<String, dynamic> json) {
+  return _UserInfo.fromJson(json);
+}
+
+/// @nodoc
+mixin _$UserInfo {
+  int? get id => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
+  String? get phone_number => throw _privateConstructorUsedError;
+  String? get avatar_url => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $UserInfoCopyWith<UserInfo> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UserInfoCopyWith<$Res> {
+  factory $UserInfoCopyWith(UserInfo value, $Res Function(UserInfo) then) =
+      _$UserInfoCopyWithImpl<$Res, UserInfo>;
+  @useResult
+  $Res call(
+      {int? id,
+      String? name,
+      String? email,
+      String? phone_number,
+      String? avatar_url});
+}
+
+/// @nodoc
+class _$UserInfoCopyWithImpl<$Res, $Val extends UserInfo>
+    implements $UserInfoCopyWith<$Res> {
+  _$UserInfoCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? email = freezed,
+    Object? phone_number = freezed,
+    Object? avatar_url = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phone_number: freezed == phone_number
+          ? _value.phone_number
+          : phone_number // ignore: cast_nullable_to_non_nullable
+              as String?,
+      avatar_url: freezed == avatar_url
+          ? _value.avatar_url
+          : avatar_url // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_UserInfoCopyWith<$Res> implements $UserInfoCopyWith<$Res> {
+  factory _$$_UserInfoCopyWith(
+          _$_UserInfo value, $Res Function(_$_UserInfo) then) =
+      __$$_UserInfoCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int? id,
+      String? name,
+      String? email,
+      String? phone_number,
+      String? avatar_url});
+}
+
+/// @nodoc
+class __$$_UserInfoCopyWithImpl<$Res>
+    extends _$UserInfoCopyWithImpl<$Res, _$_UserInfo>
+    implements _$$_UserInfoCopyWith<$Res> {
+  __$$_UserInfoCopyWithImpl(
+      _$_UserInfo _value, $Res Function(_$_UserInfo) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? email = freezed,
+    Object? phone_number = freezed,
+    Object? avatar_url = freezed,
+  }) {
+    return _then(_$_UserInfo(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phone_number: freezed == phone_number
+          ? _value.phone_number
+          : phone_number // ignore: cast_nullable_to_non_nullable
+              as String?,
+      avatar_url: freezed == avatar_url
+          ? _value.avatar_url
+          : avatar_url // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_UserInfo implements _UserInfo {
+  const _$_UserInfo(
+      {this.id, this.name, this.email, this.phone_number, this.avatar_url});
+
+  factory _$_UserInfo.fromJson(Map<String, dynamic> json) =>
+      _$$_UserInfoFromJson(json);
+
+  @override
+  final int? id;
+  @override
+  final String? name;
+  @override
+  final String? email;
+  @override
+  final String? phone_number;
+  @override
+  final String? avatar_url;
+
+  @override
+  String toString() {
+    return 'UserInfo(id: $id, name: $name, email: $email, phone_number: $phone_number, avatar_url: $avatar_url)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_UserInfo &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.phone_number, phone_number) ||
+                other.phone_number == phone_number) &&
+            (identical(other.avatar_url, avatar_url) ||
+                other.avatar_url == avatar_url));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, email, phone_number, avatar_url);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_UserInfoCopyWith<_$_UserInfo> get copyWith =>
+      __$$_UserInfoCopyWithImpl<_$_UserInfo>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_UserInfoToJson(
+      this,
+    );
+  }
+}
+
+abstract class _UserInfo implements UserInfo {
+  const factory _UserInfo(
+      {final int? id,
+      final String? name,
+      final String? email,
+      final String? phone_number,
+      final String? avatar_url}) = _$_UserInfo;
+
+  factory _UserInfo.fromJson(Map<String, dynamic> json) = _$_UserInfo.fromJson;
+
+  @override
+  int? get id;
+  @override
+  String? get name;
+  @override
+  String? get email;
+  @override
+  String? get phone_number;
+  @override
+  String? get avatar_url;
+  @override
+  @JsonKey(ignore: true)
+  _$$_UserInfoCopyWith<_$_UserInfo> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

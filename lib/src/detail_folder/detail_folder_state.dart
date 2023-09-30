@@ -6,7 +6,8 @@ part 'detail_folder_state.g.dart';
 @freezed
 class DetailFolderState with _$DetailFolderState {
   const factory DetailFolderState({
-    @Default(false) bool isLoading,
+    @Default(false) bool isEdited,
+    @Default('') String urlCsv,
     @Default(<DetailFolderInfo>[]) List<DetailFolderInfo> listFolders,
   }) = _DetailFolderState;
 }

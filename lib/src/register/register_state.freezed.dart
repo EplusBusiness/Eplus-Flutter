@@ -19,6 +19,7 @@ mixin _$RegisterState {
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
   String get confirmPassword => throw _privateConstructorUsedError;
+  String get company => throw _privateConstructorUsedError;
   String get phone_number => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
@@ -37,6 +38,7 @@ abstract class $RegisterStateCopyWith<$Res> {
       {String email,
       String password,
       String confirmPassword,
+      String company,
       String phone_number,
       String name});
 }
@@ -57,6 +59,7 @@ class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
     Object? email = null,
     Object? password = null,
     Object? confirmPassword = null,
+    Object? company = null,
     Object? phone_number = null,
     Object? name = null,
   }) {
@@ -72,6 +75,10 @@ class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
       confirmPassword: null == confirmPassword
           ? _value.confirmPassword
           : confirmPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+      company: null == company
+          ? _value.company
+          : company // ignore: cast_nullable_to_non_nullable
               as String,
       phone_number: null == phone_number
           ? _value.phone_number
@@ -97,6 +104,7 @@ abstract class _$$_RegisterStateCopyWith<$Res>
       {String email,
       String password,
       String confirmPassword,
+      String company,
       String phone_number,
       String name});
 }
@@ -115,6 +123,7 @@ class __$$_RegisterStateCopyWithImpl<$Res>
     Object? email = null,
     Object? password = null,
     Object? confirmPassword = null,
+    Object? company = null,
     Object? phone_number = null,
     Object? name = null,
   }) {
@@ -130,6 +139,10 @@ class __$$_RegisterStateCopyWithImpl<$Res>
       confirmPassword: null == confirmPassword
           ? _value.confirmPassword
           : confirmPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+      company: null == company
+          ? _value.company
+          : company // ignore: cast_nullable_to_non_nullable
               as String,
       phone_number: null == phone_number
           ? _value.phone_number
@@ -150,6 +163,7 @@ class _$_RegisterState implements _RegisterState {
       {this.email = '',
       this.password = '',
       this.confirmPassword = '',
+      this.company = '',
       this.phone_number = '',
       this.name = ''});
 
@@ -164,6 +178,9 @@ class _$_RegisterState implements _RegisterState {
   final String confirmPassword;
   @override
   @JsonKey()
+  final String company;
+  @override
+  @JsonKey()
   final String phone_number;
   @override
   @JsonKey()
@@ -171,7 +188,7 @@ class _$_RegisterState implements _RegisterState {
 
   @override
   String toString() {
-    return 'RegisterState(email: $email, password: $password, confirmPassword: $confirmPassword, phone_number: $phone_number, name: $name)';
+    return 'RegisterState(email: $email, password: $password, confirmPassword: $confirmPassword, company: $company, phone_number: $phone_number, name: $name)';
   }
 
   @override
@@ -184,14 +201,15 @@ class _$_RegisterState implements _RegisterState {
                 other.password == password) &&
             (identical(other.confirmPassword, confirmPassword) ||
                 other.confirmPassword == confirmPassword) &&
+            (identical(other.company, company) || other.company == company) &&
             (identical(other.phone_number, phone_number) ||
                 other.phone_number == phone_number) &&
             (identical(other.name, name) || other.name == name));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, email, password, confirmPassword, phone_number, name);
+  int get hashCode => Object.hash(runtimeType, email, password, confirmPassword,
+      company, phone_number, name);
 
   @JsonKey(ignore: true)
   @override
@@ -205,6 +223,7 @@ abstract class _RegisterState implements RegisterState {
       {final String email,
       final String password,
       final String confirmPassword,
+      final String company,
       final String phone_number,
       final String name}) = _$_RegisterState;
 
@@ -214,6 +233,8 @@ abstract class _RegisterState implements RegisterState {
   String get password;
   @override
   String get confirmPassword;
+  @override
+  String get company;
   @override
   String get phone_number;
   @override

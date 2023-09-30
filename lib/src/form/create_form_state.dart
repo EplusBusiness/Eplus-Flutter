@@ -8,6 +8,7 @@ class CreateFormState with _$CreateFormState {
   const factory CreateFormState({
     @Default(false) bool isNew,
     @Default('IN') String typeForm,
+    @Default('') String dateSending,
     @Default('') String nameForm,
     @Default(SenderInfo()) SenderInfo senderInfo,
     @Default(ReceiverInfo()) ReceiverInfo receiverInfo,

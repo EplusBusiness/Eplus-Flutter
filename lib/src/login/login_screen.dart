@@ -1,3 +1,4 @@
+import 'package:eplusflutter/core/file_util.dart';
 import 'package:flutter/material.dart';
 import 'package:eplusflutter/core/icon_constants.dart';
 import 'package:eplusflutter/core/text_app_style.dart';
@@ -131,6 +132,11 @@ class _LoginScreenState extends State<LoginScreen> {
           color: Colors.lightGreen,
           onPressed: () {
             authController.login();
+            // Navigator.of(context).push(
+            //   MaterialPageRoute(
+            //     builder: (context) => HomePage(),
+            //   ),
+            // );
           },
           child: TextCustomize(
             title: 'Login',

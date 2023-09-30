@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$DetailProjectState {
-  bool get isLoading => throw _privateConstructorUsedError;
+  bool get isEdited => throw _privateConstructorUsedError;
   FolderInfo get folder => throw _privateConstructorUsedError;
   String get createdDate => throw _privateConstructorUsedError;
   String get updatedDate => throw _privateConstructorUsedError;
@@ -33,7 +33,7 @@ abstract class $DetailProjectStateCopyWith<$Res> {
       _$DetailProjectStateCopyWithImpl<$Res, DetailProjectState>;
   @useResult
   $Res call(
-      {bool isLoading,
+      {bool isEdited,
       FolderInfo folder,
       String createdDate,
       String updatedDate});
@@ -54,15 +54,15 @@ class _$DetailProjectStateCopyWithImpl<$Res, $Val extends DetailProjectState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isLoading = null,
+    Object? isEdited = null,
     Object? folder = null,
     Object? createdDate = null,
     Object? updatedDate = null,
   }) {
     return _then(_value.copyWith(
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
+      isEdited: null == isEdited
+          ? _value.isEdited
+          : isEdited // ignore: cast_nullable_to_non_nullable
               as bool,
       folder: null == folder
           ? _value.folder
@@ -97,7 +97,7 @@ abstract class _$$_DetailProjectStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {bool isLoading,
+      {bool isEdited,
       FolderInfo folder,
       String createdDate,
       String updatedDate});
@@ -117,15 +117,15 @@ class __$$_DetailProjectStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isLoading = null,
+    Object? isEdited = null,
     Object? folder = null,
     Object? createdDate = null,
     Object? updatedDate = null,
   }) {
     return _then(_$_DetailProjectState(
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
+      isEdited: null == isEdited
+          ? _value.isEdited
+          : isEdited // ignore: cast_nullable_to_non_nullable
               as bool,
       folder: null == folder
           ? _value.folder
@@ -147,14 +147,14 @@ class __$$_DetailProjectStateCopyWithImpl<$Res>
 
 class _$_DetailProjectState implements _DetailProjectState {
   const _$_DetailProjectState(
-      {this.isLoading = false,
+      {this.isEdited = false,
       this.folder = const FolderInfo(),
       this.createdDate = '',
       this.updatedDate = ''});
 
   @override
   @JsonKey()
-  final bool isLoading;
+  final bool isEdited;
   @override
   @JsonKey()
   final FolderInfo folder;
@@ -167,7 +167,7 @@ class _$_DetailProjectState implements _DetailProjectState {
 
   @override
   String toString() {
-    return 'DetailProjectState(isLoading: $isLoading, folder: $folder, createdDate: $createdDate, updatedDate: $updatedDate)';
+    return 'DetailProjectState(isEdited: $isEdited, folder: $folder, createdDate: $createdDate, updatedDate: $updatedDate)';
   }
 
   @override
@@ -175,8 +175,8 @@ class _$_DetailProjectState implements _DetailProjectState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DetailProjectState &&
-            (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading) &&
+            (identical(other.isEdited, isEdited) ||
+                other.isEdited == isEdited) &&
             (identical(other.folder, folder) || other.folder == folder) &&
             (identical(other.createdDate, createdDate) ||
                 other.createdDate == createdDate) &&
@@ -186,7 +186,7 @@ class _$_DetailProjectState implements _DetailProjectState {
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, isLoading, folder, createdDate, updatedDate);
+      Object.hash(runtimeType, isEdited, folder, createdDate, updatedDate);
 
   @JsonKey(ignore: true)
   @override
@@ -198,13 +198,13 @@ class _$_DetailProjectState implements _DetailProjectState {
 
 abstract class _DetailProjectState implements DetailProjectState {
   const factory _DetailProjectState(
-      {final bool isLoading,
+      {final bool isEdited,
       final FolderInfo folder,
       final String createdDate,
       final String updatedDate}) = _$_DetailProjectState;
 
   @override
-  bool get isLoading;
+  bool get isEdited;
   @override
   FolderInfo get folder;
   @override
